@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A Python Interpreter Written in Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>A Python Interpreter Written in Python</span>
+      </div>
+      <h1>A Python Interpreter Written in Python</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://aosabook.org/en/500L/a-python-interpreter-written-in-python.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A Python Interpreter Written in Python"
+        </div>
+        <a class="btn solid" href="http://aosabook.org/en/500L/a-python-interpreter-written-in-python.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-python-interpreter-python.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>500 Lines chapter by Allison Kaptur (who worked on PyPy) builds byterun: an interpreter that reads .pyc bytecode files and runs them - no source text parsing at all.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Four classes: VirtualMachine (main loop), Frame (code, locals, return stack), Function (with closure), Block (try/except and loop management)</li>
+          <li>Bytecode semantics: LOAD_FAST/STORE_FAST for locals, LOAD_GLOBAL, JUMP_ABSOLUTE</li>
+          <li>Function calls and returns through a stack of frames; functions as values with closures</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Each frame keeps an execution stack and an instruction pointer. The run loop dispatches opcodes: UNARY_/BINARY_ operations, LOAD_/STORE_ names, jumps, printing and return values.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code>class VirtualMachine:
+    def run_code(self, code, global_names=None, local_names=None):
+        frame = self.make_frame(code, global_names, local_names)
+        self.run_frame(frame)
+
+    def run_frame(self, frame):
+        while True:
+            opname = frame.code.co_names[frame.next_instr]
+            if opname.startswith('UNARY'):
+                self.unaryOperator(opname[5:])   # UNARY_NEGATIVE, ...
+            elif opname.startswith('BINARY'):
+                self.binaryOperator(opname[6:])  # BINARY_ADD, ...
+            elif opname.startswith('LOAD'):
+                self.load_name(opname[4:])       # LOAD_FAST, ...
+            elif opname.startswith('STORE'):
+                self.store_name(opname[5:])      # STORE_FAST, ...
+            elif opname == 'JUMP_ABSOLUTE':
+                frame.next_instr = self.parse_arg_and_increment(frame)
+            elif opname == 'PRINT_ITEM':
+                print(self.pop(), end=' ')
+            elif opname == 'RETURN_VALUE':
+                return self.pop()
+            frame.next_instr += 1</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>About 300 lines of Python that build the bridge from high-level languages to virtual machines - the best primer for reading Crafting Interpreters.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A Python Interpreter Written in Python" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://aosabook.org/en/500L/a-python-interpreter-written-in-python.html" target="_blank" rel="noopener">http://aosabook.org/en/500L/a-python-interpreter-written-in-python.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

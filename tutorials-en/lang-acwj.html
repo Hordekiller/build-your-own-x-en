@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A journey explaining how to build a compiler from scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>A journey explaining how to build a compiler from scratch</span>
+      </div>
+      <h1>A journey explaining how to build a compiler from scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/DoctorWkt/acwj" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A journey explaining how to build a compiler from scratch"
+        </div>
+        <a class="btn solid" href="https://github.com/DoctorWkt/acwj" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-acwj.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Warren Toomey's 34-part series builds SubC: a compiler covering a large part of real C - all operators, basic types, struct, union, enum, typedef, varargs functions and even a simple preprocessor.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A modern Pratt parser based on binding power for clean operator precedence</li>
+          <li>The full journey: lexer/parser/assembly in parts 1-5, pointers in 16-22, struct/union/enum in 23-28, varargs and preprocessor in 29-31</li>
+          <li>Every part ships tests that guarantee no regressions - like a real project</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The compiler builds a real C subset with a token-class lexer, then a parser using Pratt's binding-power method. Each part ends with x86-64 assembly output and tests.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>// operator precedence table
+static struct { int token; int precedence; } binop_prec[] = {
+    { T_PLUS,  10 }, { T_MINUS, 10 },   // add / subtract
+    { T_STAR,  20 }, { T_SLASH, 20 },   // multiply / divide
+    { T_EQ,    40 }, { T_NE,    40 },   // equality
+};
+
+// binary operator parsing (Pratt)
+static struct ASTnode *binexpr(int ptp) {
+    struct ASTnode *left = unary();
+    while (op_precedence(Token.token) &gt; ptp) {
+        int tok = Token.token;
+        left = mkastnode(A_BINOP, left, NULL, tok);
+        scan(&amp;Token);
+    }
+    return left;
+}</code></pre>
+        <pre class="code"><span class="lang-tag">Assembly</span><code># assembly generated for: a = b * 3
+movq %rbx, %rax     # b into rax
+imulq $3, %rax, %rax  # multiply by 3
+movq %rax, a(%rip)  # store to a</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>If you want to understand how a real C compiler works, acwj is the best resource: full depth, regular tests, and at the end your compiler turns real C files into assembly.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A journey explaining how to build a compiler from scratch" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/DoctorWkt/acwj" target="_blank" rel="noopener">https://github.com/DoctorWkt/acwj</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

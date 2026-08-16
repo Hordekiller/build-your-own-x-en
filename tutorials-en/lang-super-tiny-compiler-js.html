@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | The Super Tiny Compiler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>The Super Tiny Compiler</span>
+      </div>
+      <h1>The Super Tiny Compiler</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/jamiebuilds/the-super-tiny-compiler" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "The Super Tiny Compiler"
+        </div>
+        <a class="btn solid" href="https://github.com/jamiebuilds/the-super-tiny-compiler" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-super-tiny-compiler-js.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>James Kyle's Super Tiny Compiler shows the skeleton of all compilers in minimal code: Lisp-like input (add 2 (subtract 4 2)) becomes C-like output (add(2, subtract(4, 2))) in about 200 lines.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>tokenizer: string to tokens; parser: tokens to AST; transformer: input AST to output AST via traverser; codeGenerator: AST to code</li>
+          <li>The traverser with enter/exit visits - the crucial recursive machinery</li>
+          <li>Documented, commented code you can step through with node</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>All key compiler concepts - lexing, parsing, AST, traverser, codegen - fit in this tiny project because the input is simple; focus stays on concepts instead of language details.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>function tokenizer(input) {
+  let current = 0;
+  let tokens = [];
+  while (current &lt; input.length) {
+    let char = input[current];
+    // parentheses
+    if (char === '(') {
+      tokens.push({ type: 'paren', value: '(' });
+      current++; continue;
+    }
+    // numbers: several digits in a row
+    const NUMBERS = /[0-9]/;
+    if (NUMBERS.test(char)) {
+      let value = '';
+      while (NUMBERS.test(char)) {
+        value += char;
+        char = input[++current];
+      }
+      tokens.push({ type: 'number', value });
+      continue;
+    }
+    // names (add, subtract, ...)
+    const LETTERS = /[a-z]/i;
+    if (LETTERS.test(char)) {
+      let value = '';
+      while (LETTERS.test(char)) {
+        value += char;
+        char = input[++current];
+      }
+      tokens.push({ type: 'name', value });
+      continue;
+    }
+    const WHITESPACE = /\s/;
+    if (WHITESPACE.test(char)) { current++; continue; }
+    throw new TypeError('unknown character: ' + char);
+  }
+  return tokens;
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A soft, friendly entry into compilers: keep the core in mind (tokenizer, parser, AST, traverser, codegen), then move on to Little Lisp or Crafting Interpreters.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "The Super Tiny Compiler" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/jamiebuilds/the-super-tiny-compiler" target="_blank" rel="noopener">https://github.com/jamiebuilds/the-super-tiny-compiler</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

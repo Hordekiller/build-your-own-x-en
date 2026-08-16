@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Creating JVM Language</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Creating JVM Language</span>
+      </div>
+      <h1>Creating JVM Language</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Java</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://jakubdziworski.github.io/categories.html#Enkel-ref" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Creating JVM Language"
+        </div>
+        <a class="btn solid" href="http://jakubdziworski.github.io/categories.html#Enkel-ref" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-jvm-language.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Enkel is a simple Java-like language that generates JVM bytecode directly - the compiler output runs with the java command, making the JVM a safe island for your language.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Generating bytecode with the ASM library: method visitors, ILOAD/BIPUSH/IADD/ISTORE</li>
+          <li>JVM structure: the operand stack, local variable table, this at index 0</li>
+          <li>Reading your output with javap -c and comparing it to javac output</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The series covers language design and AST, lexer/parser (hand-written or Antlr), bytecode generation with ASM, variables/functions/conditionals/loops/classes/inheritance, and error reporting.</p>
+        <pre class="code"><span class="lang-tag">Java</span><code>// bytecode for compute(int x): return x + 3 - with ASM
+MethodVisitor mv = cw.visitMethod(
+    Opcodes.ACC_PUBLIC, "compute", "(I)I", null, null);
+
+mv.visitVarInsn(Opcodes.ILOAD, 1);   // push local var 1 (x)
+mv.visitIntInsn(Opcodes.BIPUSH, 3);   // push constant 3
+mv.visitInsn(Opcodes.IADD);           // add the two ints
+mv.visitVarInsn(Opcodes.ISTORE, 1);   // store the result back</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>For Java fans wanting to understand JVM languages like Kotlin and Scala: from lexer to a runnable .class file with real examples.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Creating JVM Language" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://jakubdziworski.github.io/categories.html#Enkel-ref" target="_blank" rel="noopener">http://jakubdziworski.github.io/categories.html#Enkel-ref</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

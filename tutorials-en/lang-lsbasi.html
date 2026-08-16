@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Let’s Build A Simple Interpreter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Let’s Build A Simple Interpreter</span>
+      </div>
+      <h1>Let’s Build A Simple Interpreter</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://ruslanspivak.com/lsbasi-part1/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Let’s Build A Simple Interpreter"
+        </div>
+        <a class="btn solid" href="https://ruslanspivak.com/lsbasi-part1/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-lsbasi.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Ruslan Spivak's famous series (20+ parts) "Let's Build A Simple Interpreter": from a 3+5 calculator to a language with variables, conditionals, loops and clearly separated Lexer and Parser.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Token and Lexer, Parser and AST, Interpreter (evaluation) as linear progress</li>
+          <li>Operator precedence and grammar diagrams; syntax diagrams for intuition</li>
+          <li>A visitor pattern over the AST; extension with your own keywords (BEGIN...END style)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Ruslan writes extremely explanatory prose with grammar diagrams and "why not to do it this way" asides. The series ends with conditionals, loops, logical operators and the final structure of a real language.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code># token types
+INTEGER, PLUS, MINUS, MUL, DIV = 'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV'
+
+class Interpreter:
+    def __init__(self, text):
+        self.text = text
+        self.pos = 0
+        self.current_token = None
+
+    def get_next_token(self):
+        # lexer: skip whitespace, detect numbers/operators
+        while self.pos &lt; len(self.text) and self.text[self.pos].isspace():
+            self.pos += 1
+        if self.pos &gt;= len(self.text):
+            return Token(EOF, None)
+        tok = self.text[self.pos]
+        if tok.isdigit():
+            start = self.pos
+            while self.pos &lt; len(self.text) and self.text[self.pos].isdigit():
+                self.pos += 1
+            return Token(INTEGER, int(self.text[start:self.pos]))
+        if tok == '+':
+            self.pos += 1
+            return Token(PLUS, '+')
+        raise Exception('parse error')</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The best intuitive start for an interpreter with no compiler prerequisites - pair it with Norvig's lispy to compare shell-style and Lisp-style interpreters.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Let’s Build A Simple Interpreter" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://ruslanspivak.com/lsbasi-part1/" target="_blank" rel="noopener">https://ruslanspivak.com/lsbasi-part1/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

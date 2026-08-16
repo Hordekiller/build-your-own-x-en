@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | The Super Tiny Interpreter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>The Super Tiny Interpreter</span>
+      </div>
+      <h1>The Super Tiny Interpreter</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/keyanzhang/the-super-tiny-interpreter" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "The Super Tiny Interpreter"
+        </div>
+        <a class="btn solid" href="https://github.com/keyanzhang/the-super-tiny-interpreter" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-super-tiny-interpreter.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The companion to the Super Tiny Compiler: instead of generating code from the AST, this project directly evaluates it - making the compiler vs interpreter comparison tangible.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The same tokenizer/parser as the compiler, then an evaluator walking the AST</li>
+          <li>An environment table holding variable values; interpret recurses per node type</li>
+          <li>Compiler output = code; interpreter output = value - and JITs combine both</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The heart is a recursive interpret function: NumberLiteral returns its value, CallExpression evaluates each argument then looks up and calls the function from the environment.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>function interpret(ast, env = {}) {
+  const node = ast;
+  switch (node.type) {
+  case 'NumberLiteral':
+    return Number(node.value);
+  case 'CallExpression': {
+    // evaluate each argument
+    const args = node.arguments.map(arg =&gt; interpret(arg, env));
+    // find the function in the environment (add, subtract, ...)
+    const func = env[node.callee];
+    if (typeof func !== 'function')
+      throw new Error('function ' + node.callee + ' is not defined');
+    return func.apply(null, args);
+  }
+  default:
+    throw new Error('unknown node: ' + node.type);
+  }
+}
+
+// initial environment: basic functions
+const env = { add: (a, b) =&gt; a + b, subtract: (a, b) =&gt; a - b };
+const ast = parse(tokenize('(add 2 (subtract 4 2))'));
+console.log(interpret(ast, env));  // 4</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The perfect next step after the compiler to understand execution costs; the same symbol-table-and-recursion pattern scales up to real interpreters like jlox.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "The Super Tiny Interpreter" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/keyanzhang/the-super-tiny-interpreter" target="_blank" rel="noopener">https://github.com/keyanzhang/the-super-tiny-interpreter</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to Create a Compiler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>How to Create a Compiler</span>
+      </div>
+      <h1>How to Create a Compiler</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/watch?v=eF9qWbuQLuw" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to Create a Compiler"
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/watch?v=eF9qWbuQLuw" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-compiler-video.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A long educational video shows the complete process of writing a compiler: from defining the input language to producing executable code - including fixing common mistakes live.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The three core concepts: lexer (text to tokens), parser (tokens to tree), code generator (tree to assembly/machine code)</li>
+          <li>Start small: numbers and four operations first, then add conditionals and loops</li>
+          <li>Always test the assembly output with gcc or clang; add one feature at a time to keep debugging simple</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The value of a video tutorial is watching errors get solved in real time. A typical token structure covers numbers, identifiers, operators, parens and EOF.</p>
+        <pre class="code"><span class="lang-tag">C++</span><code>enum TokenType {
+    TOK_NUMBER,  // number
+    TOK_IDENT,   // identifier (variable)
+    TOK_PLUS,    // +
+    TOK_STAR,    // *
+    TOK_LPAREN,  // (
+    TOK_RPAREN,  // )
+    TOK_EOF
+};
+
+struct Token {
+    TokenType type;
+    std::string text;      // raw text of the token
+    long double value;     // if it is a number
+};</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The lowest entry cost and the most insight for visual learners: it takes you from "what is a compiler?" to "I can build one myself".</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to Create a Compiler" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.youtube.com/watch?v=eF9qWbuQLuw" target="_blank" rel="noopener">https://www.youtube.com/watch?v=eF9qWbuQLuw</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

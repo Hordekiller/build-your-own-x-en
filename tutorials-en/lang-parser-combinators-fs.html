@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Understanding Parser Combinators</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Understanding Parser Combinators</span>
+      </div>
+      <h1>Understanding Parser Combinators</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: F#</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://fsharpforfunandprofit.com/posts/understanding-parser-combinators/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Understanding Parser Combinators"
+        </div>
+        <a class="btn solid" href="https://fsharpforfunandprofit.com/posts/understanding-parser-combinators/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-parser-combinators-fs.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Instead of writing one parser per language, combinators are small functions that combine to build parsers. Scott Wlaschin teaches the idea in F#, transferable to any language (Rust, Go and JavaScript ports exist).</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A parser is a function: input string in, either success (result + rest) or failure</li>
+          <li>The basic combinators: andThen, orElse, many - enough to define whole grammars</li>
+          <li>Why combinators struggle with left recursion, and how monads keep errors and state clean</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Three primitives (preturn, pzero, satisfy) plus structural combinators (andThen, orElse, many) build complex parsers. The article builds a calculator with operator precedence and a JSON parser, all in combinator style.</p>
+        <pre class="code"><span class="lang-tag">F#</span><code>type Parser&lt;'a&gt; = string -&gt; Result&lt;'a * string, string&gt;
+
+// p1 and then p2
+let andThen p1 p2 = fun input -&gt;
+    match p1 input with
+    | Error e      -&gt; Error e
+    | Ok (r1, rest) -&gt;
+        match p2 rest with
+        | Error e      -&gt; Error e
+        | Ok (r2, rest2) -&gt; Ok ((r1, r2), rest2)
+
+// p1 or p2
+let orElse p1 p2 = fun input -&gt;
+    match p1 input with
+    | Ok r     -&gt; Ok r
+    | Error _  -&gt; p2 input</code></pre>
+        <pre class="code"><span class="lang-tag">F#</span><code>let number =
+    many1 digitChar |&gt;&gt; toInt      // one or more digits to int
+
+// expr := number (("+"|"-") number)*
+let expr =
+    number .&gt;&gt;. many (op .&gt;&gt;. number)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Find out what parsers are made of - without heavyweight frameworks - then reuse the idea in real DSLs and interpreters.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Understanding Parser Combinators" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://fsharpforfunandprofit.com/posts/understanding-parser-combinators/" target="_blank" rel="noopener">https://fsharpforfunandprofit.com/posts/understanding-parser-combinators/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

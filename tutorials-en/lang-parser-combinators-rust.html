@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Learning Parser Combinators With Rust</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Learning Parser Combinators With Rust</span>
+      </div>
+      <h1>Learning Parser Combinators With Rust</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Rust</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://bodil.lol/parser-combinators/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Learning Parser Combinators With Rust"
+        </div>
+        <a class="btn solid" href="https://bodil.lol/parser-combinators/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-parser-combinators-rust.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Instead of one big parser, combinator style defines small parsers that each recognize a simple pattern and combine into a full parser - module code that works for any text or binary format.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A parser is a function: input in, Result with value and rest out</li>
+          <li>Combinators built on a trait: pair, map, and_then, left, right, many with clone-based backtracking</li>
+          <li>Building a complete JSON parser in under 200 lines with tests</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The Rust trait Parser&lt;I, O&gt; with fn parse turns composition into plain functions. many clones the input before consuming so failures can backtrack; the tutorial then assembles a full JSON reader step by step (null, boolean, number, key:value pairs, objects, arrays).</p>
+        <pre class="code"><span class="lang-tag">Rust</span><code>pub trait Parser&lt;I, O&gt; {
+    fn parse(&amp;self, input: I) -&gt; Result&lt;(O, I), ParserErr&gt;;
+}
+
+// pair: run two parsers one after the other
+pub fn pair&lt;P1, P2, I, O1, O2&gt;(p1: P1, p2: P2) -&gt; impl Parser&lt;I, (O1, O2)&gt;
+where
+    P1: Parser&lt;I, O1&gt;,
+    P2: Parser&lt;I, O2&gt;,
+{
+    move |input: I| {
+        let (o1, rest) = p1.parse(input)?;
+        let (o2, rest) = p2.parse(rest)?;
+        Ok(((o1, o2), rest))
+    }
+}</code></pre>
+        <pre class="code"><span class="lang-tag">Rust</span><code>// many: run a parser as many times as possible
+pub fn many&lt;P, I, O&gt;(p: P) -&gt; impl Parser&lt;I, Vec&lt;O&gt;&gt;
+where P: Parser&lt;I, O&gt;, I: Clone,
+{
+    move |mut input: I| {
+        let mut result = Vec::new();
+        while let Ok((o, next)) = p.parse(input.clone()) {
+            input = next;
+            result.push(o);
+        }
+        Ok((result, input))
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Shows how to build a complete, trustworthy parser with just a few small functions - combinators are essential in real interpreters and CLI tools.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Learning Parser Combinators With Rust" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://bodil.lol/parser-combinators/" target="_blank" rel="noopener">https://bodil.lol/parser-combinators/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

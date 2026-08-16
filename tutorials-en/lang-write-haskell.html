@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Write You a Haskell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Write You a Haskell</span>
+      </div>
+      <h1>Write You a Haskell</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Haskell</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://dev.stephendiehl.com/fun/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Write You a Haskell"
+        </div>
+        <a class="btn solid" href="http://dev.stephendiehl.com/fun/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-write-haskell.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The follow-up to "Write Yourself a Scheme in 48 Hours": a complete functional language compiler with Hindley-Milner types, type classes, desugaring and final execution by translation to C.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The Hindley-Milner type system: substitution, unification and the Robinson algorithm</li>
+          <li>Type classes and instance resolution; monomorphism</li>
+          <li>Backend: translating the Core language to C with heap management and a mark-and-sweep GC</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The book spans 14 chapters: parsing with Parsec, AST with pattern matching, a Core intermediate language, the type system, type classes, desugaring, and a code generator that compiles Core to C.</p>
+        <pre class="code"><span class="lang-tag">Haskell</span><code>type Subst = Map.Map TVar Type
+
+-- unify: make two types equal via substitution
+unify :: Type -&gt; Type -&gt; Subst -&gt; Either String Subst
+unify (TAp l r) (TAp l' r') s = do
+    s1 &lt;- unify l l' s
+    s2 &lt;- unify r r' s1
+    return s2
+unify (TVar a) t s = bind a t s
+unify t (TVar a) s = bind a t s
+unify TInt  TInt  s = return s
+unify TBool TBool s = return s
+unify t1 t2 _ = Left ("type mismatch: " ++ show t1 ++ " vs " ++ show t2)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>An advanced but extraordinary resource for functional compilers: Hindley-Milner typing, the unification algorithm, type classes and translation to an intermediate language, all in practice.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Write You a Haskell" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://dev.stephendiehl.com/fun/" target="_blank" rel="noopener">http://dev.stephendiehl.com/fun/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

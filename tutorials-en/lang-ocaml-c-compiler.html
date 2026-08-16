@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a C Compiler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Writing a C Compiler</span>
+      </div>
+      <h1>Writing a C Compiler</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: OCaml</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://norasandler.com/2017/11/29/Write-a-Compiler.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a C Compiler"
+        </div>
+        <a class="btn solid" href="https://norasandler.com/2017/11/29/Write-a-Compiler.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-ocaml-c-compiler.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Nora Sandler's 10 in-depth articles compile a large C subset with OCaml: from int main() { return 1; } to structs, unions and pointers - emitting x86-64 assembly linked with gcc.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A full pipeline: lexer/parser, return, locals and stack allocation, if/loops, functions, unary/binary operators, pointers, struct/union, typedef and advanced types</li>
+          <li>OCaml pattern matching as a perfect fit for ASTs - compiler code as a typing lesson</li>
+          <li>Every part ships tests and debugging guidance</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The series moves part by part: assembly for return, local variables with stack allocation, if/else and loops, functions and arguments, complete unary/binary operators, pointers with dereference and address-of, struct/union, remaining keywords and typedef, and finally advanced data types.</p>
+        <pre class="code"><span class="lang-tag">OCaml</span><code>(* parse an expression with left-to-right precedence *)
+let rec parse_exp tokens =
+  let left, tokens = parse_exp1 tokens in
+  parse_exp_tail left tokens
+
+(* exp-tail := ("+"|"-"|"*"|"/") exp exp-tail | eps *)
+and parse_exp_tail left tokens = match tokens with
+  | Tok_PLUS :: rest -&gt;
+      let right, rest' = parse_exp1 rest in
+      parse_exp_tail (Exp_Binop (Add, left, right)) rest'
+  | Tok_MINUS :: rest -&gt;
+      let right, rest' = parse_exp1 rest in
+      parse_exp_tail (Exp_Binop (Sub, left, right)) rest'
+  | _ -&gt; left, tokens</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A complete, readable and realistic series: comfortable with OCaml? This is the road to a real (not toy) compiler that translates actual C programs.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a C Compiler" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://norasandler.com/2017/11/29/Write-a-Compiler.html" target="_blank" rel="noopener">https://norasandler.com/2017/11/29/Write-a-Compiler.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

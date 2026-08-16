@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to Write a Lisp Interpreter in Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>How to Write a Lisp Interpreter in Python</span>
+      </div>
+      <h1>How to Write a Lisp Interpreter in Python</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://norvig.com/lispy.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to Write a Lisp Interpreter in Python"
+        </div>
+        <a class="btn solid" href="http://norvig.com/lispy.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-norvig-lispy.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Peter Norvig (Google research director, famous AI author) wrote this Lisp interpreter in about 90 lines of Python - a complete Lisp with functions, variables, conditionals and even quote.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The three core concepts: Environment, eval and apply - straight from McCarthy's The Roots of Lisp</li>
+          <li>The Env chain: a dict with a parent; find walks up for scope, exactly like real languages</li>
+          <li>Real programs (factorials, counts) running on the interpreter prove it is real, not toy</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>eval dispatches: symbols look up variables, quotes bypass evaluation, if evaluates conditionally, define stores, lambda builds a Procedure carrying its env, and everything else is a function call.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code>def eval(x, env=global_env):
+    if isinstance(x, Symbol):       # variable
+        return env.find(x)[x]
+    elif not isinstance(x, list):   # number or string
+        return x
+    elif x[0] == 'quote':           # quote: no evaluation
+        (_, exp) = x
+        return exp
+    elif x[0] == 'if':              # conditional
+        (_, test, conseq, alt) = x
+        exp = (conseq if eval(test, env) else alt)
+        return eval(exp, env)
+    elif x[0] == 'define':          # define a variable
+        (_, var, exp) = x
+        env[var] = eval(exp, env)
+    elif x[0] == 'lambda':          # define a function
+        (_, parms, body) = x
+        return Procedure(parms, body, env)
+    else:                           # function call
+        proc = eval(x[0], env)
+        args = [eval(arg, env) for arg in x[1:]]
+        return proc(*args)
+
+class Procedure(object):            # closure
+    def __init__(self, parms, body, env):
+        self.parms, self.body, self.env = parms, body, env
+    def __call__(self, *args):
+        return eval(self.body, Env(self.parms, args, self.env))</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The shortest, most readable and most famous interpreter resource: if you only want to understand what an interpreter is, read this one.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to Write a Lisp Interpreter in Python" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://norvig.com/lispy.html" target="_blank" rel="noopener">http://norvig.com/lispy.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

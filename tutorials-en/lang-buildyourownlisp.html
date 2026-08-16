@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build Your Own Lisp: Learn C and build your own programming language in 1000 lines of code</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Build Your Own Lisp: Learn C and build your own programming language in 1000 lines of code</span>
+      </div>
+      <h1>Build Your Own Lisp: Learn C and build your own programming language in 1000 lines of code</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.buildyourownlisp.com/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build Your Own Lisp: Learn C and build your own programming language in 1000 lines of code"
+        </div>
+        <a class="btn solid" href="http://www.buildyourownlisp.com/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-buildyourownlisp.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Daniel Holden builds a complete Lisp - Lispy - from scratch assuming the reader knows no C at all, ending with a REPL supporting functions, variables, conditionals and lambdas.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Building the mpc parser-combinator library inside the book to define the language grammar</li>
+          <li>Polish notation and a recursive grammar: expr can contain expr</li>
+          <li>Evaluation: q-expressions (unquoted lists) make list/head/tail possible; later def, lambda and a small GC</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The book starts with a Polish-notation calculator (+ 1 (* 2 3)) and defines the grammar with mpc's mpc_parser_t. Once mpc produces a syntax tree, an eval function picks the operator, recursively evaluates arguments and calls it. Later chapters add q-expressions, variables with def, lambdas with \, error handling and a simple standard library.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>mpc_parser_t* Number   = mpc_new("number");
+mpc_parser_t* Operator = mpc_new("operator");
+mpc_parser_t* Expr     = mpc_new("expr");
+mpc_parser_t* Lispy    = mpc_new("lispy");
+mpca_lang(MPCA_LANG_DEFAULT,
+  " number : /-?[0-9]+/ ;"
+  " operator : '+' | '-' | '*' | '/' ;"
+  " expr : &lt;number&gt; | '(' &lt;operator&gt; &lt;expr&gt;+ ')' ;"
+  " lispy : /^/ &lt;operator&gt; &lt;expr&gt;+ /$/ ;",
+  Number, Operator, Expr, Lispy);</code></pre>
+        <pre class="code"><span class="lang-tag">C</span><code>lval* eval(lval* v) {
+    if (v-&gt;type == LVAL_NUM) return v;         // number: final value
+    lval* f = pop(v, 0);                        // take the operator
+    for (int i = 0; i &lt; v-&gt;count; i++)
+        v-&gt;cell[i] = eval(v-&gt;cell[i]);          // recursive args
+    return call(f, v);                          // run the function
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The best choice for a complete beginner: you start with C and finish with a Lisp interpreter that has functions and variables, understanding parser, AST, eval and REPL deeply.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build Your Own Lisp: Learn C and build your own programming language in 1000 lines of code" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://www.buildyourownlisp.com/" target="_blank" rel="noopener">http://www.buildyourownlisp.com/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

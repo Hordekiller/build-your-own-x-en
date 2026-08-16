@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Crafting interpreters: A handbook for making programming languages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Crafting interpreters: A handbook for making programming languages</span>
+      </div>
+      <h1>Crafting interpreters: A handbook for making programming languages</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Java</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.craftinginterpreters.com/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Crafting interpreters: A handbook for making programming languages"
+        </div>
+        <a class="btn solid" href="http://www.craftinginterpreters.com/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-crafting-interpreters.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Robert Nystrom's beloved book implements the Lox language twice: a tree-walking interpreter in Java and a bytecode virtual machine in C - a direct comparison no other book offers.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Part 1 (ials 4-13): scanner, parser, evaluator, environments, functions (closures), classes with inheritance</li>
+          <li>Part 2 (ials 14-30): bytecode, VM dispatch loop, hash tables, closures with upvalues, mark-and-sweep GC</li>
+          <li>Why of decisions: e.g. why closures carry upvalues, why a hash table for globals</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Every chapter is a small compilable feature with the why explained: bytecode (ch15), VM with dispatch loop (ch16), hash table globals (ch18), closures with upvalue (ch25), mark-and-sweep collector (ch26), classes and inheritance (ch27-28).</p>
+        <pre class="code"><span class="lang-tag">Java</span><code>@Override
+public Object visitBinaryExpr(Expr.Binary expr) {
+    Object left  = evaluate(expr.left);
+    Object right = evaluate(expr.right);
+    switch (expr.operator.type) {
+    case PLUS:
+        if (left instanceof Double &amp;&amp; right instanceof Double)
+            return (double) left + (double) right;
+        if (left instanceof String &amp;&amp; right instanceof String)
+            return (String) left + (String) right;
+        throw new RuntimeError(expr.operator, "operands must be numbers or strings");
+    case MINUS:
+        checkNumberOperands(expr.operator, left, right);
+        return (double) left - (double) right;
+    }
+}</code></pre>
+        <pre class="code"><span class="lang-tag">C</span><code>// the VM main loop
+static InterpretResult run() {
+    for (;;) {
+        uint8_t instruction;
+        switch (instruction = READ_BYTE()) {
+        case OP_CONSTANT: {
+            Value constant = READ_CONSTANT();
+            push(constant);
+            break;
+        }
+        case OP_ADD: {
+            Value b = pop(); Value a = pop();
+            push(NUMBER_VAL(AS_NUMBER(a) + AS_NUMBER(b)));
+            break;
+        }
+        case OP_RETURN: return INTERPRET_OK;
+        }
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>If you have time for one book, pick this: afterwards you own both an interpreter and a deep understanding of virtual machines.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Crafting interpreters: A handbook for making programming languages" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://www.craftinginterpreters.com/" target="_blank" rel="noopener">http://www.craftinginterpreters.com/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

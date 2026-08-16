@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Write Yourself a Scheme in 48 Hours</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Write Yourself a Scheme in 48 Hours</span>
+      </div>
+      <h1>Write Yourself a Scheme in 48 Hours</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Haskell</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Write Yourself a Scheme in 48 Hours"
+        </div>
+        <a class="btn solid" href="https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-scheme-48h.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A Wikibooks classic (growing since 2007) that teaches Haskell practically by building a complete Scheme interpreter: data representation, environments, evaluation and IO.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Haskell concepts through a real project: function composition, Functor/Monad, Parsec</li>
+          <li>Compiler concepts: data representation, environments, evaluation, error handling</li>
+          <li>Adding data types, variables (State monad, define/set!), lambdas and real IO</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Seven chapters move from simple evaluation of numbers and atoms, through Parsec parsing and LispVal data types, to environments with the State monad, closures and finally real IO.</p>
+        <pre class="code"><span class="lang-tag">Haskell</span><code>data LispVal = Atom String | List [LispVal] | DottedList [LispVal] LispVal
+              | Number Integer | String String | Bool Bool
+
+-- the heart of the interpreter: evaluation
+(eval env (List [Atom "quote", val])) = return val
+(eval env (List [Atom "if", cond, t, f])) = do
+    result &lt;- eval env cond
+    case result of Bool False -&gt; eval env f
+                    _         -&gt; eval env t
+(eval env (List (Atom func : args))) = do
+    funcVal &lt;- eval env (Atom func)
+    argVals &lt;- mapM (eval env) args
+    apply funcVal argVals</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The best start for combining "build an interpreter" with "Haskell": short, step-by-step, community-supported - deep dive with Write You a Haskell afterwards.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Write Yourself a Scheme in 48 Hours" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours" target="_blank" rel="noopener">https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

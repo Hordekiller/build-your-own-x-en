@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | mal - Make a Lisp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>mal - Make a Lisp</span>
+      </div>
+      <h1>mal - Make a Lisp</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Any language</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/kanaka/mal#mal---make-a-lisp" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "mal - Make a Lisp"
+        </div>
+        <a class="btn solid" href="https://github.com/kanaka/mal#mal---make-a-lisp" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-mal.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>mal is not a single implementation: it defines the path to build a Lisp interpreter (Clojure-flavoured) in 9 steps, and you implement every step in any language you like - from Python and JavaScript to Assembly and Haskell.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A shared test suite: every step ships the same tests, so passing them proves the step is done</li>
+          <li>Step 9 is self-hosting: the interpreter runs itself, testing the whole language infrastructure</li>
+          <li>Step 1 is the classic read-eval-print loop; each step adds one capability to the REPL</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Steps 0-2 build a REPL without evaluation, then numbers and operations, then printing data types with standard representations. Steps 3-5 add an environment with def! and let*, then functions and function calls - here the language becomes real. Steps 6-8 add quote/quasiquote macros, atom types and varargs, and step 9 adds classes, try/catch and operator data structures.</p>
+        <p>mal invests in every data type (numbers, strings, keywords, list/vector/map) from day one instead of just numbers and lists, which forces a complete central data structure (MalVal) from the start.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code># step 0-1: read and print without evaluation
+while True:
+    line = input("user&gt; ")
+    if not line:
+        break
+    ast = read_str(line)          # parse into a tree
+    result = EVAL(ast, repl_env)  # evaluate with builtins
+    print(pr_str(result))         # print the representation</code></pre>
+        <pre class="code"><span class="lang-tag">Python</span><code>def EVAL(ast, env):
+    if not isinstance(ast, Symbol):
+        return eval_ast(ast, env)   # raw data
+    # otherwise: function call or special form
+    ...
+    return result</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>mal is an "educational track": with nine gated steps and 78+ reference implementations, it is the best structured path to building a programming language.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "mal - Make a Lisp" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/kanaka/mal#mal---make-a-lisp" target="_blank" rel="noopener">https://github.com/kanaka/mal#mal---make-a-lisp</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

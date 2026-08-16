@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Markdown compiler from scratch in Ruby</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Markdown compiler from scratch in Ruby</span>
+      </div>
+      <h1>Markdown compiler from scratch in Ruby</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Ruby</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://blog.beezwax.net/2017/07/07/writing-a-markdown-compiler/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Markdown compiler from scratch in Ruby"
+        </div>
+        <a class="btn solid" href="https://blog.beezwax.net/2017/07/07/writing-a-markdown-compiler/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-markdown-compiler.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Markdown has light syntax but does exactly what a language does: transform textual structure into another representation. This tutorial walks a small compiler - from lexer to generator - with Markdown as input and HTML as output.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A two-part architecture: Parser produces internal objects (heading, paragraph, bold), Generator turns them into HTML</li>
+          <li>Prefix parsing: patterns tested line by line; the first match generates the structure</li>
+          <li>Stateful blocks (lists, code fences) teach keeping a current traversal state; escaping prevents HTML injection</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Because the language's complexity is tiny, you focus on compiler architecture: parsing, mapping to a simple AST and unified output generation. Adding a rule is just one more small method.</p>
+        <pre class="code"><span class="lang-tag">Ruby</span><code># heading rule: a line starting with 1-6 hashes
+def parse_heading(line, output)
+  if line =~ /^(#{1,6})\s+(.*)$/
+    level = $1.length
+    text  = $2
+    # convert to internal structure (AST)
+    output &lt;&lt; { type: :heading, level: level, text: render_inline(text) }
+    true
+  else
+    false
+  end
+end
+
+# bold pattern: *text* to &lt;strong&gt;text&lt;/strong&gt;
+def render_inline(text)
+  text.gsub(/\*(.*?)\*/) { "&lt;strong&gt;#{$1}&lt;/strong&gt;" }
+end</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The tutorial blurs the line between document format and programming language - a perfect first parsing project before real grammars like JSON or Lisp.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Markdown compiler from scratch in Ruby" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://blog.beezwax.net/2017/07/07/writing-a-markdown-compiler/" target="_blank" rel="noopener">https://blog.beezwax.net/2017/07/07/writing-a-markdown-compiler/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

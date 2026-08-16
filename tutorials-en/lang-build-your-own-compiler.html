@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | From Source Code To Machine Code: Build Your Own Compiler From Scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>From Source Code To Machine Code: Build Your Own Compiler From Scratch</span>
+      </div>
+      <h1>From Source Code To Machine Code: Build Your Own Compiler From Scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://build-your-own.org/compiler/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "From Source Code To Machine Code: Build Your Own Compiler From Scratch"
+        </div>
+        <a class="btn solid" href="https://build-your-own.org/compiler/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-build-your-own-compiler.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A Python tutorial that compiles a subset of its own language into a real x86-64 executable - not assembly! The result is a binary that runs directly on the OS.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Mapping operators to x86-64 opcodes: ModRM/SIB addressing modes up close</li>
+          <li>The call stack rsp/rbp for locals and parameters; SystemV calling convention</li>
+          <li>ELF structure for a runnable executable; inspect output with objdump each chapter</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Chapters move in small steps: basics and first program, integer math, variables and stack memory, conditionals and loops, functions and calls, then IO and machine bytes.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code># overview: mapping operators to x86-64 opcodes
+# REX.W + 0x01 + ModRM  (e.g. add rax, rbx)
+def gen_add(reg1, reg2):
+    return bytes([0x48, 0x01, modrm(reg1, reg2)])
+
+def modrm(reg_rm, reg_reg):
+    # mod=11 (register-direct) + general registers
+    return 0xC0 | (reg_reg &lt;&lt; 3) | reg_rm
+
+# for "a + b": a in rax, b in rbx
+# then: gen_add(0, 3) -&gt; add rax, rbx   -&gt; 48 01 C3</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>If you want to know what a computer actually executes, this is the best choice: from your language to the bytes on disk, everything under your control.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "From Source Code To Machine Code: Build Your Own Compiler From Scratch" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://build-your-own.org/compiler/" target="_blank" rel="noopener">https://build-your-own.org/compiler/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

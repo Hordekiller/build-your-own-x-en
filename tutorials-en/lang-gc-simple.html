@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a Simple Garbage Collector in C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Writing a Simple Garbage Collector in C</span>
+      </div>
+      <h1>Writing a Simple Garbage Collector in C</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://maplant.com/gc.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a Simple Garbage Collector in C"
+        </div>
+        <a class="btn solid" href="http://maplant.com/gc.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-gc-simple.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Instead of raw malloc/free, this tutorial builds a small, efficient mark-and-sweep garbage collector in about 150 lines of C - exactly what real interpreters do.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A linked list of blocks (map entries) with size, memory and mark flag</li>
+          <li>A global stack of roots with map_stack_push so the GC knows what is live</li>
+          <li>The pointer-to-pointer trick (map_entry_t**) for clean deletion from a linked list</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>All allocated objects live in a linked list of blocks carrying metadata (size, real address, marked flag); allocation goes through map_alloc. The GC marks reachable objects from the root stack, then sweeps unmarked blocks. The author also notes this GC is "manual" (runs only when called) and real interpreters add conservative/exact scanning strategies.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>typedef struct map_entry {
+    size_t size;          // block size
+    char* memory;         // real memory
+    struct map_entry* next;
+    uint8_t marked;       // mark flag
+} map_entry_t;
+
+void gc_sweep(void) {
+    map_entry_t** entry = &amp;map.entries;  // pointer to head
+    while (*entry) {
+        map_entry_t* cur = *entry;
+        if (!cur-&gt;marked) {              // garbage found
+            *entry = cur-&gt;next;
+            free(cur-&gt;memory);
+            free(cur);
+        } else {
+            cur-&gt;marked = 0;             // reset for next cycle
+            entry = &amp;cur-&gt;next;
+        }
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A compact C implementation that gives you full control over an interpreter's memory; a perfect starting point if you plan to build an interpreter or game engine.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a Simple Garbage Collector in C" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://maplant.com/gc.html" target="_blank" rel="noopener">http://maplant.com/gc.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

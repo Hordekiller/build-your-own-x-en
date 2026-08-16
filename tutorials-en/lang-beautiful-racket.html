@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Beautiful Racket: How to make your own programming languages with Racket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Beautiful Racket: How to make your own programming languages with Racket</span>
+      </div>
+      <h1>Beautiful Racket: How to make your own programming languages with Racket</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Racket</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://beautifulracket.com/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Beautiful Racket: How to make your own programming languages with Racket"
+        </div>
+        <a class="btn solid" href="https://beautifulracket.com/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-beautiful-racket.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Matthew Butterick's Beautiful Racket takes a different route: instead of a standalone interpreter, you define a new #lang using Racket's meta-circular facilities - syntax and behaviour are declared, not implemented.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A #lang module providing a custom reader and macros; the next file starts with #lang my-lang</li>
+          <li>The three layers: reader, syntax-objects with precise source positions, and macros</li>
+          <li>You never write an evaluator: expand your syntax into Racket core and the host does the rest</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A language in Beautiful Racket has a reader that turns input into data structures, macros that give meaning and expand to Racket constructs, and a module that marks the language boundary. The book ends with packing your language with raco pkg so others can install it.</p>
+        <pre class="code"><span class="lang-tag">Racket</span><code>#lang racket/base
+(require (for-syntax racket/base))
+
+(define (read-one in src-name)
+  (read-syntax src-name in))
+
+(module reader racket/base
+  (require racket/base syntax/readerr)
+  (provide read-syntax)
+  (define (read-syntax src in)
+    (define datum (read in))
+    (datum-&gt;syntax #f `(module forms ,datum))))</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A unique perspective: define languages by declaration. Real examples like br-fruit and br-braces show exactly which parts belong to the reader and which to macros.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Beautiful Racket: How to make your own programming languages with Racket" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://beautifulracket.com/" target="_blank" rel="noopener">https://beautifulracket.com/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

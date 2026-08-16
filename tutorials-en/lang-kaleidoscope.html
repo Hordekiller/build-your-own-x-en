@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Kaleidoscope: Implementing a Language with LLVM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Kaleidoscope: Implementing a Language with LLVM</span>
+      </div>
+      <h1>Kaleidoscope: Implementing a Language with LLVM</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Kaleidoscope: Implementing a Language with LLVM"
+        </div>
+        <a class="btn solid" href="https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-kaleidoscope.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The official LLVM tutorial builds the Kaleidoscope language: functional syntax with def, extern, conditionals, loops, user-defined operators and mutable variables - ending with a real compiler backend.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>LLVM IR generation with IRBuilder and the JIT for immediate execution</li>
+          <li>SSA concepts: PHI nodes for if/else and alloca for mutable variables</li>
+          <li>The optimizer PassManager and producing real object files in the final chapter</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Chapters add one layer each: lexer, parser/AST, IR generation, JIT, optimizer, conditionals (PHI nodes), loops, user-defined binary operators (dynamic precedence table), mutable variables (alloca) and finally object file output.</p>
+        <pre class="code"><span class="lang-tag">C++</span><code>Value *CodegenVisitor::visit(BinaryExpr &amp;e) {
+    Value *L = codegen(e.LHS);
+    Value *R = codegen(e.RHS);
+    switch (e.Op) {
+    case '+': return Builder-&gt;CreateFAdd(L, R, "addtmp");
+    case '-': return Builder-&gt;CreateFSub(L, R, "subtmp");
+    case '*': return Builder-&gt;CreateFMul(L, R, "multmp");
+    case '/': return Builder-&gt;CreateFDiv(L, R, "divtmp");
+    default:  return LogErrorV("unknown operator");
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The most complete official introduction to building an LLVM frontend in C++ - the path if you want your language to run fast on a real CPU via JIT or AOT.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Kaleidoscope: Implementing a Language with LLVM" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html" target="_blank" rel="noopener">https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

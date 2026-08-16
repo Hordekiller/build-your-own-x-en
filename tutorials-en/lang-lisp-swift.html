@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building a LISP from scratch with Swift</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Building a LISP from scratch with Swift</span>
+      </div>
+      <h1>Building a LISP from scratch with Swift</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Swift</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.uraimo.com/2017/02/05/building-a-lisp-from-scratch-with-swift/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building a LISP from scratch with Swift"
+        </div>
+        <a class="btn solid" href="https://www.uraimo.com/2017/02/05/building-a-lisp-from-scratch-with-swift/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-lisp-swift.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Lisp is one of the simplest languages to give an interpreter (syntax is just parentheses and functions), and Swift offers nested enums and closures - a natural fit for functional data modelling.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Modelling all language values with a Swift enum: atom, number, string, list, function</li>
+          <li>A char-by-char parser with recursion for nested parentheses</li>
+          <li>An evaluator pattern-matching on LispVal; functions as closures over their environment</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The interpreter has the classic three stages - tokenizer, parser, evaluator - and ends as a working REPL. LispVal.function(String, ([LispVal]) throws -&gt; LispVal) describes functions as composable closures.</p>
+        <pre class="code"><span class="lang-tag">Swift</span><code>// all language values: number, symbol name, list, function
+enum LispVal {
+    case atom(String)
+    case number(Int)
+    case string(String)
+    case list([LispVal])
+    case function(String, ([LispVal]) throws -&gt; LispVal)
+}</code></pre>
+        <pre class="code"><span class="lang-tag">Swift</span><code>func parseList(_ chars: [Character], _ pos: Int) throws -&gt; (LispVal, Int) {
+    var result: [LispVal] = []
+    var i = pos
+    while i &lt; chars.count {
+        let c = chars[i]
+        if c == ")" { return (LispVal.list(result), i + 1) }
+        if c == "(" {
+            let (list, next) = try parseList(chars, i + 1)   // nested list
+            result.append(list)
+            i = next
+        } else {
+            let (v, next) = try parseAtom(chars, i)
+            result.append(v)
+            i = next
+        }
+    }
+    throw LispError.unexpectedEnd
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Swift's strong typing is excellent for small academic interpreters; after this project, move to larger ones like mal or Crafting Interpreters.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building a LISP from scratch with Swift" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.uraimo.com/2017/02/05/building-a-lisp-from-scratch-with-swift/" target="_blank" rel="noopener">https://www.uraimo.com/2017/02/05/building-a-lisp-from-scratch-with-swift/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

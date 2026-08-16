@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Little Lisp interpreter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Little Lisp interpreter</span>
+      </div>
+      <h1>Little Lisp interpreter</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://maryrosecook.com/blog/post/little-lisp-interpreter" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Little Lisp interpreter"
+        </div>
+        <a class="btn solid" href="https://maryrosecook.com/blog/post/little-lisp-interpreter" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-little-lisp.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Mary Rose Cook proved that building a Lisp interpreter in JavaScript is simple: the whole project is four functions - tokenize, parse, evaluate and apply.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Parsing tokens into a tree, with recursion handling nested parens</li>
+          <li>An environment as a name-to-value table; closures with apply</li>
+          <li>That Lisp is recursive rules, not magic - lambda/define/begin are just patterns</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>parse turns tokens into nested lists (returning a list at '('); evaluate walks the tree: atoms are numbers or variable lookups, lists call the first element with the rest as arguments. Environments and closures come naturally.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>function parse(tokens, memory) {
+  if (typeof memory === 'undefined') { memory = { index: 0 }; }
+  if (tokens[memory.index] === '(') {
+    // start of a list
+    memory.index++;
+    let list = [];
+    while (tokens[memory.index] !== ')') {
+      list.push(parse(tokens, memory));  // recursion for each element
+    }
+    memory.index++;  // skip ')'
+    return list;
+  } else if (tokens[memory.index] === ')') {
+    throw new Error('extra paren!');
+  } else {
+    const atomicToken = tokens[memory.index++];
+    return atomicToken;  // atom: name or number
+  }
+}</code></pre>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>function evaluate(ast, environment) {
+  if (typeof environment === 'undefined') {
+    environment = globalEnvironment;
+  }
+  // atoms
+  if (typeof ast === 'string') {
+    if (isNaN(parseInt(ast))) return lookupVariable(ast, environment);
+    return parseInt(ast);
+  }
+  // list: operator and arguments
+  const operator = ast[0];
+  const operands = ast.slice(1);
+  if (operator === 'define') {
+    environment[operands[0]] = evaluate(operands[1], environment);
+    return environment[operands[0]];
+  }
+  if (operator === 'begin') {
+    return operands.reduce((last, exp) =&gt; evaluate(exp, environment), undefined);
+  }
+  const closure = evaluate(operator, environment);
+  const args = operands.map(o =&gt; evaluate(o, environment));
+  return closure.apply(null, args);
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The best starting point for a JavaScript Lisp interpreter: short, readable and complete (variables + functions). Continue with Crafting Interpreters or mal for closures and GC.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Little Lisp interpreter" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://maryrosecook.com/blog/post/little-lisp-interpreter" target="_blank" rel="noopener">https://maryrosecook.com/blog/post/little-lisp-interpreter</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

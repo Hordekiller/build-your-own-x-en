@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Baby's First Garbage Collector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Baby's First Garbage Collector</span>
+      </div>
+      <h1>Baby's First Garbage Collector</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Baby's First Garbage Collector"
+        </div>
+        <a class="btn solid" href="http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-gc-c.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>When you write your own interpreter, nobody cleans up objects for you. This article by Bob Nystrom builds a simple mark-and-sweep garbage collector in under 100 lines of C.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>What counts as "live": objects reachable from roots (the VM stack)</li>
+          <li>The two GC phases: mark (walk the object graph from roots) and sweep (free unmarked objects)</li>
+          <li>The classic pitfall: a new object not yet pushed onto the stack would be collected</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Every object has a marked flag. The collector marks everything reachable from the VM stack, then sweeps the full object list freeing unmarked objects. The article's trick for the "new object" problem is to attach an object directly to the root at allocation time so it can never be swept.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>typedef struct sObject {
+    struct sObject* next;   // linked list of all objects
+    char marked;            // mark flag
+    int value;              // payload
+} Object;
+
+void gc() {
+    // 1) mark: start from the roots (VM stack)
+    for (Object* o = vm.stack; o != NULL; o = o-&gt;next)
+        mark(o);
+    // 2) sweep: free every unmarked object
+    Object** obj = &amp;vm.objects;
+    while (*obj != NULL) {
+        if (!(*obj)-&gt;marked) {
+            Object* unreached = *obj;
+            *obj = unreached-&gt;next;
+            free(unreached);
+        } else {
+            (*obj)-&gt;marked = 0;
+            obj = &amp;(*obj)-&gt;next;
+        }
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>In one hour of reading you go from zero to a real GC: it explains why high-level languages insist on automatic memory management.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Baby's First Garbage Collector" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/" target="_blank" rel="noopener">http://journal.stuffwithstuff.com/2013/12/08/babys-first-garbage-collector/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

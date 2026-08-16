@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Write You A Scheme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>Write You A Scheme</span>
+      </div>
+      <h1>Write You A Scheme</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Haskell</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.wespiser.com/writings/wyas/home.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Write You A Scheme"
+        </div>
+        <a class="btn solid" href="https://www.wespiser.com/writings/wyas/home.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lang-scheme-wyas.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>An ambitious rewrite of "Write Yourself a Scheme in 48 Hours" (v2, 2015) using modern engineering: cabal setup, QuickCheck and golden tests, haddock documentation, hygienic macros and bottom-up data structures.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Hygienic macros with syntax-rules and define-syntax - no name clashes between macros and user code</li>
+          <li>LispVal as a sum type with pattern matching, errors via MonadError</li>
+          <li>A full test system: golden tests compare eval behaviour on sample scripts</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Code is organized in small modules (Language.Scheme.*) covering parser, runtime, environment and types; every module has its own tests. The interpreter pairs a fast map-based environment with pattern-matching evaluation.</p>
+        <pre class="code"><span class="lang-tag">Haskell</span><code>data Env = Env { envParent :: Maybe Env
+               , envValues :: Map.Map Text LispVal }
+
+eval :: Env -&gt; LispVal -&gt; IOThrowsError LispVal
+eval env (LispAtom a) = lookupEnv env a
+eval env (LispList [LispAtom "if", cond, cons, alt]) = do
+    result &lt;- eval env cond
+    case result of
+      LispBool False -&gt; eval env alt
+      LispList []    -&gt; eval env alt   -- in Scheme, empty list = false
+      _              -&gt; eval env cons</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>For readers of v1: see how a professional interpreter is architected - modular structure, tests and macros reveal all the good Haskell patterns.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Write You A Scheme" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.wespiser.com/writings/wyas/home.html" target="_blank" rel="noopener">https://www.wespiser.com/writings/wyas/home.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>
