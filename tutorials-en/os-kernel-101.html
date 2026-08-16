@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Kernel 101 – Let’s write a Kernel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Kernel 101 – Let’s write a Kernel</span>
+      </div>
+      <h1>Kernel 101 – Let’s write a Kernel</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://arjunsreedharan.org/post/82710718100/kernel-101-lets-write-a-kernel" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Kernel 101 – Let’s write a Kernel — by Arjun Sreedharan"
+        </div>
+        <a class="btn solid" href="https://arjunsreedharan.org/post/82710718100/kernel-101-lets-write-a-kernel" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-kernel-101.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Kernel 101: write a kernel that boots and prints 'my first kernel' — assembly entry, a C main, and a bootable ISO.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Assembly entry point with a proper stack</li>
+          <li>Writing to VGA text memory at 0xB8000</li>
+          <li>Building a bootable ISO with grub-mkrescue</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The assembly entry sets up a stack (ESP must not be undefined!) and calls kmain. The C function writes a string straight into VGA text memory, and grub-mkrescue packages it into a bootable ISO.</p>
+        <pre class="code"><span class="lang-tag">nasm</span><code>; kernel.asm — assembly kernel: define the stack and print a message
+bits 32
+section .text
+
+global start
+start:
+    mov esp, stack_top  ; set up the stack (required! ESP is undefined)
+    call kmain          ; jump to the main code</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>// kmain.c — C kernel: print to VGA text memory
+#define VGA_ADDRESS 0xB8000
+#define WHITE_ON_BLACK 0x0f00
+#define GREEN_ON_BLACK 0x2a00
+
+void kmain(void) {
+    const char *str = "my first kernel";
+    volatile char *video = (volatile char *) VGA_ADDRESS;</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>In under an hour you go from zero to a kernel that boots on real (or emulated) hardware — the perfect first milestone.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Kernel 101 – Let’s write a Kernel" belongs to its original author (Arjun Sreedharan). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Arjun Sreedharan). Read the original at
+        <a href="https://arjunsreedharan.org/post/82710718100/kernel-101-lets-write-a-kernel" target="_blank" rel="noopener">https://arjunsreedharan.org/post/82710718100/kernel-101-lets-write-a-kernel</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

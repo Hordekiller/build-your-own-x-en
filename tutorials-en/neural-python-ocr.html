@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Optical Character Recognition (OCR)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>Optical Character Recognition (OCR)</span>
+      </div>
+      <h1>Optical Character Recognition (OCR)</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://aosabook.org/en/500L/optical-character-recognition-ocr.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Optical Character Recognition (OCR)"
+        </div>
+        <a class="btn solid" href="http://aosabook.org/en/500L/optical-character-recognition-ocr.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-python-ocr.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A 500 Lines classic: optical character recognition without a neural network — least squares classification on normalized digit images.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Preprocessing: binarizing, finding the center of mass, subsampling</li>
+          <li>Training by solving the least-squares problem directly</li>
+          <li>Predicting with a one-shot matrix solve instead of gradient descent</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Each digit is normalized into a small binary image. Instead of iterating, the tutorial solves for W directly with np.linalg.lstsq — minimizing ‖X·W − Y‖ in one step — then picks the digit with the highest score.</p>
+        <pre class="code"><span class="lang-tag">python</span><code># preprocessing steps for the incoming image
+def preprocess_image(image):
+    # 1) convert to a binary image based on a brightness threshold
+    # 2) find the center of mass of the lit pixels and center the digit
+    # 3) subsample down to the target size</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code># training with least squares: solve for W directly instead of iterating gradients
+# W is chosen so that the error ||X*W - Y|| is minimized
+W = np.linalg.lstsq(X_train, Y_train, rcond=None)[0]
+
+# prediction: scores for every digit, then pick the largest
+scores = np.dot(X_test, W)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It shows a whole machine-learning pipeline — preprocessing, training, prediction — that works without a single epoch of gradient descent.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Optical Character Recognition (OCR)" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://aosabook.org/en/500L/optical-character-recognition-ocr.html" target="_blank" rel="noopener">http://aosabook.org/en/500L/optical-character-recognition-ocr.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Learning operating system development using Linux kernel and Raspberry Pi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Learning operating system development using Linux kernel and Raspberry Pi</span>
+      </div>
+      <h1>Learning operating system development using Linux kernel and Raspberry Pi</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/s-matyukevich/raspberry-pi-os" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Learning operating system development using Linux kernel and Raspberry Pi — by Sergey Matyukevich"
+        </div>
+        <a class="btn solid" href="https://github.com/s-matyukevich/raspberry-pi-os" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-raspberry-pi-os.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Learning OS development with the Linux kernel and Raspberry Pi: from a bare UART 'Hello, world!' to interrupts, the MMU and process isolation.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Booting your own kernel on a Raspberry Pi</li>
+          <li>Initializing the UART and printing to serial</li>
+          <li>Privilege levels, the MMU and process isolation</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Lesson 1 is a stripped kernel_main(): initialize the UART, send a string, then loop. Everything else — interrupts, virtual memory, processes — grows from that same tiny skeleton.</p>
+        <pre class="code"><span class="lang-tag">arm</span><code>// kernel.c (lesson 1) — set up the UART and print a message
+#include "uart.h"
+
+void kernel_main(void) {
+    uart_init();               // set up the serial port
+    uart_send_string("Hello, world!\n");
+
+    while (1) {
+        // wait for the next character</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Running your code on real Raspberry Pi hardware — with a structure modeled on Linux itself — is the most motivating way to learn OS internals.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Learning operating system development using Linux kernel and Raspberry Pi" belongs to its original author (Sergey Matyukevich). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Sergey Matyukevich). Read the original at
+        <a href="https://github.com/s-matyukevich/raspberry-pi-os" target="_blank" rel="noopener">https://github.com/s-matyukevich/raspberry-pi-os</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

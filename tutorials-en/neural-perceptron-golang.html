@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build a multilayer perceptron with Golang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>Build a multilayer perceptron with Golang</span>
+      </div>
+      <h1>Build a multilayer perceptron with Golang</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://made2591.github.io/posts/neuralnetwork" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build a multilayer perceptron with Golang"
+        </div>
+        <a class="btn solid" href="https://made2591.github.io/posts/neuralnetwork" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-perceptron-golang.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A multilayer perceptron in Go: layers with activation functions, bias, and a clean Predict() forward pass.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Designing NeuralLayer and MultiLayerNetwork structs</li>
+          <li>Weight matrices between layers</li>
+          <li>Forward propagation from input to output</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The network is just an ordered collection of layers plus weight matrices. Predict() pushes the input through every layer, applying the activation function at each step until the output layer answers.</p>
+        <pre class="code"><span class="lang-tag">go</span><code>// a neural layer: neurons, biases and the activation function
+type NeuralLayer struct {
+    neurons    int
+    activation ActivationFunction
+    bias       float64
+}
+
+// multilayer network: layers + weight matrices</code></pre>
+        <pre class="code"><span class="lang-tag">go</span><code>// compute the network output for an input (forward pass)
+func (nn *MultiLayerNetwork) Predict(input []float64) []float64 {
+    activation := matrix.NewDenseMatrix(len(input), 1, input)
+    for i := 0; i &lt; len(nn.layers); i++ {</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Go's static types and simple data structures make the network's anatomy visible — every matrix and layer has a name.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build a multilayer perceptron with Golang" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://made2591.github.io/posts/neuralnetwork" target="_blank" rel="noopener">https://made2591.github.io/posts/neuralnetwork</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Malloc tutorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Malloc tutorial</span>
+      </div>
+      <h1>Malloc tutorial</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://danluu.com/malloc-tutorial/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Malloc tutorial — by Dan Luu"
+        </div>
+        <a class="btn solid" href="https://danluu.com/malloc-tutorial/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-malloc-tutorial.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A malloc tutorial: implement malloc and free as a linked list of blocks with alignment, splitting, and validation — checked with valgrind.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The block_meta header: size, next pointer and a free flag</li>
+          <li>8-byte alignment and requesting memory with sbrk</li>
+          <li>Validating pointers and keeping the allocator valgrind-clean</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The heap is a linked list of block_meta headers. malloc() aligns the requested size, walks the list, and if no block fits, asks the OS for more with sbrk. free() locates the header, validates it, and marks the block unused.</p>
+        <pre class="code"><span class="lang-tag">c</span><code>typedef struct block_meta {
+    size_t size;          // size of this block's data
+    struct block_meta *next;  // next block in the list
+    int free;             // 1 = free, 0 = in use
+    int magic;            // guard value for pointer validation
+} block_meta_t;</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>void *malloc(size_t size) {
+    block_meta_t *block;
+
+    // align the size to 8 bytes
+    size = (size + ALIGN - 1) &amp; ~(ALIGN - 1);
+
+    if (!global_base) {
+        // first call: take an initial block from the OS</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Dan Luu's tutorial is the rare allocator walkthrough that also teaches you to verify your code with valgrind — correctness engineering included.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Malloc tutorial" belongs to its original author (Dan Luu). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Dan Luu). Read the original at
+        <a href="https://danluu.com/malloc-tutorial/" target="_blank" rel="noopener">https://danluu.com/malloc-tutorial/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

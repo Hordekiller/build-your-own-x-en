@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to build a network stack in Ruby</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Network Stack</a>
+        <span class="sep">→</span>
+        <span>How to build a network stack in Ruby</span>
+      </div>
+      <h1>How to build a network stack in Ruby</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Ruby</span>
+        <span class="meta-badge">📁 Network Stack</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.com/geckoboard-under-the-hood/how-to-build-a-network-stack-in-ruby-f73aeb1b661b" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to build a network stack in Ruby"
+        </div>
+        <a class="btn solid" href="https://medium.com/geckoboard-under-the-hood/how-to-build-a-network-stack-in-ruby-f73aeb1b661b" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/network-stack-ruby.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A network stack in Ruby: using raw sockets from a high-level language to parse and forge Ethernet frames at the application level.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Raw sockets (SOCK_RAW) and why the OS lets a userspace program peek at frames</li>
+          <li>Parsing Ethernet headers — destination and source MAC addresses</li>
+          <li>Reading and writing frames like a tiny NIC driver</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A raw socket hands your program the whole Ethernet frame, not just the payload. The EthernetFrame class unpacks the header bytes with Ruby's unpack and turns raw wire data into readable fields.</p>
+        <pre class="code"><span class="lang-tag">ruby</span><code># like TCP — but it gives you the raw Ethernet frame
+socket = Socket.open(Socket::AF_INET, Socket::SOCK_RAW, Socket::IPPROTO_UDP)
+# socket() / bind() / recvfrom() / sendto() go on from here</code></pre>
+        <pre class="code"><span class="lang-tag">ruby</span><code>class EthernetFrame
+  ETH_P_IP = 0x0800          # packet type: IPv4
+
+  def initialize(raw)
+    @raw = raw
+    @dst_mac = raw[0, 6].unpack("H*").first
+    @src_mac = raw[6, 6].unpack("H*").first
+    @eth_proto = raw[12, 2].unpack("n").first
+  end</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Seeing the same wire-level mechanics from a dynamic language makes the stack approachable for web developers who never touch C.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to build a network stack in Ruby" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://medium.com/geckoboard-under-the-hood/how-to-build-a-network-stack-in-ruby-f73aeb1b661b" target="_blank" rel="noopener">https://medium.com/geckoboard-under-the-hood/how-to-build-a-network-stack-in-ruby-f73aeb1b661b</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

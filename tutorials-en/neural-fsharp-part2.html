@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building Neural Networks in F#: Part 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>Building Neural Networks in F#: Part 2</span>
+      </div>
+      <h1>Building Neural Networks in F#: Part 2</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: F#</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.com/data-science/building-neural-networks-in-f-part-2-training-evaluation-5e3a68889da6" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building Neural Networks in F#: Part 2"
+        </div>
+        <a class="btn solid" href="https://medium.com/data-science/building-neural-networks-in-f-part-2-training-evaluation-5e3a68889da6" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-fsharp-part2.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The training half of the F# network: gradient descent and backpropagation expressed with matrix operations.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The weight update rule: w ← w − η × gradient</li>
+          <li>Backpropagating error from the output to hidden layers</li>
+          <li>Using the transposed weight matrix and the tanh derivative</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Training is a two-step dance: updateWeights() nudges every weight against the gradient scaled by the learning rate, and backpropagate() spreads the output error back through the layers using the transposed weight matrix.</p>
+        <pre class="code"><span class="lang-tag">fsharp</span><code>// weight update: w &lt;- w - eta * gradient of the error w.r.t. w
+let updateWeights (lr: double) (weights: Matrix&lt;double&gt;) (grad: Matrix&lt;double&gt;) =
+    weights - (grad.Multiply(lr))</code></pre>
+        <pre class="code"><span class="lang-tag">fsharp</span><code>// backpropagate the error to the hidden layer:
+// output error, weighted by the transposed weight matrix, then times the tanh derivative
+let backpropagate (nextError: Vector&lt;double&gt;) (weights: Matrix&lt;double&gt;)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Backpropagation is the algorithm behind deep learning; writing it once with clean linear algebra removes the last trace of mystery.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building Neural Networks in F#: Part 2" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://medium.com/data-science/building-neural-networks-in-f-part-2-training-evaluation-5e3a68889da6" target="_blank" rel="noopener">https://medium.com/data-science/building-neural-networks-in-f-part-2-training-evaluation-5e3a68889da6</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

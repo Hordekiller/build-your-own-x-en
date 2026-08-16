@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build a minimal multi-tasking kernel for ARM from scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Build a minimal multi-tasking kernel for ARM from scratch</span>
+      </div>
+      <h1>Build a minimal multi-tasking kernel for ARM from scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/jserv/mini-arm-os" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build a minimal multi-tasking kernel for ARM from scratch — by Jim Huang"
+        </div>
+        <a class="btn solid" href="https://github.com/jserv/mini-arm-os" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-mini-arm-os.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Build a minimal multi-tasking kernel for ARM from scratch: lessons checked out as git branches, from context switching to interrupts.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Saving and restoring registers with ARM assembly (stmfd)</li>
+          <li>Interrupt handling on an STM32</li>
+          <li>Round-robin multitasking with a few tasks</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Each lesson is a git branch. context_switch() pushes the current task's registers with stmfd, then restores the next task's. The included QEMU command boots the lesson kernel on a simulated STM32 board.</p>
+        <pre class="code"><span class="lang-tag">arm</span><code>@ context_switch.S — save registers and switch to the next process
+.global context_switch
+context_switch:
+    @ save the current process state
+    stmfd sp!, {r0-r12, lr}     @ push registers and the return address
+    mrs r0, spsr</code></pre>
+        <pre class="code"><span class="lang-tag">bash</span><code># e.g. lesson 03 (interrupts)
+git checkout 03-Interrupt
+make
+qemu-system-arm -M stm32-p103 -kernel build/interrupt.elf \
+    -serial stdio -monitor none -nographic</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It is one of the few projects that shows real ARM multitasking with a build that works out of the box — and git branches as lesson structure is genius.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build a minimal multi-tasking kernel for ARM from scratch" belongs to its original author (Jim Huang). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Jim Huang). Read the original at
+        <a href="https://github.com/jserv/mini-arm-os" target="_blank" rel="noopener">https://github.com/jserv/mini-arm-os</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

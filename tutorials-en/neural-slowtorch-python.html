@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | SlowTorch: Implementation of PyTorch from the ground up in 100% pure Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>SlowTorch: Implementation of PyTorch from the ground up in 100% pure Python</span>
+      </div>
+      <h1>SlowTorch: Implementation of PyTorch from the ground up in 100% pure Python</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/xames3/slowtorch" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "SlowTorch: Implementation of PyTorch from the ground up in 100% pure Python"
+        </div>
+        <a class="btn solid" href="https://github.com/xames3/slowtorch" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-slowtorch-python.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>SlowTorch: a from-the-ground-up implementation of PyTorch in 100% pure Python — tensors, autograd and modules that mirror the torch API.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A Tensor class with data, gradients and requires_grad</li>
+          <li>The Module pattern and Linear layers</li>
+          <li>Composing a TwoLayerNet exactly like PyTorch code</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The Tensor class is PyTorch's Tensor in miniature: it carries data, tracks gradients, and respects requires_grad. Modules and Linear layers compose into networks with the same look and feel as real torch code.</p>
+        <pre class="code"><span class="lang-tag">python</span><code># tensor: data + autograd capability (simplified)
+class Tensor:
+    def __init__(self, data, requires_grad=False):
+        self.data = data
+        self.grad = None
+        self.requires_grad = requires_grad</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code># define a network following the PyTorch pattern
+class TwoLayerNet(Module):
+    def __init__(self, in_dim, hidden, out_dim):
+        self.fc1 = Linear(in_dim, hidden)
+        self.fc2 = Linear(hidden, out_dim)
+
+    def forward(self, x):</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Reading SlowTorch is like reading PyTorch's source with training wheels — the whole framework, comprehensible, in a few hundred lines of pure Python.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "SlowTorch: Implementation of PyTorch from the ground up in 100% pure Python" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/xames3/slowtorch" target="_blank" rel="noopener">https://github.com/xames3/slowtorch</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

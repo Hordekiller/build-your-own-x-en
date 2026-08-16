@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a Tiny x86 Bootloader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Writing a Tiny x86 Bootloader</span>
+      </div>
+      <h1>Writing a Tiny x86 Bootloader</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Assembly</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://joebergeron.io/posts/post_two.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a Tiny x86 Bootloader — by Joe Bergeron"
+        </div>
+        <a class="btn solid" href="http://joebergeron.io/posts/post_two.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-bootloader-x86.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Writing a tiny x86 bootloader in NASM: the few dozen bytes every PC executes at power-on, printing a message to the screen in real mode.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Why the CPU starts executing at 0x7C00</li>
+          <li>BIOS video services (int 0x10) in 16-bit mode</li>
+          <li>Assembling to a raw binary and booting it in QEMU</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The bootloader is assembled to a raw binary, written to the start of a disk image with dd, and booted in QEMU. In real mode it loads a string address and calls the BIOS to print it character by character.</p>
+        <pre class="code"><span class="lang-tag">make</span><code># assemble the bootloader to a raw binary
+nasm -f bin bootloader.asm -o bootloader.bin
+
+# write it to a disk image (or a real/virtual floppy)
+dd if=bootloader.bin of=disk.img conv=notrunc
+
+# run it in an emulator</code></pre>
+        <pre class="code"><span class="lang-tag">nasm</span><code>; tiny bootloader — print a message with the BIOS video service
+[org 0x7c00]          ; the bootloader is loaded at address 0x7C00
+[bits 16]             ; 16-bit mode (real mode)
+
+mov si, msg           ; address of the message into si</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The boot sector is the first code a computer ever runs — mastering it means you truly understand how an operating system gets started.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a Tiny x86 Bootloader" belongs to its original author (Joe Bergeron). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Joe Bergeron). Read the original at
+        <a href="http://joebergeron.io/posts/post_two.html" target="_blank" rel="noopener">http://joebergeron.io/posts/post_two.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

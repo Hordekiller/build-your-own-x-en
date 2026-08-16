@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | An Introduction to Convolutional Neural Networks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>An Introduction to Convolutional Neural Networks</span>
+      </div>
+      <h1>An Introduction to Convolutional Neural Networks</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://victorzhou.com/blog/intro-to-cnns-part-1/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "An Introduction to Convolutional Neural Networks — by Victor Zhou"
+        </div>
+        <a class="btn solid" href="https://victorzhou.com/blog/intro-to-cnns-part-1/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-cnn-intro.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>An introduction to convolutional networks with every layer built by hand in Python: Conv3x3, MaxPool2 and Softmax.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>How 3×3 convolution filters slide over images</li>
+          <li>Max pooling with 2×2 windows</li>
+          <li>A fully connected softmax layer for classification</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The tutorial builds each layer as a plain Python class. Conv3x3 applies learned filters, MaxPool2 downsamples, and Softmax turns the final activations into class probabilities — a full CNN forward pass in ~100 lines.</p>
+        <pre class="code"><span class="lang-tag">python</span><code>import numpy as np
+
+class Conv3x3:
+    # convolution layer with 3x3 filters
+
+    def __init__(self, num_filters):
+        self.num_filters = num_filters
+        # filters: 3D array (num_filters, 3, 3)</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code>class MaxPool2:
+    # max pooling layer with a 2x2 window (no overlap)
+
+    def forward(self, input):
+        h, w, num_filters = input.shape
+        output = np.zeros((h // 2, w // 2, num_filters))</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code>class Softmax:
+    # fully connected layer with softmax activation
+
+    def __init__(self, input_len, nodes):
+        self.weights = np.random.randn(input_len, nodes) / input_len
+        self.biases = np.zeros(nodes)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Building the layers by hand — instead of importing them — makes convolutions, pooling and softmax genuinely obvious.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "An Introduction to Convolutional Neural Networks" belongs to its original author (Victor Zhou). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Victor Zhou). Read the original at
+        <a href="https://victorzhou.com/blog/intro-to-cnns-part-1/" target="_blank" rel="noopener">https://victorzhou.com/blog/intro-to-cnns-part-1/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

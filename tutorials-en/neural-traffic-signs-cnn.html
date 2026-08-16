@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Traffic signs classification with a convolutional network</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>Traffic signs classification with a convolutional network</span>
+      </div>
+      <h1>Traffic signs classification with a convolutional network</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://navoshta.com/traffic-signs-classification/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Traffic signs classification with a convolutional network — by Alex Staravoitau"
+        </div>
+        <a class="btn solid" href="https://navoshta.com/traffic-signs-classification/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-traffic-signs-cnn.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Classifying German traffic signs with a convolutional network: preprocessing, a conv/maxpool feature pyramid, and a softmax head.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Extracting the Y channel (YCbCr) and equalizing histograms</li>
+          <li>Convolution → ReLU → max-pooling stages at three scales</li>
+          <li>Feeding multi-scale features into a softmax classifier</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Images are preprocessed to grayscale luminance and histogram-equalized. The network then stacks three conv-pool stages, merges the multi-scale features, and ends in a softmax over sign classes.</p>
+        <pre class="code"><span class="lang-tag">python</span><code>from skimage import color, exposure
+
+def preprocess_image(image):
+    # 1) extract the luminance (Y) channel from YCbCr
+    y_channel = color.rgb2ycbcr(image)[:, :, 0]
+    # 2) local histogram equalization for contrast</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code># architecture summary: convolutions -&gt; multi-scale features -&gt; softmax
+conv1:  Conv2D(32) -&gt; ReLU -&gt; MaxPool2x2
+conv2:  Conv2D(64) -&gt; ReLU -&gt; MaxPool2x2
+conv3:  Conv2D(128) -&gt; ReLU -&gt; MaxPool2x2
+
+# concatenate the features from different scales</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>This is a complete, production-shaped image classifier in a single tutorial — preprocessing, architecture and training in one place.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Traffic signs classification with a convolutional network" belongs to its original author (Alex Staravoitau). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Alex Staravoitau). Read the original at
+        <a href="https://navoshta.com/traffic-signs-classification/" target="_blank" rel="noopener">https://navoshta.com/traffic-signs-classification/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

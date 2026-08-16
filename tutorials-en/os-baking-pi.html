@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Baking Pi – Operating Systems Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Baking Pi – Operating Systems Development</span>
+      </div>
+      <h1>Baking Pi – Operating Systems Development</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Assembly</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/index.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Baking Pi – Operating Systems Development — by Alex Chadwick"
+        </div>
+        <a class="btn solid" href="http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/index.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-baking-pi.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Baking Pi: build an operating system for the Raspberry Pi from bare metal — cross-compiler, kernel.img, GPIO and ARM assembly.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Setting up the ARM cross-compiler (arm-none-eabi)</li>
+          <li>Building a bootable kernel.img with the OS template Makefile</li>
+          <li>Controlling GPIO to light the ACT LED</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>After installing the cross-compiler, the project template builds a kernel.img with make. The first lesson writes main.s — ARM assembly that configures GPIO and turns the board's OK/ACT LED on.</p>
+        <pre class="code"><span class="lang-tag">bash</span><code># install the ARM cross-compiler for the Raspberry Pi (older ARMv6)
+sudo apt install gcc-arm-none-eabi binutils-arm-none-eabi
+
+# build the project with the OS Template Makefile
+make        # output: kernel.img, kernel.list, kernel.map</code></pre>
+        <pre class="code"><span class="lang-tag">arm</span><code>// main.s — turn on the OK/ACT LED on the Raspberry Pi (ARMv6)
+.section .init          // this section runs first
+.global _start
+
+_start:
+    ldr r0, =0x20200000  // base address of the GPIO controller
+    mov r1, #1           // set bit 16 (pin 16)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It is the gentlest possible way onto real hardware: your first kernel runs on a physical ARM chip and lights a real LED.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Baking Pi – Operating Systems Development" belongs to its original author (Alex Chadwick). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Alex Chadwick). Read the original at
+        <a href="http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/index.html" target="_blank" rel="noopener">http://www.cl.cam.ac.uk/projects/raspberrypi/tutorials/os/index.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

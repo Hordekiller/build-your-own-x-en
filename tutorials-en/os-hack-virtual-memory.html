@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Hack the virtual memory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Hack the virtual memory</span>
+      </div>
+      <h1>Hack the virtual memory</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://blog.holbertonschool.com/hack-the-virtual-memory-c-strings-proc/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Hack the virtual memory"
+        </div>
+        <a class="btn solid" href="https://blog.holbertonschool.com/hack-the-virtual-memory-c-strings-proc/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-hack-virtual-memory.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Hack the virtual memory: read and write another running process's memory directly through /proc — no ptrace, no kernel modules.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>What /proc/&lt;pid&gt;/mem exposes and how to open it</li>
+          <li>Reading a process's memory with pread()</li>
+          <li>Writing into a live process's memory with pwrite()</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The file /proc/&lt;pid&gt;/mem is the process's address space. read_byte() opens it and pread()s a single byte at an address; write_byte() does the same with pwrite() — memory modification of a live process in ~20 lines.</p>
+        <pre class="code"><span class="lang-tag">c</span><code>// read one byte from the memory of a live process
+int read_byte(pid_t pid, long addr) {
+    char path[64];
+    snprintf(path, sizeof path, "/proc/%d/mem", pid);
+
+    int fd = open(path, O_RDONLY);
+    char byte;
+    pread(fd, &amp;byte, 1, addr);</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>// change one byte in the memory of a live process
+int write_byte(pid_t pid, long addr, char value) {
+    char path[64];
+    snprintf(path, sizeof path, "/proc/%d/mem", pid);
+
+    int fd = open(path, O_WRONLY);
+    pwrite(fd, &amp;value, 1, addr);</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Virtual memory stops being abstract the first time you edit a running program's string from the outside — and this is the cleanest way to do it.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Hack the virtual memory" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://blog.holbertonschool.com/hack-the-virtual-memory-c-strings-proc/" target="_blank" rel="noopener">https://blog.holbertonschool.com/hack-the-virtual-memory-c-strings-proc/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

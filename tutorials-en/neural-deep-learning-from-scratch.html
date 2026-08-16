@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build Deep Learning From Scratch (reimplement PyTorch internals across 34 stages)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>Build Deep Learning From Scratch (reimplement PyTorch internals across 34 stages)</span>
+      </div>
+      <h1>Build Deep Learning From Scratch (reimplement PyTorch internals across 34 stages)</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/roiamiel1/Build-Deep-Learning-From-Scratch" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build Deep Learning From Scratch (reimplement PyTorch internals across 34 stages) — by Roi Amiel"
+        </div>
+        <a class="btn solid" href="https://github.com/roiamiel1/Build-Deep-Learning-From-Scratch" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-deep-learning-from-scratch.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Reimplement PyTorch's internals from the ground up across 34 stages: tensors, autograd, modules, optimizers and datasets — in Python.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Building a Value node with a computation graph</li>
+          <li>Automatic differentiation via backward passes</li>
+          <li>The anatomy of a modern deep-learning framework</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything starts with Value: a node holding data, a gradient, and a reference to its parent nodes. From that single class, the whole framework — tensors, layers, optimizers — grows stage by stage.</p>
+        <pre class="code"><span class="lang-tag">python</span><code># stages 1-5: the core of autodiff — a node that knows its parents
+class Value:
+    def __init__(self, data, _children=(), _op=""):
+        self.data = data
+        self.grad = 0.0
+        self._prev = set(_children)   # parents in the computation graph
+        self._op = _op</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Frameworks stop being magic once you have rebuilt their skeleton: this is the fastest way to understand exactly what PyTorch does for you.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build Deep Learning From Scratch (reimplement PyTorch internals across 34 stages)" belongs to its original author (Roi Amiel). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Roi Amiel). Read the original at
+        <a href="https://github.com/roiamiel1/Build-Deep-Learning-From-Scratch" target="_blank" rel="noopener">https://github.com/roiamiel1/Build-Deep-Learning-From-Scratch</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

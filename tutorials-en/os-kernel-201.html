@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Kernel 201 – Let’s write a Kernel with keyboard and screen support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Kernel 201 – Let’s write a Kernel with keyboard and screen support</span>
+      </div>
+      <h1>Kernel 201 – Let’s write a Kernel with keyboard and screen support</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://arjunsreedharan.org/post/99370248137/kernel-201-lets-write-a-kernel-with-keyboard" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Kernel 201 – Let’s write a Kernel with keyboard and screen support — by Arjun Sreedharan"
+        </div>
+        <a class="btn solid" href="https://arjunsreedharan.org/post/99370248137/kernel-201-lets-write-a-kernel-with-keyboard" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-kernel-201.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Kernel 201: add keyboard and screen support — serial output, scancode handling, and a moving cursor.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Writing to serial port COM1 with outb</li>
+          <li>Receiving and decoding keyboard scancodes</li>
+          <li>Moving the cursor through VGA controller registers</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Devices are just registers: serial_write() pushes a byte to port 0x3F8, and move_cursor() programs the VGA controller's 0x3D4/0x3D5 registers with a 16-bit position.</p>
+        <pre class="code"><span class="lang-tag">c</span><code>// write to the COM1 serial port
+#define PORT_SERIAL 0x3F8
+
+void serial_write(char c) {
+    __asm__ volatile (
+        "outb %0, %1"        // output byte c to PORT_SERIAL
+        : : "a"(c), "Nd"(PORT_SERIAL));
+}</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>// move the cursor by sending a 16-bit address to the VGA controller
+void move_cursor(int row, int col) {
+    unsigned short pos = row * 80 + col;
+
+    outb(0x3D4, 14);            // select the 'high byte' register</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Input and output are where an OS stops being a demo and starts being useful — and this is the cleanest example of port programming.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Kernel 201 – Let’s write a Kernel with keyboard and screen support" belongs to its original author (Arjun Sreedharan). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Arjun Sreedharan). Read the original at
+        <a href="https://arjunsreedharan.org/post/99370248137/kernel-201-lets-write-a-kernel-with-keyboard" target="_blank" rel="noopener">https://arjunsreedharan.org/post/99370248137/kernel-201-lets-write-a-kernel-with-keyboard</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

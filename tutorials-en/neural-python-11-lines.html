@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A Neural Network in 11 lines of Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>A Neural Network in 11 lines of Python</span>
+      </div>
+      <h1>A Neural Network in 11 lines of Python</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://iamtrask.github.io/2015/07/12/basic-python-network/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A Neural Network in 11 lines of Python — by Andrew Trask"
+        </div>
+        <a class="btn solid" href="https://iamtrask.github.io/2015/07/12/basic-python-network/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-python-11-lines.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The famous 'neural network in 11 lines of Python': a 3-4-1 network trained with plain numpy and 60,000 gradient steps.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Forward pass as matrix multiplications with a sigmoid (nonlin)</li>
+          <li>Backpropagating the error through the layers</li>
+          <li>Why enough iterations make the XOR problem converge</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Two weight matrices — syn0 and syn1 — connect the layers. Every iteration recomputes l0, l1 and l2 from the weights, then adjusts the matrices by the error, folded through the sigmoid derivative.</p>
+        <pre class="code"><span class="lang-tag">python</span><code>import numpy as np
+
+X = np.array([ [0,0,1],[0,1,1],[1,0,1],[1,1,1] ])
+y = np.array([[0,1,1,0]]).T
+syn0 = 2*np.random.random((3,4)) - 1
+syn1 = 2*np.random.random((4,1)) - 1
+for j in xrange(60000):</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code># the temporary layers are computed from the weight matrices
+l0 = X                                  # input layer = the data itself
+l1 = nonlin(np.dot(l0, syn0))           # hidden layer = sigmoid(input * weights)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It is the shortest possible proof that a neural network is just matrix operations inside a loop — a classic every ML programmer should read.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A Neural Network in 11 lines of Python" belongs to its original author (Andrew Trask). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Andrew Trask). Read the original at
+        <a href="https://iamtrask.github.io/2015/07/12/basic-python-network/" target="_blank" rel="noopener">https://iamtrask.github.io/2015/07/12/basic-python-network/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

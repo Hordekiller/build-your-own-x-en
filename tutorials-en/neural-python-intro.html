@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Implement a Neural Network from Scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>Implement a Neural Network from Scratch</span>
+      </div>
+      <h1>Implement a Neural Network from Scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://victorzhou.com/blog/intro-to-neural-networks/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Implement a Neural Network from Scratch — by Victor Zhou"
+        </div>
+        <a class="btn solid" href="https://victorzhou.com/blog/intro-to-neural-networks/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-python-intro.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Implement a neural network from scratch in pure Python and numpy, with hand-drawn diagrams of every gradient.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Mean-squared-error loss and the chain rule</li>
+          <li>Computing gradients for every weight and bias by hand</li>
+          <li>Training a tiny network over 1,000 epochs</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>After defining the MSE loss, the tutorial computes every gradient by hand using the chain rule — then turns those formulas into code and trains the network for 1,000 epochs to fit a tiny dataset.</p>
+        <pre class="code"><span class="lang-tag">python</span><code># a single neuron's output: sum(input * weight) + bias
+def output(self, inputs):
+    total = np.dot(self.weights, inputs) + self.bias
+    return total   # no activation (regression)</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code># mean squared error loss
+
+def mse_loss(predictions, targets):
+    return np.mean((predictions - targets) ** 2)</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code># output-layer gradient (chain rule)
+d_L_d_ypred = 2 * (y_pred - y_true) / N      # derivative of MSE w.r.t. output
+
+# for the output neuron:
+#   delta_output = d_L_d_ypred * 1
+#   w5: d_L_d_w5 = h1 * delta_output  |  b3: d_L_d_b3 = delta_output</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Victor Zhou's hand-computed gradients are the missing link between 'backprop is a black box' and knowing exactly what each line of a training loop does.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Implement a Neural Network from Scratch" belongs to its original author (Victor Zhou). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Victor Zhou). Read the original at
+        <a href="https://victorzhou.com/blog/intro-to-neural-networks/" target="_blank" rel="noopener">https://victorzhou.com/blog/intro-to-neural-networks/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

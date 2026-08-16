@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Generate Music using LSTM Neural Network in Keras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>Generate Music using LSTM Neural Network in Keras</span>
+      </div>
+      <h1>Generate Music using LSTM Neural Network in Keras</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://towardsdatascience.com/how-to-generate-music-using-a-lstm-neural-network-in-keras-68786834d4c5" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Generate Music using LSTM Neural Network in Keras"
+        </div>
+        <a class="btn solid" href="https://towardsdatascience.com/how-to-generate-music-using-a-lstm-neural-network-in-keras-68786834d4c5" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-lstm-music-keras.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Generate music with an LSTM in Keras: parse MIDI files with music21, window the note sequences, train, and sample new melodies.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Parsing MIDI into a sequence of notes and chords with music21</li>
+          <li>Building windowed input/output pairs of length 100</li>
+          <li>An LSTM(512) model and sampling new sequences</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Trained music is a sequence problem: the LSTM sees the previous 100 symbols and predicts the next one. After training, a sampling loop feeds predictions back as input, generating entirely new melodies.</p>
+        <pre class="code"><span class="lang-tag">python</span><code>from music21 import converter
+
+# read a MIDI file and extract the sequence of notes and chords
+notes = []
+for element in converter.parse("song.mid").flat.notes:
+    if element.isNote:
+        notes.append(str(element.pitch))</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code>sequence_length = 100  # memory length: the 100 previous symbols
+
+network_input = []   # windowed inputs
+network_output = []  # the symbol after each window
+
+for i in range(0, len(notes) - sequence_length, 1):
+    seq_in = notes[i : i + sequence_length]</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code>from keras.models import Sequential
+from keras.layers import LSTM, Dense, Dropout
+
+model = Sequential()
+model.add(LSTM(512, return_sequences=True, input_shape=(X.shape[1], X.shape[2])))
+model.add(Dropout(0.3))</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Sequence models are what make generative AI real — and music is the most fun way to hear whether your model actually learned.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Generate Music using LSTM Neural Network in Keras" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://towardsdatascience.com/how-to-generate-music-using-a-lstm-neural-network-in-keras-68786834d4c5" target="_blank" rel="noopener">https://towardsdatascience.com/how-to-generate-music-using-a-lstm-neural-network-in-keras-68786834d4c5</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

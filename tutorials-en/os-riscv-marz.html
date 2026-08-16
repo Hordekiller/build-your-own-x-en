@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Add RISC-V Rust Operating System Tutorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Add RISC-V Rust Operating System Tutorial</span>
+      </div>
+      <h1>Add RISC-V Rust Operating System Tutorial</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Rust</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://osblog.stephenmarz.com/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Add RISC-V Rust Operating System Tutorial — by Stephen Marz"
+        </div>
+        <a class="btn solid" href="https://osblog.stephenmarz.com/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-riscv-marz.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A RISC-V operating system tutorial in Rust: from boot and trap handling to processes and scheduling, on real RISC-V emulators.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>RISC-V assembly and the save_context pattern</li>
+          <li>Traps, exceptions and interrupts on RISC-V</li>
+          <li>Building processes and a scheduler in Rust</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Context switching on RISC-V is explicit: a save_context routine reserves 264 bytes on the stack and stores every general-purpose register there, giving each process its own frozen CPU state.</p>
+        <pre class="code"><span class="lang-tag">rust</span><code>// save a process's full context on the stack
+core::arch::global_asm!(
+    "save_context:",
+    "addi sp, sp, -264",      // room for all the registers
+    "sd ra,   0(sp)",
+    "sd gp,   8(sp)",
+    // ... all the general-purpose registers
+    "sd s0,  24(sp)"</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>RISC-V is the ISA everyone is building toward; learning OS development on it with Rust puts you ahead of the curve.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Add RISC-V Rust Operating System Tutorial" belongs to its original author (Stephen Marz). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Stephen Marz). Read the original at
+        <a href="https://osblog.stephenmarz.com/" target="_blank" rel="noopener">https://osblog.stephenmarz.com/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

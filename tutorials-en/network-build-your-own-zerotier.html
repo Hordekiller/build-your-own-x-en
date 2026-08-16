@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build your own VPN/Virtual Switch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Network Stack</a>
+        <span class="sep">→</span>
+        <span>Build your own VPN/Virtual Switch</span>
+      </div>
+      <h1>Build your own VPN/Virtual Switch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C / Python</span>
+        <span class="meta-badge">📁 Network Stack</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/peiyuanix/build-your-own-zerotier" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build your own VPN/Virtual Switch"
+        </div>
+        <a class="btn solid" href="https://github.com/peiyuanix/build-your-own-zerotier" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/network-build-your-own-zerotier.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Build your own VPN/Virtual Switch: a virtual network interface (TAP) bridged over UDP to a userspace switch — the same trick ZeroTier uses to create private networks over the internet.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Creating a TAP interface with tun_alloc()</li>
+          <li>The vport abstraction: one end is the kernel, the other is UDP</li>
+          <li>A select() loop that pumps frames between TAP and UDP sockets</li>
+          <li>How Layer-2 frames travel inside a UDP tunnel</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The vport is the key structure: it holds the file descriptor of the TAP device and the UDP socket connected to the virtual switch. Every frame read from the TAP interface is forwarded over UDP, and vice versa.</p>
+        <pre class="code"><span class="lang-tag">c</span><code>#define TAP_DEV "/dev/net/tun"
+#define UDP_PORT 9999
+
+struct vport {
+    int tap_fd;      /* fd of the TAP device (created by tun_alloc) */
+    int udp_fd;      /* fd of the UDP socket connected to the VSwitch */
+    struct sockaddr_in vs_addr;
+};</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>/* --- tun_alloc: create the TAP interface -- */
+int tun_alloc(char *dev) {
+    struct ifreq ifr;
+    int fd, err;
+
+    if ((fd = open("/dev/net/tun", O_RDWR)) &lt; 0)
+        return -1;
+
+    memset(&amp;ifr, 0, sizeof(ifr));</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Virtual network interfaces power modern SDN and mesh VPNs; building one shows how little is actually magic between your laptop and a global virtual LAN.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build your own VPN/Virtual Switch" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/peiyuanix/build-your-own-zerotier" target="_blank" rel="noopener">https://github.com/peiyuanix/build-your-own-zerotier</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

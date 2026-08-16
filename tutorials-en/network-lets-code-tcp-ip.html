@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Let's code a TCP/IP stack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Network Stack</a>
+        <span class="sep">→</span>
+        <span>Let's code a TCP/IP stack</span>
+      </div>
+      <h1>Let's code a TCP/IP stack</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Network Stack</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.saminiir.com/lets-code-tcp-ip-stack-1-ethernet-arp/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Let's code a TCP/IP stack"
+        </div>
+        <a class="btn solid" href="http://www.saminiir.com/lets-code-tcp-ip-stack-1-ethernet-arp/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/network-lets-code-tcp-ip.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A journey into the kernel's network layer: starting from a TAP device, you build Ethernet, ARP, IPv4, ICMP and UDP — your own TCP/IP stack in C.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>What TUN/TAP devices are and how the kernel exposes them</li>
+          <li>Parsing Ethernet frames and the ARP resolution protocol</li>
+          <li>IPv4 header handling and checksums</li>
+          <li>Sending UDP datagrams through your own stack</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The stack begins at the TAP interface: your program reads raw Ethernet frames from it, processes them layer by layer, and writes outgoing frames back. The receive loop is the heart of the whole stack.</p>
+        <pre class="code"><span class="lang-tag">c</span><code>/* from the Kernel Documentation/networking/tuntap.txt */
+int tun_alloc(char *dev)
+{
+    struct ifreq ifr;
+    int fd, err;
+
+    if( (fd = open("/dev/net/tap", O_RDWR)) &lt; 0 ) {
+        print_error("Connecting to tap device: %s\n", strerror(errno));
+    }</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>/* read and print an incoming frame from the TAP device */
+if (tun_read(buf, BUFLEN) &lt; 0) {
+    print_error("ERR: Read from tun_fd: %s\n", strerror(errno));
+}
+
+struct eth_hdr *hdr = init_eth_hdr(buf);
+
+handle_frame(hdr);</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Once you have assembled ARP, IP and UDP yourself, the TCP/IP stack stops being a black box — you can debug, extend and even secure it.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Let's code a TCP/IP stack" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://www.saminiir.com/lets-code-tcp-ip-stack-1-ethernet-arp/" target="_blank" rel="noopener">http://www.saminiir.com/lets-code-tcp-ip-stack-1-ethernet-arp/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

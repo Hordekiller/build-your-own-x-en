@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Operating Systems: From 0 to 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Operating Systems: From 0 to 1</span>
+      </div>
+      <h1>Operating Systems: From 0 to 1</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://tuhdo.github.io/os01/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Operating Systems: From 0 to 1 — by tuhdo"
+        </div>
+        <a class="btn solid" href="https://tuhdo.github.io/os01/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-from-0-to-1.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Operating Systems: From 0 to 1 — a book-sized tutorial covering bootloaders, the GDT, and switching to 32-bit protected mode.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Real mode and the first bytes executed at boot</li>
+          <li>The Global Descriptor Table and its descriptors</li>
+          <li>Switching from 16-bit to 32-bit mode safely</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The bootloader defines a minimal GDT in NASM — a null descriptor and a code descriptor with a 4 GB limit — so that the CPU has valid segments to jump into protected mode with.</p>
+        <pre class="code"><span class="lang-tag">nasm</span><code>; bootloader os.asm — define the GDT and enter 32-bit mode
+gdt_start:
+
+gdt_null:              ; null descriptor (required)
+    dd 0
+    dd 0
+
+gdt_code:              ; code segment descriptor
+    dw 0xffff          ; limit
+    dw 0x0000          ; base (low)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The jump from 16-bit to 32-bit mode is a rite of passage in OS development; this book explains every byte of it.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Operating Systems: From 0 to 1" belongs to its original author (tuhdo). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (tuhdo). Read the original at
+        <a href="https://tuhdo.github.io/os01/" target="_blank" rel="noopener">https://tuhdo.github.io/os01/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

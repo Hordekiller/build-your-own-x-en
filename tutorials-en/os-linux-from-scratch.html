@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Linux from scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Linux from scratch</span>
+      </div>
+      <h1>Linux from scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Any language</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://linuxfromscratch.org/lfs" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Linux from scratch — by the Linux From Scratch community"
+        </div>
+        <a class="btn solid" href="https://linuxfromscratch.org/lfs" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-linux-from-scratch.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Build Linux from scratch: compile the entire toolchain, glibc and kernel yourself, then boot your own personal distribution.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Preparing a partition and the essential tools</li>
+          <li>Building a temporary toolchain (GCC pass 1) into $LFS/tools</li>
+          <li>Cross-compiling glibc and the kernel, then chrooting into your system</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>LFS's chapter 5 builds a temporary toolchain that is not yet linked against glibc. GCC's first pass is configured with --prefix=$LFS/tools and a handful of flags that keep it independent of the host.</p>
+        <pre class="code"><span class="lang-tag">bash</span><code># a summary of building GCC pass 1 (LFS chapter 5)
+mkdir -v build &amp;&amp; cd build
+../configure --prefix=$LFS/tools \
+    --with-local-prefix=$LFS/tools \
+    --disable-nls --disable-shared --disable-libssp \
+    --enable-languages=c,c++</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>There is no deeper literacy than having compiled every piece of your OS yourself — LFS is the definitive rite of passage for Linux engineers.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Linux from scratch" belongs to its original author (the Linux From Scratch community). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (the Linux From Scratch community). Read the original at
+        <a href="https://linuxfromscratch.org/lfs" target="_blank" rel="noopener">https://linuxfromscratch.org/lfs</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

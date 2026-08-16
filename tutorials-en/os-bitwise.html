@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building a software and hardware stack for a simple computer from scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Operating System</a>
+        <span class="sep">→</span>
+        <span>Building a software and hardware stack for a simple computer from scratch</span>
+      </div>
+      <h1>Building a software and hardware stack for a simple computer from scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Operating System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/watch?v=ZjwvMcP3Nf0&amp;list=PLU94OURih-CiP4WxKSMt3UcwMSDM3aTtX" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building a software and hardware stack for a simple computer from scratch"
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/watch?v=ZjwvMcP3Nf0&amp;list=PLU94OURih-CiP4WxKSMt3UcwMSDM3aTtX" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/os-bitwise.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A video series that builds a complete software and hardware stack for a simple computer from scratch — from logic gates up to an emulator.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Designing combinational logic: half adders and beyond</li>
+          <li>Building an ALU, registers and a CPU</li>
+          <li>Layering software on top of your own hardware</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything starts with a half adder — the first step toward a working adder built from logic gates: sum via XOR, carry via AND. From there the series climbs to a full computer you control at every level.</p>
+        <pre class="code"><span class="lang-tag">Verilog</span><code>// half adder: first step toward an adder built from logic gates
+module half_adder(
+  input  a, b,
+  output sum, carry
+);
+  assign sum   = a ^ b;   // XOR: sum without the carry
+  assign carry = a &amp; b;   // AND: the carry
+endmodule</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Few experiences teach computer architecture as thoroughly as watching a machine get built from the ground up, gate by gate.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building a software and hardware stack for a simple computer from scratch" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.youtube.com/watch?v=ZjwvMcP3Nf0&amp;list=PLU94OURih-CiP4WxKSMt3UcwMSDM3aTtX" target="_blank" rel="noopener">https://www.youtube.com/watch?v=ZjwvMcP3Nf0&amp;list=PLU94OURih-CiP4WxKSMt3UcwMSDM3aTtX</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Neural Networks - The Nature of Code</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Neural Network</a>
+        <span class="sep">→</span>
+        <span>Neural Networks - The Nature of Code</span>
+      </div>
+      <h1>Neural Networks - The Nature of Code</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript / Java</span>
+        <span class="meta-badge">📁 Neural Network</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/playlist?list=PLRqwX-V7Uu6aCibgK1PTWWu9by6XFdCfh" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Neural Networks - The Nature of Code — by Daniel Shiffman"
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/playlist?list=PLRqwX-V7Uu6aCibgK1PTWWu9by6XFdCfh" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/neural-nature-of-code.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Daniel Shiffman's video series on neural networks as part of The Nature of Code — visual, p5.js-based and famously beginner-friendly.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Perceptrons: the simplest learning unit</li>
+          <li>Weighted sums and step activation</li>
+          <li>Training with p5.js sketches you can watch learn</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A perceptron guesses by computing the weighted sum of its inputs and applying a step activation. Shiffman makes the training visible — you watch the decision boundary move as the weights update.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>// a simple perceptron in p5.js: weighted sum + step activation
+function guess(inputs) {
+  let sum = 0;
+  for (let i = 0; i &lt; inputs.length; i++) {
+    sum += inputs[i] * this.weights[i];   // weighted sum of the inputs
+  }
+  return sum &gt; 0 ? 1 : -1;
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>If you have ever bounced off neural network math, this series is the friendliest door in — code you can see and tweak in a browser.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Neural Networks - The Nature of Code" belongs to its original author (Daniel Shiffman). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Daniel Shiffman). Read the original at
+        <a href="https://www.youtube.com/playlist?list=PLRqwX-V7Uu6aCibgK1PTWWu9by6XFdCfh" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLRqwX-V7Uu6aCibgK1PTWWu9by6XFdCfh</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>
