@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building a basic HTTP Server from scratch in Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Building a basic HTTP Server from scratch in Python</span>
+      </div>
+      <h1>Building a basic HTTP Server from scratch in Python</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://joaoventura.net/blog/2017/python-webserver/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building a basic HTTP Server from scratch in Python"
+        </div>
+        <a class="btn solid" href="http://joaoventura.net/blog/2017/python-webserver/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/basic-http-server-python.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Shows how to build a completely simple HTTP server from zero with Python sockets. Starts from the insight that HTTP is nothing but text - proven with telnet against real servers - then implements a full HTTP/1.0 server in about 20 lines.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>HTTP as raw text: request line, headers, blank line, body</li>
+          <li>Using telnet to speak HTTP by hand against google.com</li>
+          <li>A minimal socket-based HTTP/1.0 server loop</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>In the first line you say which resource you want, then headers follow, then an empty line separates headers from the body. Type the text by hand in telnet and the server answers: it really is just text.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code>import socket
+
+SERVER_HOST = '0.0.0.0'
+SERVER_PORT = 8000
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server_socket.bind((SERVER_HOST, SERVER_PORT))
+server_socket.listen(1)
+print('Listening on port %s ...' % SERVER_PORT)
+
+while True:
+    client_connection, client_address = server_socket.accept()
+    request = client_connection.recv(1024).decode()
+    print(request)
+
+    response = 'HTTP/1.0 200 OK\n\nHello World'
+    client_connection.sendall(response.encode())
+    client_connection.close()
+
+server_socket.close()</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The shortest honest implementation of HTTP there is - perfect for proving to yourself that servers are not magic.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building a basic HTTP Server from scratch in Python" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://joaoventura.net/blog/2017/python-webserver/" target="_blank" rel="noopener">http://joaoventura.net/blog/2017/python-webserver/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to Build a Kick-Ass Mobile Document Scanner in Just 5 Minutes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>How to Build a Kick-Ass Mobile Document Scanner in Just 5 Minutes</span>
+      </div>
+      <h1>How to Build a Kick-Ass Mobile Document Scanner in Just 5 Minutes</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to Build a Kick-Ass Mobile Document Scanner in Just 5 Minutes"
+        </div>
+        <a class="btn solid" href="https://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-document-scanner.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A mobile document scanner in four steps with OpenCV: find the paper's edges, extract its corners, apply a perspective transform for skewed photos, and improve the image with grayscale/thresholding - about 30 readable lines.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Edge detection and the largest contour as the paper</li>
+          <li>approxPolyDP corner approximation (4 sides = paper)</li>
+          <li>Perspective warp to a perfect rectangle + thresholding</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The pipeline: grayscale, blur, Canny edges, findContours, take the largest contour, approximate its corners, order them top-left/top-right/bottom-right/bottom-left - then warpPerspective to an A4 rectangle.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code>import cv2
+import numpy as np
+
+def find_document(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray, (5, 5), 0)
+    edged = cv2.Canny(blur, 75, 200)
+    cnts, _ = cv2.findContours(edged.copy(),
+                               cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    cnt = max(cnts, key=cv2.contourArea)   # largest contour = paper
+    peri = cv2.arcLength(cnt, True)
+    approx = cv2.approxPolyDP(cnt, 0.02 * peri, True)
+    return approx if len(approx) == 4 else None</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The '5-minute' scanner is exactly this: edge detection, corners, warp, threshold - all in your own hands.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to Build a Kick-Ass Mobile Document Scanner in Just 5 Minutes" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/" target="_blank" rel="noopener">https://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

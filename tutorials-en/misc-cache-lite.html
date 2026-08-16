@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build Your Own Cache</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Build Your Own Cache</span>
+      </div>
+      <h1>Build Your Own Cache</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Kotlin</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/kezhenxu94/cache-lite" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build Your Own Cache"
+        </div>
+        <a class="btn solid" href="https://github.com/kezhenxu94/cache-lite" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-cache-lite.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>CacheLite: a correct LRU cache in Kotlin. The combination of a HashMap (fast lookup) and a doubly linked list (usage order) gives O(1) get and set with eviction of the least-recently-used entry.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Why LRU needs HashMap + doubly linked list together</li>
+          <li>moveToTail on access, evictHead when full</li>
+          <li>Kotlin operator overloading for natural get/set syntax</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Every key maps to a node in the linked list; using an entry moves it to the tail (youngest), and overflow evicts the head (oldest).</p>
+        <pre class="code"><span class="lang-tag">Kotlin</span><code>class CacheLite&lt;K, V&gt;(private val capacity: Int) {
+    private class Node&lt;K, V&gt;(val key: K, var value: V) {
+        var prev: Node&lt;K, V&gt;? = null
+        var next: Node&lt;K, V&gt;? = null
+    }
+
+    private val map = HashMap&lt;K, Node&lt;K, V&gt;&gt;()
+    private var head: Node&lt;K, V&gt;? = null   // oldest
+    private var tail: Node&lt;K, V&gt;? = null   // newest
+
+    operator fun get(key: K): V? =
+        map[key]?.also { moveToTail(it) }?.value
+
+    operator fun set(key: K, value: V) {
+        val existing = map[key]
+        if (existing != null) {
+            existing.value = value
+            moveToTail(existing)
+        } else {
+            val node = Node(key, value)
+            map[key] = node
+            appendTail(node)
+            if (map.size &gt; capacity) evictHead()
+        }
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The cache policy used by OSes, databases and browsers fits in one small class - and stays O(1).</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build Your Own Cache" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/kezhenxu94/cache-lite" target="_blank" rel="noopener">https://github.com/kezhenxu94/cache-lite</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

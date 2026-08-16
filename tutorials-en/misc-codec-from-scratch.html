@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Video Encoding from Scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Video Encoding from Scratch</span>
+      </div>
+      <h1>Video Encoding from Scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/kevmo314/codec-from-scratch" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Video Encoding from Scratch"
+        </div>
+        <a class="btn solid" href="https://github.com/kevmo314/codec-from-scratch" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-codec-from-scratch.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Implement a practical subset of the H.264 video codec from scratch in Go: parsing NAL units, decoding macroblocks with motion compensation and Exp-Golomb (readUE/readSE) integers - far more instructive than a 600-page spec.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>H.264 structure: NAL units, start codes and types</li>
+          <li>Macroblocks: DCT coefficients, CAVLC and Exp-Golomb entropy coding</li>
+          <li>Motion compensation from previous frames</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Each NAL unit has a header byte whose bottom 5 bits are the type: 1 for non-IDR slice, 5 for IDR (keyframe), 7 for SPS metadata. Frames split into 16x16 macroblocks, each predicted from motion or decoded directly.</p>
+        <pre class="code"><span class="lang-tag">Go</span><code>// parse a NAL unit: start code + header + payload
+type NAL struct {
+    Header  byte
+    Type    int
+    Payload []byte
+}
+
+func parseNAL(data []byte) (*NAL, error) {
+    start := 0
+    if len(data) &gt; 4 &amp;&amp; data[0]==0 &amp;&amp; data[1]==0 &amp;&amp; data[2]==0 &amp;&amp; data[3]==1 {
+        start = 4                            // 00 00 00 01
+    } else if len(data) &gt; 3 &amp;&amp; data[0]==0 &amp;&amp; data[1]==0 &amp;&amp; data[2]==1 {
+        start = 3                            // 00 00 01
+    } else {
+        return nil, errors.New("invalid NAL format")
+    }
+    header := data[start]
+    return &amp;NAL{
+        Header:  header,
+        Type:    int(header &amp; 0x1F),         // 5 bits: NAL type
+        Payload: data[start+1:],
+    }, nil
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Video compression becomes small, readable code - the H.264 subset every player and camera relies on.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Video Encoding from Scratch" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/kevmo314/codec-from-scratch" target="_blank" rel="noopener">https://github.com/kevmo314/codec-from-scratch</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

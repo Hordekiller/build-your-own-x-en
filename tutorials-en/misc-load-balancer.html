@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Let's Create a Simple Load Balancer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Let's Create a Simple Load Balancer</span>
+      </div>
+      <h1>Let's Create a Simple Load Balancer</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://kasvith.me/posts/lets-create-a-simple-lb-go/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Let's Create a Simple Load Balancer"
+        </div>
+        <a class="btn solid" href="https://kasvith.me/posts/lets-create-a-simple-lb-go/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-load-balancer.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A load balancer in Go distributing requests across backends with round-robin, health checks and the standard httputil.ReverseProxy - everything a small production load balancer needs.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Reverse proxy: rewriting requests to backend servers</li>
+          <li>Round-robin distribution with locking</li>
+          <li>Health checks and 503 behavior when all backends die</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Backends track an Alive flag; the round-robin counter moves through live servers under a mutex, and if none survive we must return 503 instead of nothing.</p>
+        <pre class="code"><span class="lang-tag">Go</span><code>type Server struct {
+    URL           *url.URL
+    Alive         bool
+    ReverseProxy  *httputil.ReverseProxy
+}
+
+type LoadBalancer struct {
+    servers []*Server
+    current uint64
+    mu      sync.RWMutex
+}
+
+func (lb *LoadBalancer) NextServer() *Server {
+    lb.mu.Lock()
+    defer lb.mu.Unlock()
+    for i := 0; i &lt; len(lb.servers); i++ {
+        idx := int(lb.current) % len(lb.servers)
+        lb.current++
+        if lb.servers[idx].Alive {
+            return lb.servers[idx]
+        }
+    }
+    return nil
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Scaling out is a solved, readable ~100-line problem - the same shape behind the biggest web companies.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Let's Create a Simple Load Balancer" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://kasvith.me/posts/lets-create-a-simple-lb-go/" target="_blank" rel="noopener">https://kasvith.me/posts/lets-create-a-simple-lb-go/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

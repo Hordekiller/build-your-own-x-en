@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | C# Networking: Create a TCP chater server, TCP games, UDP Pong and more</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>C# Networking: Create a TCP chater server, TCP games, UDP Pong and more</span>
+      </div>
+      <h1>C# Networking: Create a TCP chater server, TCP games, UDP Pong and more</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://16bpp.net/tutorials/csharp-networking" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "C# Networking: Create a TCP chater server, TCP games, UDP Pong and more"
+        </div>
+        <a class="btn solid" href="https://16bpp.net/tutorials/csharp-networking" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-csharp-networking.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A project-based C# networking series: every concept becomes a complete runnable project (chat, game, Pong). TCP for a multi-client chat server, UDP for fast game state, and length-prefixed message encoding.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A TCP chat server with per-client tasks and broadcasting</li>
+          <li>UDP for games: whole-game-state packets that tolerate loss</li>
+          <li>Length-prefixed encoding so long messages arrive intact</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Each TCP client gets a Task.Run handler reading from its stream; every UDP packet must carry the full state because a lost packet is simply replaced by the next one.</p>
+        <pre class="code"><span class="lang-tag">C#</span><code>using System.Net.Sockets;
+using System.Text;
+
+var listener = new TcpListener(System.Net.IPAddress.Any, 8888);
+listener.Start();
+
+while (true) {
+    TcpClient client = listener.AcceptTcpClient();
+    _ = Task.Run(() =&gt; HandleClient(client));
+}
+
+void HandleClient(TcpClient client) {
+    using var stream = client.GetStream();
+    byte[] buffer = new byte[1024];
+    while (true) {
+        int read = stream.Read(buffer, 0, buffer.Length);
+        if (read == 0) break;      // client disconnected
+        string msg = Encoding.UTF8.GetString(buffer, 0, read);
+        Broadcast($"[{client.Client.RemoteEndPoint}] {msg}");
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Networking sticks when every chapter ends in a game you can actually play against another machine.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "C# Networking: Create a TCP chater server, TCP games, UDP Pong and more" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://16bpp.net/tutorials/csharp-networking" target="_blank" rel="noopener">https://16bpp.net/tutorials/csharp-networking</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

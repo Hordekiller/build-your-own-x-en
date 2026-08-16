@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Implementing a RESTful Web API with Python &amp; Flask</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Implementing a RESTful Web API with Python &amp; Flask</span>
+      </div>
+      <h1>Implementing a RESTful Web API with Python &amp; Flask</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://blog.luisrei.com/articles/flaskrest.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Implementing a RESTful Web API with Python &amp; Flask"
+        </div>
+        <a class="btn solid" href="http://blog.luisrei.com/articles/flaskrest.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/rest-api-flask.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>An intro to REST APIs with Flask: resources, URL converters, request data, JSON responses and status codes - with curl examples for every endpoint and a small curl cheatsheet at the end.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Decorator-based routing and URL converters (&lt;int:id&gt; etc.)</li>
+          <li>Reading query strings, form data and JSON bodies</li>
+          <li>Returning JSON with proper HTTP status codes</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Flask is a microframework on top of Werkzeug (a WSGI toolkit); a route with @app.route maps a method and path to a view function, and converters make path parameters typed.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code>from flask import Flask, url_for
+
+app = Flask(__name__)
+
+@app.route('/')
+def api_root():
+    return 'Welcome'
+
+@app.route('/articles')
+def api_articles():
+    return 'List of ' + url_for('api_articles')
+
+@app.route('/articles/&lt;articleid&gt;')
+def api_article(articleid):
+    return 'You are reading ' + articleid
+
+if __name__ == '__main__':
+    app.run()</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The gentlest possible REST introduction: every concept shown with one endpoint and the curl line that tests it.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Implementing a RESTful Web API with Python &amp; Flask" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://blog.luisrei.com/articles/flaskrest.html" target="_blank" rel="noopener">http://blog.luisrei.com/articles/flaskrest.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

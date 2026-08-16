@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a DMIDecode Parser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Writing a DMIDecode Parser</span>
+      </div>
+      <h1>Writing a DMIDecode Parser</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Nim</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://xmonader.github.io/nimdays/day01_dmidecode.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a DMIDecode Parser"
+        </div>
+        <a class="btn solid" href="https://xmonader.github.io/nimdays/day01_dmidecode.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-dmidecode.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Parse dmidecode output in Nim: the tool reads hardware info (motherboard, BIOS, memory, serial numbers) from SMBIOS/DMI tables and prints structured sections - perfect raw material for a line-based parser.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The dmidecode output format: Handle lines start sections</li>
+          <li>Distinguishing section names from indented fields</li>
+          <li>Building typed records for servers' inventory automation</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Each section starts with a Handle line carrying DMI type and size, the next line is the section name, and subsequent indented lines are field: value pairs - two rules parse the whole output.</p>
+        <pre class="code"><span class="lang-tag">Nim</span><code>import strutils, tables
+
+type DmiRecord = object
+  dmiType: int
+  name: string
+  fields: Table[string, string]
+
+proc parseDMI(content: string): seq[DmiRecord] =
+  var current: DmiRecord = DmiRecord()
+  var inRecord = false
+  for line in content.splitLines():
+    if line.startsWith("Handle"):
+      if inRecord: result.add(current)
+      # e.g. Handle 0x0001, DMI type 1, 27 bytes
+      let m = line.findAll("\d+")
+      current = DmiRecord(dmiType: parseInt(m[1]),
+                          name: "", fields: initTable[string, string]())
+      inRecord = true
+    elif line.startsWith(" ") and inRecord:
+      let parts = line.strip().split(":", 1)
+      if parts.len == 2: current.fields[parts[0]] = parts[1].strip()
+    elif inRecord and not line.startsWith(" "):
+      current.name = line.strip()
+  if inRecord: result.add(current)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A real-world parsing task with an irregular text format - the perfect parser exerciser (40+ DMI types left to you).</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a DMIDecode Parser" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://xmonader.github.io/nimdays/day01_dmidecode.html" target="_blank" rel="noopener">https://xmonader.github.io/nimdays/day01_dmidecode.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to create a real-world Node CLI app with Node</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>How to create a real-world Node CLI app with Node</span>
+      </div>
+      <h1>How to create a real-world Node CLI app with Node</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Node.js</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.freecodecamp.org/how-to-create-a-real-world-node-cli-app-with-node-391b727bbed3" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to create a real-world Node CLI app with Node"
+        </div>
+        <a class="btn solid" href="https://medium.freecodecamp.org/how-to-create-a-real-world-node-cli-app-with-node-391b727bbed3" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-node-cli.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A professional Node CLI: arguments and flags, colored and tidy output, interactive prompts, and npm publication via the bin field - built around a git stats tool.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>bin in package.json and the shebang line</li>
+          <li>chalk for colors and inquirer for prompts</li>
+          <li>Manual argv parsing - and what commander/yargs do instead</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>chalk manages color and inquirer asks interactive questions - the two pillars of modern CLIs. Flag parsing is a simple loop over process.argv.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>#!/usr/bin/env node
+'use strict';
+
+const chalk = require('chalk');
+const inquirer = require('inquirer');
+
+function parseFlags(argv) {
+    const flags = { json: false, repo: '.' };
+    for (let i = 2; i &lt; argv.length; i++) {
+        switch (argv[i]) {
+        case '--json':
+            flags.json = true;
+            break;
+        case '-r':
+        case '--repo':
+            flags.repo = argv[++i];
+            break;
+        case '--help':
+            console.log('usage: git-stats [-r repo] [--json]');
+            process.exit(0);
+        }
+    }
+    return flags;
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>From scripts to shippable software: publish once, and the tool is available globally with npx.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to create a real-world Node CLI app with Node" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://medium.freecodecamp.org/how-to-create-a-real-world-node-cli-app-with-node-391b727bbed3" target="_blank" rel="noopener">https://medium.freecodecamp.org/how-to-create-a-real-world-node-cli-app-with-node-391b727bbed3</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | JavaScript Algorithms and Data Structures</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>JavaScript Algorithms and Data Structures</span>
+      </div>
+      <h1>JavaScript Algorithms and Data Structures</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/trekhleb/javascript-algorithms" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "JavaScript Algorithms and Data Structures"
+        </div>
+        <a class="btn solid" href="https://github.com/trekhleb/javascript-algorithms" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-javascript-algorithms.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A repository with over 120 algorithms and data structures in pure JavaScript (no dependencies): binary search, sorting, trees, graphs, dynamic programming - each with Big-O analysis and jest tests.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Data structures: linked lists, stacks, queues, BST, hash maps, heaps, tries</li>
+          <li>Algorithms: sorting, searching, graph paths (Dijkstra, Bellman-Ford), DP</li>
+          <li>Big-O complexity beside every implementation</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Quick sort picks a pivot and partitions the array into smaller and larger halves, recursively. Every topic file pairs the implementation with its theoretical explanation and tests.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>// Binary search: O(log n)
+function binarySearch(sortedArray, seekElement) {
+    let start = 0;
+    let end = sortedArray.length - 1;
+
+    while (start &lt;= end) {
+        const middle = start + Math.floor((end - start) / 2);
+        if (sortedArray[middle] === seekElement) return middle;
+        if (sortedArray[middle] &lt; seekElement) start = middle + 1;
+        else end = middle - 1;
+    }
+    return -1;
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A complete interview-prep atlas in readable JavaScript with tests proving every claim.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "JavaScript Algorithms and Data Structures" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/trekhleb/javascript-algorithms" target="_blank" rel="noopener">https://github.com/trekhleb/javascript-algorithms</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Tiny Package Manager: Learns how npm or Yarn works</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Tiny Package Manager: Learns how npm or Yarn works</span>
+      </div>
+      <h1>Tiny Package Manager: Learns how npm or Yarn works</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: TypeScript</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/g-plane/tiny-package-manager" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Tiny Package Manager: Learns how npm or Yarn works"
+        </div>
+        <a class="btn solid" href="https://github.com/g-plane/tiny-package-manager" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-package-manager.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Build an npm-like package manager step by step: parse package.json, resolve dependency versions (semver ranges compared by major.minor.patch), walk the dependency graph with BFS and write a lockfile for reproducible installs.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The three jobs: read manifests, resolve, install into node_modules</li>
+          <li>semver range resolution: ^4.17.0 means &gt;= 4.17.0 &lt; 5</li>
+          <li>The dependency tree, BFS solving and the lockfile</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Dependency resolution is the real complexity: comparing version components, filtering ranges, walking the graph. The challenge npm/pnpm solved: two packages may want different versions of a shared dependency - dedupe vs separate folders.</p>
+        <pre class="code"><span class="lang-tag">TypeScript</span><code>// compare two semver versions like "2.1.4" and "2.2.0"
+function compareVersions(a: string, b: string): number {
+    const pa = a.split('.').map(Number);
+    const pb = b.split('.').map(Number);
+    for (let i = 0; i &lt; 3; i++) {
+        if (pa[i] !== pb[i]) return pa[i] - pb[i];
+    }
+    return 0;
+}
+
+// "^4.17.0": major=4, highest available version
+function resolveRange(range: string, versions: string[]): string {
+    const [major] = range.slice(1).split('.').map(Number);
+    return versions
+        .filter(v =&gt; Number(v.split('.')[0]) === major)
+        .sort(compareVersions)
+        .pop()!;
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Every install you've ever run is this algorithm at scale: manifests, semver and a graph.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Tiny Package Manager: Learns how npm or Yarn works" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/g-plane/tiny-package-manager" target="_blank" rel="noopener">https://github.com/g-plane/tiny-package-manager</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

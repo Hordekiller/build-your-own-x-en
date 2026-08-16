@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a Build system</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Writing a Build system</span>
+      </div>
+      <h1>Writing a Build system</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Nim</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://xmonader.github.io/nimdays/day11_buildsystem.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a Build system"
+        </div>
+        <a class="btn solid" href="https://xmonader.github.io/nimdays/day11_buildsystem.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-build-system.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Build a build system in Nim, the make/ninja idea in miniature: tasks with dependencies, executed in the right order, each task run only once even if referenced several times.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A Task type: name, dependency list and action closure</li>
+          <li>Topological execution with a built set to skip repeats</li>
+          <li>How this mirrors make's targets without Makefile parsing</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>build(name) recurses into dependencies first, then runs the action - and the built set makes the dependency graph loop-free and re-run-free.</p>
+        <pre class="code"><span class="lang-tag">Nim</span><code>import tables, sets
+
+type Task = ref object
+  name: string
+  deps: seq[string]
+  action: proc()
+
+var tasks = initTable[string, Task]()
+var built = initHashSet[string]()
+
+proc task(name: string, deps: seq[string] = @[], action: proc()) =
+  tasks[name] = Task(name: name, deps: deps, action: action)
+
+proc build(name: string) =
+  if name in built: return       # skip repeats
+  built.incl(name)
+  let t = tasks[name]
+  for d in t.deps: build(d)      # dependencies first
+  t.action()                     # then the task itself</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Dependency resolution is the exact algorithm make runs - without the Makefile syntax noise.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a Build system" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://xmonader.github.io/nimdays/day11_buildsystem.html" target="_blank" rel="noopener">https://xmonader.github.io/nimdays/day11_buildsystem.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

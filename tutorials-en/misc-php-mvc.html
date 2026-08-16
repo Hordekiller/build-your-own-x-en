@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Write your own MVC from scratch in PHP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Write your own MVC from scratch in PHP</span>
+      </div>
+      <h1>Write your own MVC from scratch in PHP</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: PHP</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://chaitya62.github.io/2018/04/29/Writing-your-own-MVC-from-Scratch-in-PHP.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Write your own MVC from scratch in PHP"
+        </div>
+        <a class="btn solid" href="https://chaitya62.github.io/2018/04/29/Writing-your-own-MVC-from-Scratch-in-PHP.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-php-mvc.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>MVC explained by building it in plain PHP: a front controller routes every request through index.php, controllers fetch data from PDO-backed models and pass it to views - the Laravel pattern laid bare.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Model / View / Controller separation of concerns</li>
+          <li>A .htaccess rewrite and URL-based routing</li>
+          <li>PDO prepared statements as the first injection defense</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Every request lands on index.php; the URL is exploded into controller/action arguments, and the matching controller class is required and invoked with the action method.</p>
+        <pre class="code"><span class="lang-tag">PHP</span><code>class Application {
+    public function run() {
+        // e.g. home/index/5
+        $parts = explode('/', trim($_GET['url'] ?? 'home/index', '/'));
+        $controller = ucfirst($parts[0] ?? 'Home') . 'Controller';
+        $action = $parts[1] ?? 'index';
+        $file = "app/controllers/$controller.php";
+        if (!file_exists($file)) {
+            http_response_code(404);
+            die('not found');
+        }
+        require $file;
+        $obj = new $controller;
+        $obj-&gt;$action();
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The entire routing secret is splitting a URL and calling a class - and now you've seen it with your own eyes.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Write your own MVC from scratch in PHP" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://chaitya62.github.io/2018/04/29/Writing-your-own-MVC-from-Scratch-in-PHP.html" target="_blank" rel="noopener">https://chaitya62.github.io/2018/04/29/Writing-your-own-MVC-from-Scratch-in-PHP.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

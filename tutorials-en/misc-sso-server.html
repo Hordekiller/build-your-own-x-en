@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building A Simple Single Sign On(SSO) Server And Solution From Scratch In Node.js.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Building A Simple Single Sign On(SSO) Server And Solution From Scratch In Node.js.</span>
+      </div>
+      <h1>Building A Simple Single Sign On(SSO) Server And Solution From Scratch In Node.js.</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Node.js</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://codeburst.io/building-a-simple-single-sign-on-sso-server-and-solution-from-scratch-in-node-js-ea6ee5fdf340" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building A Simple Single Sign On(SSO) Server And Solution From Scratch In Node.js."
+        </div>
+        <a class="btn solid" href="https://codeburst.io/building-a-simple-single-sign-on-sso-server-and-solution-from-scratch-in-node-js-ea6ee5fdf340" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-sso-server.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A single sign-on server: one central authentication for many applications. Users log in once, apps validate a token with the server, and only the user id is shared - never the password.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The redirect flow: app B -&gt; SSO login -&gt; back with a session cookie</li>
+          <li>A /validate endpoint: checking token + allowed app ids</li>
+          <li>The next parameter: returning users to their original page</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Apps exchange only tokens; passwords and extra data are never sent to them. Each app redirects to SSO when it has no session, then validates the token it receives.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>// on the SSO server: validate the token an app sends
+app.post('/validate', (req, res) =&gt; {
+    const { appId, token } = req.body;
+    const session = sessions[token];
+    if (!apps.includes(appId) || !session) {
+        return res.status(401).json({ error: 'invalid' });
+    }
+    // return only the user id - never the password!
+    res.json({ ok: true, userId: session.userId });
+});</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>One login for many apps - the architecture behind every enterprise portal, built in a single server.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building A Simple Single Sign On(SSO) Server And Solution From Scratch In Node.js." belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://codeburst.io/building-a-simple-single-sign-on-sso-server-and-solution-from-scratch-in-node-js-ea6ee5fdf340" target="_blank" rel="noopener">https://codeburst.io/building-a-simple-single-sign-on-sso-server-and-solution-from-scratch-in-node-js-ea6ee5fdf340</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

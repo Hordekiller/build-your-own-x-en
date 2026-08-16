@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build a Synchronization Engine with Node.js and Y.js</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Build a Synchronization Engine with Node.js and Y.js</span>
+      </div>
+      <h1>Build a Synchronization Engine with Node.js and Y.js</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Node.js</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://greenvitriol.com/posts/sync-engine-for-everyone" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build a Synchronization Engine with Node.js and Y.js"
+        </div>
+        <a class="btn solid" href="https://greenvitriol.com/posts/sync-engine-for-everyone" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-sync-engine.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A synchronization engine with CRDTs (Yjs): every device keeps a local copy, changes are updates with versions and device ids, and merging any two states always converges - conflict-free by construction.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>What CRDTs are and why merges never conflict</li>
+          <li>Yjs: applyUpdate, encodeStateAsUpdate, broadcast</li>
+          <li>The pattern: state sync first, update sync after</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The server is only an event center (relay) broadcasting changes between clients without knowing the content. New clients receive the full state, then only deltas - Yjs's state sync + update sync protocol.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>const Y = require('yjs');
+const ws = require('ws');
+
+// one shared document on the server
+const doc = new Y.Doc();
+
+// a client sent a change: merge it in, broadcast the result
+function handleMessage(conn, data) {
+    Y.applyUpdate(doc, data);   // merge into the server doc
+    broadcast(doc);             // send the new state to everyone
+}
+
+// freshly connected client: full state, not a delta
+function onConnect(conn) {
+    conn.send(Y.encodeStateAsUpdate(doc));   // state sync
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Offline-first apps like Google Docs work because of this idea - the 'last write wins' mess solved mathematically.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build a Synchronization Engine with Node.js and Y.js" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://greenvitriol.com/posts/sync-engine-for-everyone" target="_blank" rel="noopener">https://greenvitriol.com/posts/sync-engine-for-everyone</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

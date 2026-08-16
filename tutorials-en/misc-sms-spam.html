@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Write SMS-spam detector with Scikit-learn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Write SMS-spam detector with Scikit-learn</span>
+      </div>
+      <h1>Write SMS-spam detector with Scikit-learn</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.com/@kopilov.vlad/detect-sms-spam-in-kaggle-with-scikit-learn-5f6afa7a3ca2" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Write SMS-spam detector with Scikit-learn"
+        </div>
+        <a class="btn solid" href="https://medium.com/@kopilov.vlad/detect-sms-spam-in-kaggle-with-scikit-learn-5f6afa7a3ca2" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-sms-spam.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Classify SMS as spam or ham with scikit-learn: convert messages to TF-IDF vectors, train a Multinomial Naive Bayes classifier and evaluate with accuracy plus confusion matrix - under 20 lines.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>TF-IDF: rare words weigh more than ubiquitous ones</li>
+          <li>Why MultinomialNB suits text classification</li>
+          <li>Precision/recall for spam - accuracy alone lies</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>TF-IDF down-weights words common to all messages and boosts distinctive ones; NB is fast and naturally suited to word counts.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code>from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+# df: columns 'text' and 'label' (spam/ham)
+y = df['label'].map({'spam': 1, 'ham': 0})
+vec = TfidfVectorizer(stop_words='english')
+Xv = vec.fit_transform(df['text'])
+X_train, X_test, y_train, y_test = train_test_split(
+    Xv, y, test_size=0.2, random_state=42)
+
+model = MultinomialNB()
+model.fit(X_train, y_train)
+pred = model.predict(X_test)
+print('accuracy:', accuracy_score(y_test, pred).round(3))
+print(confusion_matrix(y_test, pred))</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A classic NLP entry point that still works in production - and teaches why accuracy is not enough.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Write SMS-spam detector with Scikit-learn" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://medium.com/@kopilov.vlad/detect-sms-spam-in-kaggle-with-scikit-learn-5f6afa7a3ca2" target="_blank" rel="noopener">https://medium.com/@kopilov.vlad/detect-sms-spam-in-kaggle-with-scikit-learn-5f6afa7a3ca2</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

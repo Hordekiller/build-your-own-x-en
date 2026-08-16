@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | The Same-Origin Policy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>The Same-Origin Policy</span>
+      </div>
+      <h1>The Same-Origin Policy</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Alloy</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://aosabook.org/en/500L/the-same-origin-policy.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "The Same-Origin Policy"
+        </div>
+        <a class="btn solid" href="http://aosabook.org/en/500L/the-same-origin-policy.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-same-origin-policy.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A formal study of the browser's Same-Origin Policy modeled in Alloy. Shows that 'origin' is subtler than it looks: protocol + host + port matter, document.domain changes the game, and security properties can be proven by exhaustively searching all possible browser states.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>What an origin is - and the tricky edge cases</li>
+          <li>Modeling a security policy with Alloy signatures and relations</li>
+          <li>Proving which accesses the policy allows or denies</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>JavaScript loaded from one origin must not access data of another. With Alloy you define signatures and relations, then let the model checker explore every combination of tabs, origins and document.domain settings.</p>
+        <pre class="code"><span class="lang-tag">Alloy</span><code>// an origin: protocol + host + port
+sig Origin {}
+
+sig Document {
+  origin: one Origin,
+  domain: one Origin   // document.domain can be relaxed
+}
+
+// can script d1 read data of d2?
+pred canRead[d1, d2: Document] {
+  d1.domain = d2.domain
+}
+
+run canRead for 3</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Even 'obvious' security concepts become precisely testable once encoded formally - a skill most web developers never learn.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "The Same-Origin Policy" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://aosabook.org/en/500L/the-same-origin-policy.html" target="_blank" rel="noopener">http://aosabook.org/en/500L/the-same-origin-policy.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

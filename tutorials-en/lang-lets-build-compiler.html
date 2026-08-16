@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A C &amp; x86 version of the "Let's Build a Compiler" by Jack Crenshaw</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Programming Language</a>
+        <span class="sep">→</span>
+        <span>A C &amp; x86 version of the "Let's Build a Compiler" by Jack Crenshaw</span>
+      </div>
+      <h1>A C &amp; x86 version of the "Let's Build a Compiler" by Jack Crenshaw</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Programming Language</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/lotabout/Let-s-build-a-compiler" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A C &amp; x86 version of the "Let's Build a Compiler" by Jack Crenshaw"
+        </div>
+        <a class="btn solid" href="https://github.com/lotabout/Let-s-build-a-compiler" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/lang-lets-build-compiler.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A C and x86 port of Jack Crenshaw's classic 'Let's Build a Compiler' series by lotabout. The 1980s tutorial that started with a simple calculator and grew into a complete compiler with functions - modernized from Pascal/68k so it runs on today's machines.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Single-pass compilation: emitting output while reading input</li>
+          <li>The GetChar() / Look() / Match() triad that builds every rule</li>
+          <li>A complete small compiler: arithmetic, variables, if/while, functions</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>No AST, no separate lexer: the compiler reads input and emits code at the same time. Three tiny functions - GetChar() to read the next character, Look() for the current one, Match() to verify it - build every grammar rule.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>void Expression() {   // rule: +1+2 -&gt; mov eax,1; add eax,2
+  Term();
+  while (Look == '+' || Look == '-') {
+    EmitLn("push eax");
+    switch (Look) {
+      case '+': Add(); break;
+      case '-': Subtract(); break;
+    }
+  }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The gentle classic path: start with a calculator, end with a working compiler - and the C port emits runnable x86 assembly with as and ld.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A C &amp; x86 version of the "Let's Build a Compiler" by Jack Crenshaw" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/lotabout/Let-s-build-a-compiler" target="_blank" rel="noopener">https://github.com/lotabout/Let-s-build-a-compiler</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

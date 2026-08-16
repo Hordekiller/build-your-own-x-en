@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a Redis Protocol Parser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Writing a Redis Protocol Parser</span>
+      </div>
+      <h1>Writing a Redis Protocol Parser</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Nim</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://xmonader.github.io/nimdays/day12_resp.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a Redis Protocol Parser"
+        </div>
+        <a class="btn solid" href="https://xmonader.github.io/nimdays/day12_resp.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-redis-parser.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Parse the RESP protocol - the text-binary language between Redis clients and servers - in Nim: simple strings (+), errors (-), integers (:), bulk strings ($) and arrays (*), with CRLF terminators.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>RESP prefixes and message structure</li>
+          <li>Parsing bulk strings by length and arrays of values</li>
+          <li>Nim's variant objects for typed protocol values</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>:1000\r\n is the integer 1000; $5\r\nhello\r\n is a 5-char bulk string; *2\r\n...\r\n... is an array of two values. The main loop dispatches on the first byte.</p>
+        <pre class="code"><span class="lang-tag">Nim</span><code>import strutils
+
+# one value type for every RESP kind
+type RespValue = object
+  case kind: enum
+  of rSimple: s: string
+  of rError:  e: string
+  of rInt:    i: int
+  of rBulk:   b: string
+  of rArray:  items: seq[RespValue]
+
+# parse bulk string: $len\r\n&lt;payload&gt;\r\n
+proc parseBulk(data: seq[string], idx: var int): RespValue =
+  let len = parseBiggestInt(data[idx]); inc idx
+  if len == -1: return RespValue(kind: rBulk, b: "")
+  result = RespValue(kind: rBulk, b: data[idx])
+  inc idx</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Protocols for the real world: a text-binary wire format with a typed parser in a Python-speed language.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a Redis Protocol Parser" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://xmonader.github.io/nimdays/day12_resp.html" target="_blank" rel="noopener">https://xmonader.github.io/nimdays/day12_resp.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

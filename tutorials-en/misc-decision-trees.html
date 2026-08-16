@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Learn ML Algorithms by coding: Decision Trees</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Learn ML Algorithms by coding: Decision Trees</span>
+      </div>
+      <h1>Learn ML Algorithms by coding: Decision Trees</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://lethalbrains.com/learn-ml-algorithms-by-coding-decision-trees-439ac503c9a4" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Learn ML Algorithms by coding: Decision Trees"
+        </div>
+        <a class="btn solid" href="https://lethalbrains.com/learn-ml-algorithms-by-coding-decision-trees-439ac503c9a4" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-decision-trees.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Classification with decision trees, built from scratch: recursive questions (age over 30?) that split data into branches until leaves are mostly one class - with Gini impurity as the split criterion.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Trees as sequences of simple questions</li>
+          <li>Gini impurity: 0 = pure, higher = more mixed</li>
+          <li>Candidate thresholds from adjacent-value midpoints for continuous features</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A good split separates mixed classes: Gini of a group is 1 - sum(p^2). Each split is chosen to maximize the impurity decrease, and thresholds come from the midpoints of sorted adjacent values.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code>def gini(groups, classes):
+    """weighted impurity of all branches."""
+    total = sum(len(g) for g in groups)
+    score = 0.0
+    for group in groups:
+        size = len(group)
+        if size == 0: continue
+        # probability of each class inside this branch
+        probs = [group.count(c) / size for c in classes]
+        score += (size / total) * (1 - sum(p ** 2 for p in probs))
+    return score
+
+def best_split(data, classes):
+    """lowest gini over every (feature, threshold)."""
+    best = None
+    for col in range(len(data[0]) - 1):
+        values = sorted({row[col] for row in data})
+        for i in range(len(values) - 1):
+            threshold = (values[i] + values[i + 1]) / 2
+            left  = [r for r in data if r[col] &lt;= threshold]
+            right = [r for r in data if r[col] &gt; threshold]
+            g = gini([left, right], classes)
+            if best is None or g &lt; best[0]:
+                best = (g, col, threshold, left, right)
+    return best</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The tree behind random forests in ~40 lines: pick the question, split, recurse.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Learn ML Algorithms by coding: Decision Trees" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://lethalbrains.com/learn-ml-algorithms-by-coding-decision-trees-439ac503c9a4" target="_blank" rel="noopener">https://lethalbrains.com/learn-ml-algorithms-by-coding-decision-trees-439ac503c9a4</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

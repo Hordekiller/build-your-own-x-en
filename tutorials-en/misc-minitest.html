@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a MiniTest Framework</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Writing a MiniTest Framework</span>
+      </div>
+      <h1>Writing a MiniTest Framework</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Nim</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://xmonader.github.io/nimdays/day08_minitest.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a MiniTest Framework"
+        </div>
+        <a class="btn solid" href="https://xmonader.github.io/nimdays/day08_minitest.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-minitest.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A MiniTest framework in Nim with RSpec-like syntax built from macros: describe/test blocks are collected at compile time, run one by one, and report a summary with a nonzero exit on failure - the CI contract.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A testing framework's parts: registration, isolation, assertions, summary</li>
+          <li>Nim macros as DSLs: turning describe/test syntax into registrations</li>
+          <li>quit(1) on failure - what CI pipelines actually check</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A macro walks the AST of describe blocks and emits tests.add(...) calls, so the DSL costs nothing at runtime. CatchableError catches failures per test.</p>
+        <pre class="code"><span class="lang-tag">Nim</span><code>import macros
+
+var tests: seq[(string, proc())]
+
+macro describe(name: static[string], body: untyped): untyped =
+  result = newStmtList()
+  for child in body:
+    if child.kind == nnkCall and child[0].repr == "test":
+      let testName = child[1].repr
+      let body = child[2]
+      result.add newCall(ident"tests.add",
+        newTree(nnkTupleConstr, newLit(testName), body))
+
+var passed = 0
+var failed = 0
+for (name, body) in tests:
+  try:
+    body()
+    passed.inc
+    echo "ok ", name
+  except CatchableError as e:
+    failed.inc
+    echo "FAIL ", name, " - ", e.msg
+
+echo passed, " passed, ", failed, " failed"
+if failed &gt; 0: quit(1)    # important for CI!</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>You use test frameworks daily; a macro-based one shows how 'languages on the language' are built at compile time.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a MiniTest Framework" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://xmonader.github.io/nimdays/day08_minitest.html" target="_blank" rel="noopener">https://xmonader.github.io/nimdays/day08_minitest.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

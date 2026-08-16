@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a Web Server from Scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Writing a Web Server from Scratch</span>
+      </div>
+      <h1>Writing a Web Server from Scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.codeproject.com/Articles/859108/Writing-a-Web-Server-from-Scratch" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a Web Server from Scratch"
+        </div>
+        <a class="btn solid" href="https://www.codeproject.com/Articles/859108/Writing-a-Web-Server-from-Scratch" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/web-server-csharp-codeproject.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A step-by-step journal building a working web server in C#: every design decision, good or bad. Starts from an HttpListener class, adds logging, routing of verbs and paths to handlers, authentication with session expiry, and AJAX endpoints - implemented as a small library.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Using HttpListener instead of raw sockets for request decoding</li>
+          <li>Routing HTTP verbs and paths to handler methods</li>
+          <li>Authentication, session objects with expiry, and AJAX integration</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The server is deliberately stateless, so most behavior lives in static singletons; three main files keep the whole thing readable.</p>
+        <pre class="code"><span class="lang-tag">C#</span><code>using System.Net;
+using System.Net.Sockets;
+using System.Threading;
+
+namespace Clifton.WebServer
+{
+    public static class Server
+    {
+        private static HttpListener listener;
+        // the intranet assumption: bind to local host IPs
+        public static void Start()
+        {
+            listener = new HttpListener();
+            listener.Prefixes.Add("http://*:8080/");
+            listener.Start();
+        }
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A rare behind-the-scenes look at the design process itself: routing, auth and sessions solved incrementally, with full source on GitHub.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a Web Server from Scratch" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.codeproject.com/Articles/859108/Writing-a-Web-Server-from-Scratch" target="_blank" rel="noopener">https://www.codeproject.com/Articles/859108/Writing-a-Web-Server-from-Scratch</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

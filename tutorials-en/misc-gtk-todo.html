@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Creating a Linux Desktop application with Ruby</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Creating a Linux Desktop application with Ruby</span>
+      </div>
+      <h1>Creating a Linux Desktop application with Ruby</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Ruby</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://iridakos.com/tutorials/2018/01/25/creating-a-gtk-todo-application-with-ruby" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Creating a Linux Desktop application with Ruby"
+        </div>
+        <a class="btn solid" href="https://iridakos.com/tutorials/2018/01/25/creating-a-gtk-todo-application-with-ruby" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-gtk-todo.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A complete GTK todo list app in Ruby: window, input, buttons and a list box wired together with signals - showing how every desktop toolkit's event loop works.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The GTK event loop: widgets reacting to events</li>
+          <li>signal_connect callbacks (clicked, activate, destroy)</li>
+          <li>Widgets + signals + model: the desktop app skeleton</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>GTK apps wait in an event loop reacting to clicks, typing and closes. Signal connections are callbacks - the same mechanism in Qt and Swing; pressing Enter and clicking the button both call add_todo.</p>
+        <pre class="code"><span class="lang-tag">Ruby</span><code>require 'gtk3'
+
+class TodoApp
+  def initialize
+    @window = Gtk::Window.new("todo list")
+    @window.set_default_size(400, 500)
+    @window.signal_connect('destroy') { Gtk.main_quit }
+
+    @vbox = Gtk::Box.new(:vertical, 6)
+    @entry = Gtk::Entry.new
+    @entry.placeholder_text = 'new task...'
+    @add_button = Gtk::Button.new(label: 'add')
+    @list = Gtk::ListBox.new
+
+    @vbox.pack_start(@entry, expand: false, fill: false, padding: 0)
+    @vbox.pack_start(@add_button, expand: false, fill: false, padding: 0)
+    @vbox.pack_start(@list, expand: true, fill: true, padding: 0)
+    @window.add(@vbox)
+
+    @add_button.signal_connect('clicked') { add_todo }
+    @entry.signal_connect('activate') { add_todo }
+  end
+
+  def add_todo
+    text = @entry.text.strip
+    return if text.empty?
+    row = Gtk::ListBoxRow.new
+    row.add(Gtk::Label.new(text))
+    @list.add(row)
+    @entry.text = ''
+  end
+
+  def run
+    @window.show_all
+    Gtk.main
+  end
+end</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The event-loop model behind every GUI framework, in a widget you can add to, delete from and restyle.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Creating a Linux Desktop application with Ruby" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://iridakos.com/tutorials/2018/01/25/creating-a-gtk-todo-application-with-ruby" target="_blank" rel="noopener">https://iridakos.com/tutorials/2018/01/25/creating-a-gtk-todo-application-with-ruby</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

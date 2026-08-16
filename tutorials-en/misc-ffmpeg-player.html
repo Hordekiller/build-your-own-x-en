@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to Write a Video Player in Less Than 1000 Lines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>How to Write a Video Player in Less Than 1000 Lines</span>
+      </div>
+      <h1>How to Write a Video Player in Less Than 1000 Lines</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://dranger.com/ffmpeg/ffmpeg.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to Write a Video Player in Less Than 1000 Lines"
+        </div>
+        <a class="btn solid" href="http://dranger.com/ffmpeg/ffmpeg.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-ffmpeg-player.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A video player built with the FFmpeg library and SDL in C: open the file, find audio/video streams, decode frames with the right codec, convert YUV to RGB and display them - covering the classic (simplified) FFmpeg API and playback timing.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The pipeline: file -&gt; encoded packets -&gt; decoded frames -&gt; RGB -&gt; screen</li>
+          <li>AVFormatContext vs AVCodecContext and stream discovery</li>
+          <li>YUV-to-RGB conversion with sws_scale and SDL display + playback timing</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Two structures carry everything: AVFormatContext owns the file and streams, AVCodecContext owns the active codec. Each frame is decoded, converted to RGB and copied into an SDL surface.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>// turn one decoded frame into RGB and display it
+void displayFrame(AVFrame *frame, AVPicture *pict, SwsContext *sws, SDL_Surface *screen) {
+    int w = frame-&gt;width, h = frame-&gt;height;
+    // YUV -&gt; RGB using swscale
+    sws_scale(sws, frame-&gt;data, frame-&gt;linesize, 0, h,
+              pict-&gt;data, pict-&gt;linesize);
+    // copy pixels to the SDL surface
+    SDL_LockSurface(screen);
+    memcpy(screen-&gt;pixels, pict-&gt;data[0], pict-&gt;linesize[0] * h);
+    SDL_UnlockSurface(screen);
+    SDL_UpdateRect(screen, 0, 0, w, h);
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Multimedia is usually a black box; here every step from compressed file to pixels on screen is your own code.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to Write a Video Player in Less Than 1000 Lines" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://dranger.com/ffmpeg/ffmpeg.html" target="_blank" rel="noopener">http://dranger.com/ffmpeg/ffmpeg.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

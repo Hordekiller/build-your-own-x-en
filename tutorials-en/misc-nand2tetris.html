@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | From NAND to Tetris: Building a Modern Computer From First Principles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>From NAND to Tetris: Building a Modern Computer From First Principles</span>
+      </div>
+      <h1>From NAND to Tetris: Building a Modern Computer From First Principles</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Any language</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://nand2tetris.org/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "From NAND to Tetris: Building a Modern Computer From First Principles"
+        </div>
+        <a class="btn solid" href="http://nand2tetris.org/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-nand2tetris.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The NAND to Tetris course: build a complete computer from a single NAND gate all the way up to a Tetris-playing machine. Twelve projects across two tracks - hardware (gates to ALU to CPU to the HACK computer) and software (assembler, VM, Jack compiler, simple OS) - all running on the course's own simulator.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>HDL: describe chips from NAND up to ALU, CPU and RAM</li>
+          <li>The software stack: assembler, virtual machine and a Jack-&gt;VM-&gt;HACK compiler chain</li>
+          <li>A minimal operating system: memory manager, arithmetic and I/O</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Every project runs on the course simulator, independent of real hardware, so anyone - high school to professional - can build every layer. The layers connect: the Jack program you write is translated by the VM intermediary to HACK assembly and interpreted on the simulated CPU.</p>
+        <pre class="code"><span class="lang-tag">HDL</span><code>// NOT gate built from NAND: out = not in
+CHIP Not {
+    IN in;
+    OUT out;
+
+    PARTS:
+    Nand(a=in, b=in, out=out);
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The only course that links all layers end-to-end - you see your own compiler's output execute on your own CPU.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "From NAND to Tetris: Building a Modern Computer From First Principles" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://nand2tetris.org/" target="_blank" rel="noopener">http://nand2tetris.org/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

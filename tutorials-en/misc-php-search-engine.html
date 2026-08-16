@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Code a Web Search Engine in PHP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Code a Web Search Engine in PHP</span>
+      </div>
+      <h1>Code a Web Search Engine in PHP</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: PHP</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://boyter.org/2013/01/code-for-a-search-engine-in-php-part-1/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Code a Web Search Engine in PHP"
+        </div>
+        <a class="btn solid" href="https://boyter.org/2013/01/code-for-a-search-engine-in-php-part-1/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-php-search-engine.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A search engine in PHP, two phases: indexing breaks documents into tokens and builds the inverse map word -&gt; documents in SQLite, queries look words up and return the documents containing them all.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Tokenisation and stop-word removal</li>
+          <li>The inverted index: words, documents and a link table with counts</li>
+          <li>Simple TF ranking with JOINs</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Two tables plus a link table (word_id, doc_id, count) is the inverted index - the same transparent format commercial engines compress.</p>
+        <pre class="code"><span class="lang-tag">PHP</span><code>function tokenise($text) {
+    // split into words (keeping case)
+    $words = str_word_count(strtolower($text), 1);
+    // remove stop words like 'the', 'and', 'for'
+    $stop = ['the', 'and', 'for', 'php'];
+    return array_diff($words, $stop);
+}
+
+foreach ($documents as $doc) {
+    $docId = insertDocument($db, $doc['url'], $doc['title']);
+    foreach (tokenise($doc['body']) as $word) {
+        $wordId = getOrCreateWord($db, $word);
+        incrementLink($db, $wordId, $docId);
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Google's core is one table shape: the inverted index - search understood at its foundation.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Code a Web Search Engine in PHP" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://boyter.org/2013/01/code-for-a-search-engine-in-php-part-1/" target="_blank" rel="noopener">https://boyter.org/2013/01/code-for-a-search-engine-in-php-part-1/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

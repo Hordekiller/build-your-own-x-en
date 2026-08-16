@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Loading and rendering 3D skeletal animations from scratch in C# and GLSL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>Loading and rendering 3D skeletal animations from scratch in C# and GLSL</span>
+      </div>
+      <h1>Loading and rendering 3D skeletal animations from scratch in C# and GLSL</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.seanjoflynn.com/research/skeletal-animation.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Loading and rendering 3D skeletal animations from scratch in C# and GLSL"
+        </div>
+        <a class="btn solid" href="https://www.seanjoflynn.com/research/skeletal-animation.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-skeletal-animation.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Implement skeletal animation (skinning) from scratch: the bone hierarchy, loading animations from a simplified gLTF format, computing global bone matrices and a vertex shader that blends them with per-vertex weights.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The skeleton: a hierarchy of bones with local transforms</li>
+          <li>global = parent * local: computing the final bone matrices</li>
+          <li>GPU skinning: inverse bind matrices, bone indices and weights in the shader</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Inverse bind matrices move vertices from model space into bone space, so only the bone's movement applies. Each vertex carries up to four bone indices and weights summed by the shader.</p>
+        <pre class="code"><span class="lang-tag">C#</span><code>// compute all global bone matrices by walking the tree
+void ComputeBoneMatrices(Bone[] bones, int parentIndex,
+                         Matrix4&lt;float&gt; parentMatrix) {
+    for (int i = 0; i &lt; bones.Length; i++) {
+        if (bones[i].parent != parentIndex) continue;
+
+        Matrix4&lt;float&gt; local = bones[i].localTransform;
+        Matrix4&lt;float&gt; global = local * parentMatrix;     // global = parent * local
+
+        boneMatrices[i] = bones[i].inverseBindMatrix
+                                       .Multiply(global);
+        ComputeBoneMatrices(bones, i, global);
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Characters that walk instead of sliding are one shader multiply away - game animation demystified.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Loading and rendering 3D skeletal animations from scratch in C# and GLSL" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.seanjoflynn.com/research/skeletal-animation.html" target="_blank" rel="noopener">https://www.seanjoflynn.com/research/skeletal-animation.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

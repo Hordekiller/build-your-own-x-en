@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A Simple Content-Based Recommendation Engine in Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>A Simple Content-Based Recommendation Engine in Python</span>
+      </div>
+      <h1>A Simple Content-Based Recommendation Engine in Python</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://blog.untrod.com/2016/06/simple-similar-products-recommendation-engine-in-python.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A Simple Content-Based Recommendation Engine in Python"
+        </div>
+        <a class="btn solid" href="http://blog.untrod.com/2016/06/simple-similar-products-recommendation-engine-in-python.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-product-recommendation.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Content-based product recommendation: turn each product into a feature vector (description, category, brand), compute pairwise cosine similarity with TF-IDF, and recommend the nearest items - no training, no cold-start problem.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Building vectors with TF-IDF (linear_kernel for speed)</li>
+          <li>Scoring and ranking similar products for a given id</li>
+          <li>Handling new products with no sales history</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>linear_kernel is cosine similarity computed fast for large matrices; the top-5 closest items (excluding itself) are the recommendations.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code>from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
+
+# each product: id + combined feature text (title, brand, category)
+vec = TfidfVectorizer(stop_words='english')
+matrix = vec.fit_transform(products['combined'].values)
+
+cosine = linear_kernel(matrix, matrix)   # pairwise similarity
+
+def recommend(product_id, top_n=5):
+    idx = products.index[products['id'] == product_id][0]
+    scores = list(enumerate(cosine[idx]))
+    scores = sorted(scores, key=lambda x: x[1], reverse=True)
+    # first is the product itself; start from the second
+    return [products.iloc[i]['id'] for i, s in scores[1:top_n + 1]]</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>No training, no user history - TF-IDF and one matrix multiply give any store 'similar products'.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A Simple Content-Based Recommendation Engine in Python" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://blog.untrod.com/2016/06/simple-similar-products-recommendation-engine-in-python.html" target="_blank" rel="noopener">http://blog.untrod.com/2016/06/simple-similar-products-recommendation-engine-in-python.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

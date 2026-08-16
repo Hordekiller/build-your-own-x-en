@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How X Window Managers work and how to write one</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>How X Window Managers work and how to write one</span>
+      </div>
+      <h1>How X Window Managers work and how to write one</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://seasonofcode.com/posts/how-x-window-managers-work-and-how-to-write-one-part-i.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How X Window Managers work and how to write one"
+        </div>
+        <a class="btn solid" href="https://seasonofcode.com/posts/how-x-window-managers-work-and-how-to-write-one-part-i.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-x-window-managers.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Write a window manager for X11: the X server handles drawing and input, while the WM - a special client - decides layouts, draws titlebars and interprets keys. Starts with a simple manager that moves and maps windows, then adds tiling and focus, plus EWMH desktop announcements.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The X11 division of labor: X server vs window manager</li>
+          <li>Handling MapRequest, ConfigureRequest and KeyPress events with xcb</li>
+          <li>Tiling behavior and the EWMH protocol for modern desktops</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The WM listens for MapRequest (a new window wants to be seen) and ConfigureRequest (a window wants size/position); the classic first step is forcing every window to fullscreen - the seed of all tiling managers.</p>
+        <pre class="code"><span class="lang-tag">C++</span><code>#include &lt;xcb/xcb.h&gt;
+
+while ((e = xcb_wait_for_event(conn))) {
+    switch (e-&gt;response_type &amp; ~0x80) {
+    case XCB_MAP_REQUEST:
+        map_request(conn, (xcb_map_request_event_t*)e);
+        break;
+    case XCB_CONFIGURE_REQUEST:
+        configure_request(conn, (xcb_configure_request_event_t*)e);
+        break;
+    case XCB_KEY_PRESS:
+        handle_key(conn, (xcb_key_press_event_t*)e);
+        break;
+    }
+    free(e);
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>You use a window manager every day; writing one reveals the ancient protocol under every desktop environment.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How X Window Managers work and how to write one" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://seasonofcode.com/posts/how-x-window-managers-work-and-how-to-write-one-part-i.html" target="_blank" rel="noopener">https://seasonofcode.com/posts/how-x-window-managers-work-and-how-to-write-one-part-i.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | The very basics of a terminal emulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>The very basics of a terminal emulator</span>
+      </div>
+      <h1>The very basics of a terminal emulator</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.uninformativ.de/blog/postings/2018-02-24/0/POSTING-en.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "The very basics of a terminal emulator"
+        </div>
+        <a class="btn solid" href="https://www.uninformativ.de/blog/postings/2018-02-24/0/POSTING-en.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-terminal-emulator-c.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>What goes on inside a terminal emulator like xterm or st: a grid of character cells, a buffer holding the content, and an escape-sequence state machine that interprets control codes for color, cursor movement and screen clearing.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The Cell/Buffer data model behind every terminal</li>
+          <li>Interpreting escape sequences with a byte state machine</li>
+          <li>Rendering: refresh passes over a 2D grid</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Programs like vim send byte sequences such as \x1b[31m for red; the terminal must decode them and render accordingly. The heart is a 2D array of cells - each with a character, foreground/background colors and bold/underline flags.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>typedef struct {
+    char c;          // cell character
+    int fg, bg;      // foreground / background colors
+    int bold, underline;
+} Cell;
+
+typedef struct {
+    int rows, cols;
+    Cell** cells;
+} Buffer;
+
+void term_clear(Buffer* buf) {
+    for (int y = 0; y &lt; buf-&gt;rows; y++)
+        for (int x = 0; x &lt; buf-&gt;cols; x++) {
+            buf-&gt;cells[y][x].c = ' ';
+            buf-&gt;cells[y][x].fg = DEFAULT;
+        }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Every operation only mutates this array and then a render pass paints it - the simple core that powers every terminal in existence.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "The very basics of a terminal emulator" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.uninformativ.de/blog/postings/2018-02-24/0/POSTING-en.html" target="_blank" rel="noopener">https://www.uninformativ.de/blog/postings/2018-02-24/0/POSTING-en.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

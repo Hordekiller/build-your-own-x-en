@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How a 64k intro is made</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="../../byox/index.html" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Web Server</a>
+        <span class="sep">→</span>
+        <span>How a 64k intro is made</span>
+      </div>
+      <h1>How a 64k intro is made</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Web Server</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.lofibucket.com/articles/64k_intro.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How a 64k intro is made"
+        </div>
+        <a class="btn solid" href="http://www.lofibucket.com/articles/64k_intro.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="../../byox/tutorials/misc-64k-intro.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The demoscene's 64KB intro challenge: fit a complete 3D scene, music and animation into 64 kilobytes. The secrets are procedural generation (models, textures and sound created at runtime) and extreme compression of the final file.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Procedural generation instead of pre-made assets</li>
+          <li>GLSL shaders as the heart of the scene (ray marching)</li>
+          <li>Crinkler-class packers that rebuild the executable</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Much of the graphics is produced by fragment shaders: a full image out of one loop. Models are stored as descriptive commands (counts and positions), music as tiny tracker data, and the whole file is compressed with a packer that also reconstructs the main executable.</p>
+        <pre class="code"><span class="lang-tag">GLSL</span><code>#version 330 core
+out vec4 frag_color;
+uniform vec2 u_resolution;
+uniform float u_time;
+
+void main() {
+    vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution) / u_resolution.y;
+    // a simple wave moving with time - and a colorful pattern
+    vec3 color = vec3(uv.x, uv.y, 0.5 + 0.5*sin(u_time));
+    color += vec3(uv.x*uv.y)*0.5;
+    frag_color = vec4(color, 1.0);
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Extreme constraints teach the difference between 'data' and 'instructions' - the most compact thinking in programming.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How a 64k intro is made" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://www.lofibucket.com/articles/64k_intro.html" target="_blank" rel="noopener">http://www.lofibucket.com/articles/64k_intro.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>
