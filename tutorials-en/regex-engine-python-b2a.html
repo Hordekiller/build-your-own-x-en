@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build Your Own Regular Expression Engines: Backtracking, NFA, DFA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Regex Engine</a>
+        <span class="sep">→</span>
+        <span>Build Your Own Regular Expression Engines: Backtracking, NFA, DFA</span>
+      </div>
+      <h1>Build Your Own Regular Expression Engines: Backtracking, NFA, DFA</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Regex Engine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://build-your-own.org/b2a/r0_intro" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build Your Own Regular Expression Engines: Backtracking, NFA, DFA"
+        </div>
+        <a class="btn solid" href="https://build-your-own.org/b2a/r0_intro" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/regex-engine-python-b2a.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A from-scratch regex implementation in Python with a notebook-style walkthrough: parsing and matching through a set of assert-driven steps.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Parsing alternation (|) and concatenation as recursive structure</li>
+          <li>Test-driven development: assertions as the spec</li>
+          <li>The parse tree behind a|b, ab, a+ and parentheses</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The parser separates operators by precedence: parse_split handles alternations, parse_concat handles sequences. Every step is pinned down by assertions on the parse tree.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code>assert re_parse('') is None
+assert re_parse('.') == 'dot'
+assert re_parse('a') == 'a'
+assert re_parse('ab') == ('cat', 'a', 'b')
+assert re_parse('a|b') == ('split', 'a', 'b')
+assert re_parse('a+') == ('repeat', 'a')</code></pre>
+        <pre class="code"><span class="lang-tag">Python</span><code># a|b|c...
+def parse_split(r, idx):
+    idx, prev = parse_concat(r, idx)
+    while idx &lt; len(r):
+        if r[idx] == ')':
+            # return to the outer parse_node
+            break
+        ...</code></pre>
+        <pre class="code"><span class="lang-tag">Python</span><code># abc...
+def parse_concat(r, idx):
+    prev = None
+    while idx &lt; len(r):
+        if r[idx] in '|)':
+            # return to the outer parse_split or parse_node
+            break
+        idx, node = parse_node(r, idx)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Assertion-first development makes the whole engine explicit - the tests are the tutorial.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build Your Own Regular Expression Engines: Backtracking, NFA, DFA" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://build-your-own.org/b2a/r0_intro" target="_blank" rel="noopener">https://build-your-own.org/b2a/r0_intro</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

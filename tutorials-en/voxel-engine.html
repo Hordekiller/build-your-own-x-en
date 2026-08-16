@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Let's Make a Voxel Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Voxel Engine</a>
+        <span class="sep">→</span>
+        <span>Let's Make a Voxel Engine</span>
+      </div>
+      <h1>Let's Make a Voxel Engine</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Voxel Engine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://sites.google.com/site/letsmakeavoxelengine/home" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Let's Make a Voxel Engine"
+        </div>
+        <a class="btn solid" href="https://sites.google.com/site/letsmakeavoxelengine/home" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/voxel-engine-cpp.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A C++ voxel engine: build the mesh of a chunk by walking its blocks and emitting triangles only for the active ones.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Chunk-based world representation</li>
+          <li>Baking block data into a mesh buffer</li>
+          <li>Only emitting geometry for active blocks</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Rendering a voxel world means turning each chunk's block grid into triangles: the engine walks the block list, and every active block contributes faces to a shared mesh buffer.</p>
+        <pre class="code"><span class="lang-tag">C++</span><code>// build a chunk's mesh buffer: walk the blocks and append triangles
+// for the active ones
+for (size_t i = 0; i &lt; m_blocks.size(); ++i) {
+    if (m_blocks[i].IsActive()) {
+        const glm::vec3&amp; pos = m_blocks[i].GetPosition();
+        ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Chunk meshing is the core of every Minecraft-style engine - a small C++ project that teaches the whole pipeline.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Let's Make a Voxel Engine" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://sites.google.com/site/letsmakeavoxelengine/home" target="_blank" rel="noopener">https://sites.google.com/site/letsmakeavoxelengine/home</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

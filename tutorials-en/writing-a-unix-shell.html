@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a UNIX Shell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Shell</a>
+        <span class="sep">→</span>
+        <span>Writing a UNIX Shell</span>
+      </div>
+      <h1>Writing a UNIX Shell</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Shell</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://indradhanush.github.io/blog/writing-a-unix-shell-part-1/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a UNIX Shell"
+        </div>
+        <a class="btn solid" href="https://indradhanush.github.io/blog/writing-a-unix-shell-part-1/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/writing-a-unix-shell.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Writing a Unix shell, the classic low-level way: start with raw fork() and build up to a full shell that waits for its children.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>What fork() really does: two processes from one call</li>
+          <li>Reading the fork topology from a parent/child printout</li>
+          <li>wait() and running commands to completion</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The tutorial starts with bare fork(): one call, two printed identities - the parent sees the child's PID, the child sees zero. From there, wait() joins children back.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+int main() {
+    pid_t child_pid = fork();
+
+    if (child_pid == 0) {   /* child process */
+        printf("### Child ###\n");</code></pre>
+        <pre class="code"><span class="lang-tag">Terminal</span><code>### Parent ###
+Current PID: 85247 and Child PID: 85248
+### Child ###
+Current PID: 85248 and Child PID: 0</code></pre>
+        <pre class="code"><span class="lang-tag">C</span><code>    child_pid = fork();
+    ...
+    wait_result = wait(&amp;stat_loc);   /* wait for the child to finish */</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>fork() is the single most important syscall idea in Unix - understanding it at the PID level is the gateway to everything a shell does.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a UNIX Shell" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://indradhanush.github.io/blog/writing-a-unix-shell-part-1/" target="_blank" rel="noopener">https://indradhanush.github.io/blog/writing-a-unix-shell-part-1/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

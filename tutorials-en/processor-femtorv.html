@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | From Blinker to RISC-V</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Processor</a>
+        <span class="sep">→</span>
+        <span>From Blinker to RISC-V</span>
+      </div>
+      <h1>From Blinker to RISC-V</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Verilog</span>
+        <span class="meta-badge">📁 Processor</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/BrunoLevy/learn-fpga/tree/master/FemtoRV/TUTORIALS/FROM_BLINKER_TO_RISCV" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "From Blinker to RISC-V"
+        </div>
+        <a class="btn solid" href="https://github.com/BrunoLevy/learn-fpga/tree/master/FemtoRV/TUTORIALS/FROM_BLINKER_TO_RISCV" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/processor-blinker-to-riscv.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>FemtoRV: a minimal RISC-V processor written in Verilog, documented as a step-by-step tutorial - from a blinking LED to a complete SoC.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Designing a tiny RISC-V core in Verilog</li>
+          <li>A program counter that walks a small instruction memory</li>
+          <li>Decoding ALU-register, ALU-immediate and branch opcodes</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The SoC wraps a small RISC-V CPU: a clocked program counter reads instructions from a small memory and drives LEDs. The decode logic recognizes the standard opcodes - ALU-register, ALU-immediate, and branches.</p>
+        <pre class="code"><span class="lang-tag">Verilog</span><code>module SOC (
+    input  CLK,
+    input  RESET,
+    output [4:0] LEDS,
+    input  RXD,
+    output TXD
+);
+   reg [4:0] count = 0;
+   always @(posedge CLK) begin
+      count &lt;= count + 1;
+   end</code></pre>
+        <pre class="code"><span class="lang-tag">Verilog</span><code>   reg [4:0] PC  = 0;
+   reg [4:0] leds = 0;
+   always @(posedge clk) begin
+      leds &lt;= MEM[PC];
+      PC   &lt;= (!resetn || PC==20) ? 0 : (PC+1);
+   end</code></pre>
+        <pre class="code"><span class="lang-tag">Verilog</span><code>   wire isALUreg  = (instr[6:0] == 7'b0110011); // rd &lt;- rs1 OP rs2
+   wire isALUimm  = (instr[6:0] == 7'b0010011); // rd &lt;- rs1 OP Iimm
+   wire isBranch  = (instr[6:0] == 7'b1100011); // branches</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>FemtoRV makes RISC-V approachable at the hardware level - you can synthesize a real processor and watch it blink.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "From Blinker to RISC-V" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/BrunoLevy/learn-fpga/tree/master/FemtoRV/TUTORIALS/FROM_BLINKER_TO_RISCV" target="_blank" rel="noopener">https://github.com/BrunoLevy/learn-fpga/tree/master/FemtoRV/TUTORIALS/FROM_BLINKER_TO_RISCV</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How Physics Engines Work</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Physics Engine</a>
+        <span class="sep">→</span>
+        <span>How Physics Engines Work</span>
+      </div>
+      <h1>How Physics Engines Work</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Physics Engine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://buildnewgames.com/gamephysics/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How Physics Engines Work"
+        </div>
+        <a class="btn solid" href="http://buildnewgames.com/gamephysics/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/physics-how-physics-engines-work.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>An illustrated explanation of how physics engines work under the hood - integrators, forces and the math of motion, before any code.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Euler integration: the simplest force-to-motion path</li>
+          <li>Semi-implicit and average-acceleration improvements</li>
+          <li>Applying the same pattern to rotation (T = J times alpha)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The core loop is three lines: acceleration from force and mass, velocity from acceleration, position from velocity. More accurate variants reevaluate acceleration at the new position and average the two values.</p>
+        <pre class="code"><span class="lang-tag">Text</span><code># the simplest integration: Euler's method
+# force, acceleration, velocity, position are all vectors
+acceleration = force / mass
+velocity += acceleration * time_step
+position += velocity * time_step</code></pre>
+        <pre class="code"><span class="lang-tag">Text</span><code>last_acceleration = acceleration
+position += velocity * time_step + (0.5 * last_acceleration * time_step**2)
+new_acceleration = force / mass            # computed at the new position
+avg_acceleration = (last_acceleration + new_acceleration) / 2</code></pre>
+        <pre class="code"><span class="lang-tag">Text</span><code># rotation follows exactly the same pattern as translation:
+alpha = torque / moment_of_inertia      # T = J * alpha
+angularVelocity += alpha * time_step
+angle += angularVelocity * time_step</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Before writing a physics engine, you should know what an integrator is - this readable introduction provides exactly that foundation.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How Physics Engines Work" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://buildnewgames.com/gamephysics/" target="_blank" rel="noopener">http://buildnewgames.com/gamephysics/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build a Collaborative Text Editor Using Rails</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Text Editor</a>
+        <span class="sep">→</span>
+        <span>Build a Collaborative Text Editor Using Rails</span>
+      </div>
+      <h1>Build a Collaborative Text Editor Using Rails</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Ruby</span>
+        <span class="meta-badge">📁 Text Editor</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://blog.aha.io/text-editor/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build a Collaborative Text Editor Using Rails"
+        </div>
+        <a class="btn solid" href="https://blog.aha.io/text-editor/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/text-editor-collab-rails.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Collaborative text editing in Ruby on Rails: operational transformation so two cursors can edit the same document consistently.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Representing edits as operations on a cursor position</li>
+          <li>transform_operation: replaying a remote op against ours</li>
+          <li>Keeping undo/redo stacks consistent with transform_stacks</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Each edit is an operation with a position. Before applying a remote operation, the client transforms its own pending operations against it - so both sides converge to the same document. The undo/redo stacks are replayed through the same transform.</p>
+        <pre class="code"><span class="lang-tag">Ruby</span><code>def transform_operation(ours, theirs, win_tiebreakers)
+  # TODO: support more kinds of operations
+  transformed_op = ours.dup
+
+  if ours[:position] &gt; theirs[:position]
+     transformed_op[:position] += theirs[:length]</code></pre>
+        <pre class="code"><span class="lang-tag">Ruby</span><code>def transform_stacks(remote_op)
+  self.undos, _ = transform(self.undos, remote_op)
+  self.redos, _ = transform(self.redos, remote_op)
+end</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Operational transformation is how Google Docs stays consistent - a small Rails implementation makes the concept concrete.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build a Collaborative Text Editor Using Rails" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://blog.aha.io/text-editor/" target="_blank" rel="noopener">https://blog.aha.io/text-editor/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

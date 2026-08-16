@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | JavaScript template engine in just 20 lines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Template Engine</a>
+        <span class="sep">→</span>
+        <span>JavaScript template engine in just 20 lines</span>
+      </div>
+      <h1>JavaScript template engine in just 20 lines</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Template Engine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "JavaScript template engine in just 20 lines"
+        </div>
+        <a class="btn solid" href="http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/template-engine-js-20-lines.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A JavaScript template engine in about 20 lines, using the Function constructor to compile template strings into code.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The &lt;%name%&gt; interpolation syntax and its regex</li>
+          <li>Executing template code with the new Function constructor</li>
+          <li>Injecting data variables into the generated function scope</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A regex picks every &lt;%...%&gt; tag out of the template. The body is then compiled with new Function(...) using the data object's own keys as parameters - so the template body can literally use those names.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>var TemplateEngine = function(tpl, data) {
+    // the magic happens here ...
+}
+var template = 'Hello, my name is &lt;%name%&gt;. I\'m &lt;%age%&gt; years old.';
+console.log(TemplateEngine(template, { name: 'Krasimira', age: 29 }));</code></pre>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>var re = /&lt;%([^%&gt;]+)?%&gt;/g;
+var match = re.exec(tpl);
+// match holds: "&lt;%name%&gt;", "name", plus index and input
+
+// to process every match, loop with while (match = re.exec(tpl))</code></pre>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>var fn = new Function("arg", "console.log(arg + 1);");
+fn(2); // prints 3 - just like function(arg) { console.log(arg + 1); }</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Twenty lines that show how frameworks like the early lodash templates worked - code generation as a feature.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "JavaScript template engine in just 20 lines" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line" target="_blank" rel="noopener">http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

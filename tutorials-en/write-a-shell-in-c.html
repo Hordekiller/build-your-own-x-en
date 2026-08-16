@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Tutorial - Write a Shell in C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Shell</a>
+        <span class="sep">→</span>
+        <span>Tutorial - Write a Shell in C</span>
+      </div>
+      <h1>Tutorial - Write a Shell in C</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Shell</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://brennan.io/2015/01/16/write-a-shell-in-c/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Tutorial - Write a Shell in C"
+        </div>
+        <a class="btn solid" href="https://brennan.io/2015/01/16/write-a-shell-in-c/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/write-a-shell-in-c.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Writing a Unix shell in C: a command-line structure, input reading with getline, tokenizing, and a full execution model.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A command struct: buffer, argv, argc and program_name</li>
+          <li>Reading input safely with getline()</li>
+          <li>Tokenizing with delimiters like space, tab, newline</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A command is a struct holding the raw buffer, its argv array, and argc. getline() reads a line; splitting walks it against the standard whitespace delimiters into tokens.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>/* the command-line structure and its parts */
+typedef struct {
+    char *buffer;
+    size_t buf_len;
+    int argc;
+    char **argv;
+    char *program_name; /* argv[0] without slashes, for error messages */
+} cmd_t;</code></pre>
+        <pre class="code"><span class="lang-tag">C</span><code>/* simplest case: read a line from stdin */
+char *lsh_read_line(void) {
+    char *line = NULL;
+    ssize_t bufsize = 0;
+    if (getline(&amp;line, &amp;bufsize, stdin) == -1) {
+        if (feof(stdin)) exit(EXIT_SUCCESS);</code></pre>
+        <pre class="code"><span class="lang-tag">C</span><code>#define LSH_TOK_BUFSIZE 64
+#define LSH_TOK_DELIM " \t\r\n\a"
+
+char **lsh_split_line(char *line) {
+    int bufsize = LSH_TOK_BUFSIZE, position = 0;
+    char **tokens = malloc(bufsize * sizeof(char*));</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Structuring a shell as an explicit command object makes parsing, execution and future features (pipes!) all snap into place.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Tutorial - Write a Shell in C" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://brennan.io/2015/01/16/write-a-shell-in-c/" target="_blank" rel="noopener">https://brennan.io/2015/01/16/write-a-shell-in-c/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

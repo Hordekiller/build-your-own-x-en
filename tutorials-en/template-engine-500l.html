@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A Template Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Template Engine</a>
+        <span class="sep">→</span>
+        <span>A Template Engine</span>
+      </div>
+      <h1>A Template Engine</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Template Engine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://aosabook.org/en/500L/a-template-engine.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A Template Engine — by Ned Batchelder"
+        </div>
+        <a class="btn solid" href="http://aosabook.org/en/500L/a-template-engine.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/template-engine-python-500-lines.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The 500 Lines template engine: a full Django-style templating library in under 400 lines, compiling templates to Python for speed.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Code generation: templates become Python functions</li>
+          <li>The CodeBuilder class for assembling source text</li>
+          <li>Efficient dot-lookup via generated nested variables</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Instead of interpreting template text at render time, the engine compiles it: variables are resolved into Python locals (c_user_name, c_product_list...), and a CodeBuilder assembles the rendered markup with proper indentation.</p>
+        <pre class="code"><span class="lang-tag">HTML</span><code>&lt;p&gt;Welcome, {{user_name}}!&lt;/p&gt;
+&lt;p&gt;Products:&lt;/p&gt;
+&lt;ul&gt;
+{% for product in product_list %}
+    &lt;li&gt;{{ product.name }}: {{ product.price }}&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;</code></pre>
+        <pre class="code"><span class="lang-tag">Python</span><code>def render_function(context, do_dots):
+    c_user_name = context['user_name']
+    c_product_list = context['product_list']
+    c_format_price = context['format_price']</code></pre>
+        <pre class="code"><span class="lang-tag">Python</span><code>class CodeBuilder(object):
+    # build source code conveniently
+
+    def __init__(self, indent=0):
+        self.code = []
+        self.indent_level = indent
+
+    def add_line(self, line)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Ned Batchelder's design - compile, don't interpret - is the technique behind every fast templating system, and the write-up is legendary.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A Template Engine" belongs to its original author (Ned Batchelder). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Ned Batchelder). Read the original at
+        <a href="http://aosabook.org/en/500L/a-template-engine.html" target="_blank" rel="noopener">http://aosabook.org/en/500L/a-template-engine.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

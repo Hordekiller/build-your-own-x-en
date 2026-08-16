@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Create a Simple Python Text Editor!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Text Editor</a>
+        <span class="sep">→</span>
+        <span>Create a Simple Python Text Editor!</span>
+      </div>
+      <h1>Create a Simple Python Text Editor!</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Text Editor</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.instructables.com/id/Create-a-Simple-Python-Text-Editor/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Create a Simple Python Text Editor!"
+        </div>
+        <a class="btn solid" href="http://www.instructables.com/id/Create-a-Simple-Python-Text-Editor/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/text-editor-python-instructables.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A step-by-step Instructables build of a simple text editor in Python with tkinter: window, text area, open and save dialogs.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Creating the window and text area with tkinter</li>
+          <li>Open and save via filedialog</li>
+          <li>Turning a GUI skeleton into a usable editor</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Step one is a root window with a packed Text widget. From there, menu commands are wired to filedialog-based open and save operations.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code># step 1: window and text area
+from tkinter import *
+from tkinter import filedialog
+
+root = Tk()
+root.title("Simple Text Editor")
+text_area = Text(root)
+text_area.pack(expand=True, fill="both")</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A friendly, incremental path into GUI programming - you end with a real editor you actually use.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Create a Simple Python Text Editor!" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://www.instructables.com/id/Create-a-Simple-Python-Text-Editor/" target="_blank" rel="noopener">http://www.instructables.com/id/Create-a-Simple-Python-Text-Editor/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

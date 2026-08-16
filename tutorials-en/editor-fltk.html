@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Designing a Simple Text Editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Text Editor</a>
+        <span class="sep">→</span>
+        <span>Designing a Simple Text Editor</span>
+      </div>
+      <h1>Designing a Simple Text Editor</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Text Editor</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.fltk.org/doc-1.1/editor.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Designing a Simple Text Editor"
+        </div>
+        <a class="btn solid" href="http://www.fltk.org/doc-1.1/editor.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/text-editor-fltk-cpp.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Building a graphical text editor in C++ with FLTK: windows, menu bars, the text editor widget and toolbar callbacks.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Composing an editor GUI with FLTK widgets</li>
+          <li>The Fl_Text_Editor widget and its buffer</li>
+          <li>Callbacks that mark the document changed</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The editor is a Fl_Double_Window housing a menu bar and an Fl_Text_Editor widget. A callback fired on text changes flips the changed flag, enabling undo tracking and save prompts.</p>
+        <pre class="code"><span class="lang-tag">C++</span><code>class EditorWindow : public Fl_Double_Window {
+  public:
+    EditorWindow(int w, int h, const char* t);
+    ~EditorWindow();
+
+    Fl_Window          *replace_dlg;</code></pre>
+        <pre class="code"><span class="lang-tag">C++</span><code>#include &lt;FL/Fl.H&gt;
+#include &lt;FL/Fl_Double_Window.H&gt;
+#include &lt;FL/Fl_Menu_Bar.H&gt;
+#include &lt;FL/Fl_Text_Editor.H&gt;
+
+Fl_Text_Editor *app_editor = NULL;</code></pre>
+        <pre class="code"><span class="lang-tag">C++</span><code>void text_changed_callback(int, int n_inserted, int n_deleted, int,
+                           const char*, void*) {
+    if (n_inserted || n_deleted)
+        set_changed();</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>FLTK shows how fast a real desktop editor comes together when the toolkit handles widgets - and callbacks teach event-driven structure.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Designing a Simple Text Editor" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://www.fltk.org/doc-1.1/editor.html" target="_blank" rel="noopener">http://www.fltk.org/doc-1.1/editor.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

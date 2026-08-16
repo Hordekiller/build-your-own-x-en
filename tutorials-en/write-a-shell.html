@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Write a shell in C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Shell</a>
+        <span class="sep">→</span>
+        <span>Write a shell in C</span>
+      </div>
+      <h1>Write a shell in C</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Shell</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://danishpraka.sh/posts/write-a-shell/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Write a shell in C"
+        </div>
+        <a class="btn solid" href="https://danishpraka.sh/posts/write-a-shell/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/write-a-shell.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Write a shell in C the classic way: the loop, read a line, parse it, execute it - modeled after the famous Stephen Brennan pieces.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The basic REPL skeleton: loop, read, parse, execute</li>
+          <li>Reading with a growing buffer and strtok splitting</li>
+          <li>The fork-and-wait execution model</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The shell's geometry is four functions chained in a loop: read a line, split it on whitespace, execute by forking, and wait. strtok walks the tokens one at a time to build argv.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>void loop() {
+    char *line;
+    char **args;
+    int status = 1;
+
+    do {
+        printf("&gt; ");
+        line = read_line();
+        args = split_line(line);
+        status = dash_execute(args);
+    } while (status);
+}</code></pre>
+        <pre class="code"><span class="lang-tag">C</span><code>char *read_line() {
+    int buffsize = 1024;
+    int position = 0;
+    char *buffer = malloc(sizeof(char) * buffsize);
+    int c;
+
+    if (!buffer) {                          /* malloc failed */</code></pre>
+        <pre class="code"><span class="lang-tag">C</span><code>str1 = strtok("this is it!", " ");
+// str1 -&gt; "this"
+str1 = strtok(NULL, " ");
+// str1 -&gt; "is"
+str1 = strtok(NULL, " ");
+// str1 -&gt; "it!"</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>fork, exec and wait are the three syscalls that run every command on Linux - this project makes them second nature.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Write a shell in C" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://danishpraka.sh/posts/write-a-shell/" target="_blank" rel="noopener">https://danishpraka.sh/posts/write-a-shell/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

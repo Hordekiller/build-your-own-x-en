@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Regular Expression Matching Can Be Simple And Fast</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Regex Engine</a>
+        <span class="sep">→</span>
+        <span>Regular Expression Matching Can Be Simple And Fast</span>
+      </div>
+      <h1>Regular Expression Matching Can Be Simple And Fast</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Regex Engine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://swtch.com/~rsc/regexp/regexp1.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Regular Expression Matching Can Be Simple And Fast — by Russ Cox"
+        </div>
+        <a class="btn solid" href="https://swtch.com/~rsc/regexp/regexp1.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/regexp-simple-fast.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Regular expression matching with a simulated NFA - the classic article by Russ Cox showing how grep-style matching can be simple, linear and fast.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The core data structures: State and Frag</li>
+          <li>Building an NFA fragment by fragment with patch lists</li>
+          <li>Why Thompson's construction avoids catastrophic backtracking</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The secret is compilation: a regex becomes a graph of State nodes (each with char, out, out1 and a lastlist stamp) and Fragments - partially built graphs with a list of undefined outgoing pointers to patch later.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>struct State
+{
+	int c;
+	State *out;
+	State *out1;
+	int lastlist;
+};</code></pre>
+        <pre class="code"><span class="lang-tag">C</span><code>struct Frag
+{
+	State *start;
+	Ptrlist *out;
+};</code></pre>
+        <pre class="code"><span class="lang-tag">C</span><code>Ptrlist *list1(State **outp);
+Ptrlist *append(Ptrlist *l1, Ptrlist *l2);
+
+void patch(Ptrlist *l, State *s);</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Russ Cox explains why some regexes explode on pathological input - and the linear-time engine that avoids it. Required reading for systems programmers.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Regular Expression Matching Can Be Simple And Fast" belongs to its original author (Russ Cox). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original author (Russ Cox). Read the original at
+        <a href="https://swtch.com/~rsc/regexp/regexp1.html" target="_blank" rel="noopener">https://swtch.com/~rsc/regexp/regexp1.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A Regular Expression Matcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Regex Engine</a>
+        <span class="sep">→</span>
+        <span>A Regular Expression Matcher</span>
+      </div>
+      <h1>A Regular Expression Matcher</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Regex Engine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.cs.princeton.edu/courses/archive/spr09/cos333/beautiful.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A Regular Expression Matcher"
+        </div>
+        <a class="btn solid" href="https://www.cs.princeton.edu/courses/archive/spr09/cos333/beautiful.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/regex-matcher-princeton.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The classic Princeton reference matcher: a recursive-descent regex engine in C with ^, $, ., * and character classes.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The match/matchhere pattern for anchor handling</li>
+          <li>Star matching greedily with backtracking</li>
+          <li>Literals, dots and the end-of-string rule</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>match() handles anchors at the start, then delegates to matchhere(). The star case tries the longest match first and backs off - the simplest form of backtracking.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>/* match: search the regular expression anywhere in the text */
+int match(char *regexp, char *text)
+{
+    if (regexp[0] == '^')
+        return matchhere(regexp+1, text);
+    do {    /* must look even when the string is empty */
+        ...</code></pre>
+        <pre class="code"><span class="lang-tag">C</span><code>} while (*text != '\0' &amp;&amp; (*text++ == c || c == '.'));</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>This tiny C matcher is the ancestor of many real implementations - the cleanest reference for recursive regex matching.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A Regular Expression Matcher" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.cs.princeton.edu/courses/archive/spr09/cos333/beautiful.html" target="_blank" rel="noopener">https://www.cs.princeton.edu/courses/archive/spr09/cos333/beautiful.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

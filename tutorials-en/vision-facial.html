@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building a Facial Recognition Pipeline with Deep Learning in Tensorflow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Visual Recognition System</a>
+        <span class="sep">→</span>
+        <span>Building a Facial Recognition Pipeline with Deep Learning in Tensorflow</span>
+      </div>
+      <h1>Building a Facial Recognition Pipeline with Deep Learning in Tensorflow</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Visual Recognition System</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://hackernoon.com/building-a-facial-recognition-pipeline-with-deep-learning-in-tensorflow-66e7645015b8" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building a Facial Recognition Pipeline with Deep Learning in Tensorflow"
+        </div>
+        <a class="btn solid" href="https://hackernoon.com/building-a-facial-recognition-pipeline-with-deep-learning-in-tensorflow-66e7645015b8" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/visual-recognition-facial.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Face recognition with FaceNet: embed faces into a 128-dimensional space and compare them, all inside a Docker container.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The FaceNet model and pre-trained embeddings</li>
+          <li>Running the pipeline in Docker with CUDA-style setup</li>
+          <li>Comparing embeddings for verification and identification</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A pre-trained FaceNet graph converts each face into an embedding vector. Images are loaded in parallel with a queue - preprocessing on CPU, the network on GPU - so batches flow without stalling.</p>
+        <pre class="code"><span class="lang-tag">Bash</span><code>$ docker run -v $PWD:/medium-facenet-tutorial \
+  -e PYTHONPATH=$PYTHONPATH:/medium-facenet-tutorial \
+  -it colemurray/medium-facenet-tutorial \
+  python3 medium_facenet_tutorial.py</code></pre>
+        <pre class="code"><span class="lang-tag">Python</span><code># load images in parallel with a queue - CPU preprocessing, GPU network
+img_placeholder = tf.placeholder(tf.float32, [None, 180, 180, 3])
+embeddings = facenet.embedding_model(img_placeholder, 128)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>FaceNet's embedding trick powers modern face recognition - and this tutorial gives you the whole system running in Docker.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building a Facial Recognition Pipeline with Deep Learning in Tensorflow" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://hackernoon.com/building-a-facial-recognition-pipeline-with-deep-learning-in-tensorflow-66e7645015b8" target="_blank" rel="noopener">https://hackernoon.com/building-a-facial-recognition-pipeline-with-deep-learning-in-tensorflow-66e7645015b8</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

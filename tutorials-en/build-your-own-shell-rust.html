@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build Your Own Shell using Rust</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Shell</a>
+        <span class="sep">→</span>
+        <span>Build Your Own Shell using Rust</span>
+      </div>
+      <h1>Build Your Own Shell using Rust</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Rust</span>
+        <span class="meta-badge">📁 Shell</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.joshmcguigan.com/blog/build-your-own-shell-rust/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build Your Own Shell using Rust"
+        </div>
+        <a class="btn solid" href="https://www.joshmcguigan.com/blog/build-your-own-shell-rust/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/build-your-own-shell-rust.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Build a shell in Rust step by step: read a line, run a command, then add arguments and a real loop.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Reading input with stdin().read_line() and trimming the newline</li>
+          <li>Spawning processes with std::process::Command</li>
+          <li>Splitting whitespace into command and arguments</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A REPL loop reads a line, trims it, splits it into words, and spawns the command with its arguments via std::process::Command.</p>
+        <pre class="code"><span class="lang-tag">Rust</span><code>fn main() {
+    let mut input = String::new();
+    stdin().read_line(&amp;mut input).unwrap();
+
+    let command = input.trim();   // read_line leaves a trailing newline
+
+    Command::new(command).spawn().unwrap();
+}</code></pre>
+        <pre class="code"><span class="lang-tag">Rust</span><code>let mut parts = input.trim().split_whitespace();
+let command = parts.next().unwrap();
+let args = parts;
+
+let mut child = Command::new(command)
+    .args(args)
+    .spawn()
+    .unwrap();
+child.wait();</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Rust's Command API makes process spawning explicit and safe - the best language for a first from-scratch shell.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build Your Own Shell using Rust" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.joshmcguigan.com/blog/build-your-own-shell-rust/" target="_blank" rel="noopener">https://www.joshmcguigan.com/blog/build-your-own-shell-rust/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

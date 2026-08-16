@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Game physics series by Allen Chou</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Physics Engine</a>
+        <span class="sep">→</span>
+        <span>Game physics series by Allen Chou</span>
+      </div>
+      <h1>Game physics series by Allen Chou</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Physics Engine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://allenchou.net/game-physics-series/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Game physics series by Allen Chou"
+        </div>
+        <a class="btn solid" href="http://allenchou.net/game-physics-series/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/physics-allen-chou.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A deep series on building a rigid-body game physics engine: semi-implicit Euler integration, support functions and the GJK collision algorithm.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Semi-implicit Euler: update velocities first, then positions</li>
+          <li>Support functions and the CSO (Minkowski difference)</li>
+          <li>The GJK algorithm: closest-point and overlap queries via the simplex</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Integration follows the semi-implicit pattern: velocities update from forces first, positions second. For collisions, the series uses support functions - the farthest point of a shape along a direction - and GJK, which grows a simplex in the Minkowski difference until it contains (or provably cannot contain) the origin.</p>
+        <pre class="code"><span class="lang-tag">C++</span><code>// semi-implicit Euler integration for linear and angular motion
+// velocities first, then positions:
+v += (f / m) * dt;        // linear velocity
+w += (torque / I) * dt;   // angular velocity
+x += v * dt;              // position</code></pre>
+        <pre class="code"><span class="lang-tag">C++</span><code>// support function: the farthest point of the shape from the origin, in direction d
+Vec2 support(const Vec2&amp; direction) {
+    float maxDot = -FLT_MAX;
+    Vec2 best;
+    for (const Vec2&amp; p : vertices) {   // for polygons</code></pre>
+        <pre class="code"><span class="lang-tag">Text</span><code>while true:
+    d = the closest point of the simplex to the origin (toward the origin)
+    if d == 0: return COLLISION
+    p = supportA(d) - supportB(-d)     # support point of the CSO
+    if p . d &lt; 0: return NO_COLLISION</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>GJK is the collision algorithm behind professional engines - implementing it once turns a buzzword into an intuition you can debug.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Game physics series by Allen Chou" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://allenchou.net/game-physics-series/" target="_blank" rel="noopener">http://allenchou.net/game-physics-series/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

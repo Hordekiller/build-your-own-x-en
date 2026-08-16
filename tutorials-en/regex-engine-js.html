@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Implementing a Regular Expression Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Regex Engine</a>
+        <span class="sep">→</span>
+        <span>Implementing a Regular Expression Engine</span>
+      </div>
+      <h1>Implementing a Regular Expression Engine</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Regex Engine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://deniskyashif.com/2019/02/17/implementing-a-regular-expression-engine/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Implementing a Regular Expression Engine"
+        </div>
+        <a class="btn solid" href="https://deniskyashif.com/2019/02/17/implementing-a-regular-expression-engine/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/regex-engine-js.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Building a regex engine in JavaScript for very large patterns, based on the state-machine model: states, transitions and epsilon moves.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Modeling a matcher as states with transitions</li>
+          <li>Epsilon transitions that move without consuming input</li>
+          <li>Simulating the machine against an input string</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The engine is a nondeterministic finite automaton: each state holds an isEnd flag, a transition map indexed by symbol, and epsilonTransitions. Building the engine means wiring these states together.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>function createState(isEnd) {
+    return {
+        isEnd,
+        transition: {},
+        epsilonTransitions: []
+    };
+}</code></pre>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>function addEpsilonTransition(from, to) {
+    from.epsilonTransitions.push(to);
+}
+
+function addTransition(from, to, symbol) {
+    from.transition[symbol] = to;
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>State machines are the true heart of regex - and with NFA techniques you can handle patterns of millions of states.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Implementing a Regular Expression Engine" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://deniskyashif.com/2019/02/17/implementing-a-regular-expression-engine/" target="_blank" rel="noopener">https://deniskyashif.com/2019/02/17/implementing-a-regular-expression-engine/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

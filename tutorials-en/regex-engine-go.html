@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to build a regex engine from scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Regex Engine</a>
+        <span class="sep">→</span>
+        <span>How to build a regex engine from scratch</span>
+      </div>
+      <h1>How to build a regex engine from scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Regex Engine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://rhaeguard.github.io/posts/regex" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to build a regex engine from scratch"
+        </div>
+        <a class="btn solid" href="https://rhaeguard.github.io/posts/regex" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/regex-engine-go.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A regular expression engine in Go: tokenize the pattern, parse it into tokens for groups, ranges, repeats and alternation - ready to compile into a matcher.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Tokenizing patterns into literals, groups, brackets and repeats</li>
+          <li>Handling character ranges like [a-zA-Z0-9_]</li>
+          <li>Parsing with a cursor-walking approach</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The engine first converts a pattern such as an email regex into a list of tokens - repeats, ranges and literals. A parser then walks the token stream and builds the shape of the matcher.</p>
+        <pre class="code"><span class="lang-tag">Go</span><code>type tokenType uint8
+type token struct {
+   ttype  tokenType
+   min    int
+   max    int
+   negate bool
+   chars  []rune
+}
+const (
+   group         tokenType = iota
+   bracket       tokenType = iota
+   or            tokenType = iota
+   repeat        tokenType = iota
+   literal       tokenType = iota
+)</code></pre>
+        <pre class="code"><span class="lang-tag">Go</span><code>func parse(regex string) *parseContext {
+   ctx := &amp;parseContext{
+      pos:    0,
+      tokens: []token{},
+   }
+   for ctx.pos &lt; len(regex) {
+      process(regex, ctx)
+      ctx.pos++
+   }
+   return ctx
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Reading a Go regex engine's tokenizer and parser demystifies how grep and syntax highlighters work.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to build a regex engine from scratch" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://rhaeguard.github.io/posts/regex" target="_blank" rel="noopener">https://rhaeguard.github.io/posts/regex</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>
