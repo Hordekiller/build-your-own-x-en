@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a Blockchain in Node.js</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>Writing a Blockchain in Node.js</span>
+      </div>
+      <h1>Writing a Blockchain in Node.js</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.smashingmagazine.com/2020/02/cryptocurrency-blockchain-node-js/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a Blockchain in Node.js" — a Smashing Magazine tutorial
+          by Rodrigo Quesada that builds CryptoBlock, a working cryptocurrency with mining,
+          wallets and signed transactions.
+        </div>
+        <a class="btn solid" href="https://www.smashingmagazine.com/2020/02/cryptocurrency-blockchain-node-js/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/blockchain-node-smashing.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A polished, intermediate-level cryptocurrency in Node.js: blocks with SHA-256 hashes,
+        proof-of-work mining, a blockchain class with validation, and a transaction system with
+        asymmetric signing so users own their money cryptographically.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The CryptoBlock class: fields, hashing and proof-of-work.</li>
+          <li>Chain structure, genesis block and validation.</li>
+          <li>Transactions with elliptic-curve signatures.</li>
+          <li>Wallets: key pairs, addresses and transaction signing.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The chain is built from a single well-structured class:</p>
+        <pre class="code"><span class="lang-tag">javascript</span><code>// Importing the SHA256 hash function from the crypto-js library
+const SHA256 = require('crypto-js/sha256');
+
+// Encrypted block class — the building blocks of the blockchain
+class CryptoBlock{
+    // Class constructor; initialized with an index, timestamps, data and the hash of the previous block
+    constructor(index, timestamp, data, precedingHash=" "){
+        this.index = index;            // block position in the chain
+        this.timestamp = timestamp;    // transaction recording time
+        this.data = data;
+        this.precedingHash = precedingHash;
+        this.hash = this.computeHash();
+        this.nonce = 0;
+    } // ...</code></pre>
+        <p>The only runtime dependency remains the hash function:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>npm install --save crypto-js</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Between toy chains and production systems, this tutorial is the sweet spot: real
+        cryptography for wallets and signatures, yet still fully readable in a single sitting —
+        an excellent preparation for Bitcoin Core era projects.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a Blockchain in Node.js" belongs to its original
+        author (Rodrigo Quesada). This page is an English overview written for the BYOX platform;
+        all content, images and code belong to the original author. Read the original at
+        <a href="https://www.smashingmagazine.com/2020/02/cryptocurrency-blockchain-node-js/" target="_blank" rel="noopener">smashingmagazine.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

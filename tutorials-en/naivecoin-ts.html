@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Naivecoin: a tutorial for building a cryptocurrency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>Naivecoin: a tutorial for building a cryptocurrency</span>
+      </div>
+      <h1>Naivecoin: a tutorial for building a cryptocurrency</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: TypeScript</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://lhartikk.github.io/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Naivecoin: a tutorial for building a cryptocurrency" — Lauri
+          Hartikka's step-by-step TypeScript coin with P2P networking and a web UI.
+        </div>
+        <a class="btn solid" href="https://lhartikk.github.io/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/naivecoin-ts.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Lauri Hartikka's Naivecoin walks through a working cryptocurrency in TypeScript: blocks,
+        hashing, a key-pair wallet, signatures, and a peer-to-peer network — with each step built
+        and demonstrated before moving on.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Typed Block and Blockchain data structures.</li>
+          <li>Block hashing and integrity validation.</li>
+          <li>Key pairs, addresses and digital signatures.</li>
+          <li>Peer-to-peer networking and the longest-chain rule.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The block is a typed class — every field declared up front:</p>
+        <pre class="code"><span class="lang-tag">typescript</span><code>class Block {
+
+    public index: number;          // block height in the chain
+    public hash: string;           // block hash
+    public previousHash: string;   // hash of the previous block
+    public timestamp: number;      // timestamp
+    public data: string;           // data inside the block
+
+    constructor(index: number, hash: string, previousHash: string, timestamp: number, data: string) {
+        this.index = index;
+        this.hash = hash;
+        // ...
+    }
+}</code></pre>
+        <p>And the hash is a pure function of its inputs:</p>
+        <pre class="code"><span class="lang-tag">typescript</span><code>// Calculating the hash: combining the index, previous hash, time and data, then SHA256-hashing
+const calculateHash = (index: number, previousHash: string, timestamp: number, data: string): string =>
+    CryptoJS.SHA256(index + previousHash + timestamp + data).toString();</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>TypeScript tames the implicit state of a coin implementation, and the tutorial's
+        discipline — one working step at a time, from genesis to P2P — makes the whole
+        cryptocurrency architecture legible.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Naivecoin" belongs to its original author (Lauri Hartikka).
+        This page is an English overview written for the BYOX platform; all content, images and
+        code belong to the original author. Read the original at
+        <a href="https://lhartikk.github.io/" target="_blank" rel="noopener">lhartikk.github.io</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

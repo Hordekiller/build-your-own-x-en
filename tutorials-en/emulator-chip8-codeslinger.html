@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Emulation tutorial (CHIP-8 interpreter)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Emulator / Virtual Machine</a>
+        <span class="sep">→</span>
+        <span>Emulation tutorial (CHIP-8 interpreter)</span>
+      </div>
+      <h1>Emulation tutorial (CHIP-8 interpreter)</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Emulator / Virtual Machine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.codeslinger.co.uk/pages/projects/chip8.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Emulation tutorial (CHIP-8 interpreter)"
+        </div>
+        <a class="btn solid" href="http://www.codeslinger.co.uk/pages/projects/chip8.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/emulator-chip8-codeslinger.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>An emulation tutorial that builds a CHIP-8 interpreter from zero: the register file, fetch-decode-execute, graphics memory and the opcode table.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Registers and program counter initialization</li>
+          <li>Fetching and decoding 16-bit opcodes with bit shifts</li>
+          <li>The 64x32 screen buffer and sprite drawing</li>
+          <li>The full opcode set, implemented one case at a time</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Reset puts the machine in a known state and loads a game:</p>
+        <pre class="code"><span class="lang-tag">cpp</span><code>void CPUReset( )
+{
+   m_AddressI = 0 ;
+   m_ProgramCounter = 0x200 ;
+   memset(m_Registers,0,sizeof(m_Registers)) ; // zero the registers
+
+   // load the game
+   FILE *in;
+   in = fopen( "c:/INVADERS", "rb" );
+   ...</code></pre>
+        <pre class="code"><span class="lang-tag">cpp</span><code>BYTE m_ScreenData[64][32] ;</code></pre>
+        <pre class="code"><span class="lang-tag">cpp</span><code>WORD GetNextOpcode( )
+{
+   WORD res = 0 ;
+   res = m_GameMemory[m_ProgramCounter] ;   // e.g. res = 0xAB
+   res &lt;&lt;= 8 ;                              // shift left 8 bits: 0xAB00
+   res |= m_GameMemory[m_ProgramCounter+1] ;// OR in the low byte
+   m_ProgramCounter += 2 ;
+   return res ;
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A complete opcode-by-opcode walkthrough in one page — the fastest possible on-ramp to emulator programming with a classic game inside your emulator at the end.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Emulation tutorial (CHIP-8 interpreter)" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://www.codeslinger.co.uk/pages/projects/chip8.html" target="_blank" rel="noopener">http://www.codeslinger.co.uk/pages/projects/chip8.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | An Archaeology-Inspired Database</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>An Archaeology-Inspired Database</span>
+      </div>
+      <h1>An Archaeology-Inspired Database</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Clojure</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://aosabook.org/en/500L/an-archaeology-inspired-database.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "An Archaeology-Inspired Database" — the 500 Lines chapter by
+          Timothy Toolan: a Datomic-inspired database with four four-dimensional indexes and
+          historical time travel.
+        </div>
+        <a class="btn solid" href="http://aosabook.org/en/500L/an-archaeology-inspired-database.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/archaeology-db-clojure.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A truly different database design: inspired by archaeologists and Datomic, every fact
+        ever written is kept, and reads can travel back in time. Data is organized in layers,
+        entities, attributes with timestamps, and four query indexes (EAVT, AEVT, VAET, AVET).</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A temporal, append-only data model — time travel reads.</li>
+          <li>Entities and attributes with type, value and timestamps.</li>
+          <li>The four index orders and which queries they answer.</li>
+          <li>Query semantics over a persistence layer protocol.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The entire database is two record types — the database itself and its layers:</p>
+        <pre class="code"><span class="lang-tag">clj</span><code>(defrecord Database [layers top-id curr-time])
+(defrecord Layer [storage VAET AVET VEAT EAVT])</code></pre>
+        <p>Entities carry their attributes, and attributes remember their history:</p>
+        <pre class="code"><span class="lang-tag">clj</span><code>(defrecord Entity [id attrs])
+(defrecord Attr [name value ts prev-ts])
+
+(defn make-attr
+   ([name value type ; these are required
+       &amp; {:keys [cardinality] :or {cardinality :db/single}} ]
+     {:pre [(contains? #{:db/single :db/multiple} cardinality)]}
+    (with-meta (Attr. name value -1 -1) {:type type :cardinality cardinality})))</code></pre>
+        <p>Storage itself is a protocol — you can plug any backing implementation behind it:</p>
+        <pre class="code"><span class="lang-tag">clj</span><code>(defprotocol Storage
+   (get-entity [storage e-id])
+   (write-entity [storage entity])
+   (drop-entity [storage entity]))</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It breaks the assumption that a database must delete. The datalog-inspired query
+        model and temporal layers are genuinely production ideas (Datomic), presented in a
+        compact 500-line implementation.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "An Archaeology-Inspired Database" belongs to its original
+        author (Timothy Toolan). This page is an English overview written for the BYOX platform;
+        all content, images and code belong to the original author. Read the original at
+        <a href="http://aosabook.org/en/500L/an-archaeology-inspired-database.html" target="_blank" rel="noopener">aosabook.org</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

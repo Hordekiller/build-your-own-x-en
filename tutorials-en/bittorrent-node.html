@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Write your own bittorrent client</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">BitTorrent Client</a>
+        <span class="sep">→</span>
+        <span>Write your own bittorrent client</span>
+      </div>
+      <h1>Write your own bittorrent client</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Node.js</span>
+        <span class="meta-badge">📁 BitTorrent Client</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://allenkim67.github.io/programming/2016/05/04/how-to-make-your-own-bittorrent-client.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Write your own bittorrent client" — a step-by-step Node.js guide
+          by Allen Kim that builds a minimal client piece by piece.
+        </div>
+        <a class="btn solid" href="https://allenkim67.github.io/programming/2016/05/04/how-to-make-your-own-bittorrent-client.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/bittorrent-node.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Allen Kim's guide builds a BitTorrent client in Node.js from scratch — no libraries for
+        the protocol itself. You start by reading a real <code class="inline">.torrent</code> file
+        byte by byte, then implement bencode decoding, tracker communication, peer handshakes and
+        piece downloading until a real file lands on disk.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Reading torrent files: binary data, buffers and encoding detection.</li>
+          <li>Writing a bencode parser against real tracker output.</li>
+          <li>Parsing tracker responses and peer lists.</li>
+          <li>The peer protocol: handshake, messages and piece requests.</li>
+          <li>Asynchronous networking patterns in Node.js.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The first step is humbling and important: a torrent file is not text, it is binary — so
+        printing it as UTF-8 produces garbage. The guide starts exactly there:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>'use strict';
+
+const fs = require('fs');
+const torrent = fs.readFileSync('puppy.torrent');
+console.log(torrent.toString('utf8'));</code></pre>
+        <p>From that raw byte soup, the client must recover the announce URL, the file layout and
+        the piece hashes — which is precisely what the bencode parser does next.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Working with a real-world binary protocol is the best possible exercise for Node.js
+        developers: it forces buffer literacy, stream thinking and careful state handling. By the
+        end, the mystery of how peer-to-peer downloads actually work is gone.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Write your own bittorrent client" belongs to its original author
+        (Allen Kim). This page is an English overview written for the BYOX platform; all content,
+        images and code belong to the original author. Read the original at
+        <a href="https://allenkim67.github.io/programming/2016/05/04/how-to-make-your-own-bittorrent-client.html" target="_blank" rel="noopener">allenkim67.github.io</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

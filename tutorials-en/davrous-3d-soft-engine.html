@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Learning how to write a 3D soft engine from scratch in C#, TypeScript or JavaScript</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">3D Renderer</a>
+        <span class="sep">→</span>
+        <span>Learning how to write a 3D soft engine from scratch in C#, TypeScript or JavaScript</span>
+      </div>
+      <h1>Learning how to write a 3D soft engine from scratch in C#, TypeScript or JavaScript</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C# / TypeScript / JavaScript</span>
+        <span class="meta-badge">📁 3D Renderer</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.davrous.com/2013/06/13/tutorial-series-learning-how-to-write-a-3d-soft-engine-from-scratch-in-c-typescript-or-javascript/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Learning how to write a 3D soft engine from scratch in C#, TypeScript
+          or JavaScript" by David Rousset (@davrous) — a 10-part series building a complete software
+          renderer with three language tracks.
+        </div>
+        <a class="btn solid" href="https://www.davrous.com/2013/06/13/tutorial-series-learning-how-to-write-a-3d-soft-engine-from-scratch-in-c-typescript-or-javascript/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/davrous-3d-soft-engine.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A ten-part tutorial series that builds a complete 3D software engine — no DirectX, no
+        OpenGL, no Unity — writing every pixel yourself. The same engine is implemented three times:
+        C# on Windows 8, and both TypeScript and JavaScript for the web, so you can follow in
+        whichever language you prefer and even compare them side by side.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Camera, meshes and their mathematical representation.</li>
+          <li>World, view and projection matrices — and how to combine them.</li>
+          <li>Rasterizing wireframe triangles, then filled ones.</li>
+          <li>The z-buffer for correct depth ordering.</li>
+          <li>Flat shading, Gouraud shading and the normal/light math behind them.</li>
+          <li>Rendering a full textured OBJ model, e.g. Suzanne the blender monkey.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The project starts with the data model — a <code class="inline">Camera</code> and a
+        <code class="inline">Mesh</code> holding vertices — then builds the transformation pipeline
+        and the triangle fillers around them.</p>
+        <pre class="code"><span class="lang-tag">c#</span><code>// Camera.cs and Mesh.cs
+using SharpDX;
+
+namespace SoftEngine
+{
+    public class Camera
+    {
+        public Vector3 Position { get; set; }
+        public Vector3 Target { get; set; }
+    }
+    public class Mesh
+    {
+        public string Name { get; set; }
+        public Vector3[] Vertices { get; private set; }
+        public Vector3 Position { get; set; }
+        public Vector3 Rotation { get; set; }
+
+        public Mesh(string name, int verticesCount)
+        {
+            Vertices = new Vector3[verticesCount];
+            Name = name;
+        }
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>This series is the classic bridge between "math class" and "video games": every matrix and
+        vector gets a visible payoff on screen. Because three language versions are provided, it is
+        also excellent for learning how renderer code translates across ecosystems.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Learning how to write a 3D soft engine from scratch in C#,
+        TypeScript or JavaScript" belongs to its original author (David Rousset). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the
+        original author. Read the original at
+        <a href="https://www.davrous.com/2013/06/13/tutorial-series-learning-how-to-write-a-3d-soft-engine-from-scratch-in-c-typescript-or-javascript/" target="_blank" rel="noopener">davrous.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

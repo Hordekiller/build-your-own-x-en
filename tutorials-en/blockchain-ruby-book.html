@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Programming Blockchains Step-by-Step (Manuscripts Book Edition)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>Programming Blockchains Step-by-Step (Manuscripts Book Edition)</span>
+      </div>
+      <h1>Programming Blockchains Step-by-Step (Manuscripts Book Edition)</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Ruby</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/yukimotopress/programming-blockchains-step-by-step" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Programming Blockchains Step-by-Step" — the yukimotopress
+          manuscript (full PDF book) that teaches blockchains from the ground up, with Ruby as its
+          companion language.
+        </div>
+        <a class="btn solid" href="https://github.com/yukimotopress/programming-blockchains-step-by-step" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/blockchain-ruby-book.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This is a whole book, released as manuscripts: from your first hash to an open-ended
+        full blockchain — blocks, transactions, Merkle trees, mining, and beyond — with Ruby as
+        the implementation language and a "keep it simple" philosophy throughout.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Hashing from the first line: <code class="inline">Digest::SHA256</code>.</li>
+          <li>Blocks, chains and hash linkage.</li>
+          <li>Transactions, inputs/outputs and Merkle trees.</li>
+          <li>Proof-of-work mining and network-level topics.</li>
+          <li>Design decisions and real-world trade-offs.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The journey starts with the tiniest building block of crypto — a single hash:</p>
+        <pre class="code"><span class="lang-tag">ruby</span><code>require 'digest'
+
+Digest::SHA256.hexdigest( 'Hello, Cryptos!' )</code></pre>
+        <pre class="code"><span class="lang-tag">ruby</span><code>#=> "33eedea60b0662c66c289ceba71863a864cf84b00e10002ca1069bf58f9362d5"</code></pre>
+        <p>From that single call, the book builds upward: block, chain, transactions, mining,
+        networking — each layer tested and explained with plain English.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Few resources bring together depth, breadth and readability like a good book — and this
+        one is free. The Ruby code is clean, the exercises are honest, and the manuscript format
+        means you can even contribute corrections.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Programming Blockchains Step-by-Step" belongs to its original
+        author (yukimotopress). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="https://github.com/yukimotopress/programming-blockchains-step-by-step" target="_blank" rel="noopener">github.com/yukimotopress/programming-blockchains-step-by-step</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

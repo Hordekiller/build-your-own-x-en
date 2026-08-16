@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Roll your own IRC bot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>Roll your own IRC bot</span>
+      </div>
+      <h1>Roll your own IRC bot</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Haskell</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://wiki.haskell.org/Roll_your_own_IRC_bot" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Roll your own IRC bot" — the Haskell wiki's classic guide to
+          writing an IRC bot from scratch in Haskell, from sockets to the protocol loop.
+        </div>
+        <a class="btn solid" href="https://wiki.haskell.org/Roll_your_own_IRC_bot" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/haskell-irc.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A step-by-step Haskell guide that connects to a real IRC network, speaks the IRC
+        protocol line by line, and reacts to chat messages — ending with a working bot that
+        responds to commands like a pong to a ping.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Opening TCP sockets to an IRC server with the <code class="inline">network</code> package.</li>
+          <li>Reading raw IRC protocol lines (PING, PRIVMSG, 001…).</li>
+          <li>Parsing messages and dispatching replies.</li>
+          <li>Clean, functional bot loop design in Haskell.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything starts with a socket and a string — the server, the port, and the lazy
+        input stream the server sends back:</p>
+        <pre class="code"><span class="lang-tag">hs</span><code>-- file 1.hs
+
+import System.IO                      -- base library
+import qualified Network.Socket as N  -- network package
+
+-- configuration options
+myServer = "irc.libera.chat" :: String
+myPort   = 6667 :: N.PortNumber
+
+-- Toplevel program
+main :: IO ()
+main = do
+    h &lt;- connectTo myServer myPort
+    t &lt;- hGetContents h
+    hSetBuffering stdout NoBuffering
+    print t
+
+-- comment</code></pre>
+        <p>Run it and the raw handshake sequence appears on screen — the exact bytes your bot
+        must eventually parse and reply to:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>   $ runhaskell 1.hs
+   "NOTICE AUTH :*** Looking up your hostname...\r\nNOTICE AUTH :***
+   Checking ident\r\nNOTICE AUTH :*** Found your hostname\r\n ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>IRC predates modern chat APIs and is a tiny, text-based protocol — ideal for learning
+        real socket programming and network protocol handling without any libraries hiding the
+        details.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Roll your own IRC bot" belongs to its original author
+        (Don Stewart). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="https://wiki.haskell.org/Roll_your_own_IRC_bot" target="_blank" rel="noopener">wiki.haskell.org</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

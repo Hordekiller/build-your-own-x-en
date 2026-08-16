@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a Game Boy emulator, Cinoop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Emulator / Virtual Machine</a>
+        <span class="sep">→</span>
+        <span>Writing a Game Boy emulator, Cinoop</span>
+      </div>
+      <h1>Writing a Game Boy emulator, Cinoop</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Emulator / Virtual Machine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://cturt.github.io/cinoop.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a Game Boy emulator, Cinoop — by Chris Turtel"
+        </div>
+        <a class="btn solid" href="https://cturt.github.io/cinoop.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/emulator-cinoop.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Writing a Game Boy emulator, Cinoop — a complete, no-frills emulator in C focused on getting the CPU and memory dead right, one opcode at a time.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The Game Boy's 8-bit CPU and its 256 opcodes</li>
+          <li>Organizing opcode handlers with a dispatch table</li>
+          <li>Memory mapping, registers and the boot sequence</li>
+          <li>Squeezing every feature into plain C</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Every opcode lives in one big table — disassembly text, operand length and handler pointer:</p>
+        <pre class="code"><span class="lang-tag">c</span><code>struct instruction {
+	char *disassembly;
+	unsigned char operandLength;
+	void *execute;
+	//unsigned char ticks;
+} extern const instructions[256];
+...
+const struct instruction instructions[256] = {
+	{ "NOP", 0, nop },
+	...</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>// 0x06
+void ld_b_n(unsigned char operand) { registers.b = operand; }</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>if(registers.pc == 0x300) {
+	printRegisters();
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A Game Boy on your screen by the weekend: Cinoop proves that a full console emulator is nothing but a dispatch table and a lot of attention to detail.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a Game Boy emulator, Cinoop" belongs to its original author (Chris Turtel). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://cturt.github.io/cinoop.html" target="_blank" rel="noopener">https://cturt.github.io/cinoop.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

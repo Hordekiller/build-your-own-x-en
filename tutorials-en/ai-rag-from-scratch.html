@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | RAG for Document Search</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">AI Model</a>
+        <span class="sep">→</span>
+        <span>RAG for Document Search</span>
+      </div>
+      <h1>RAG for Document Search</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 AI Model</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/langchain-ai/rag-from-scratch" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "RAG for Document Search" — the LangChain "RAG from Scratch"
+          repository of notebooks walking through every stage of retrieval-augmented generation.
+        </div>
+        <a class="btn solid" href="https://github.com/langchain-ai/rag-from-scratch" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/ai-rag-from-scratch.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Retrieval-Augmented Generation (RAG) is the dominant pattern for building LLM assistants
+        over your own documents: chunk the documents, embed them into a vector index, retrieve the
+        most relevant pieces for a question, and feed them to the model as context. This LangChain
+        series teaches every stage with runnable notebooks — from chunking and embeddings to
+        evaluation and advanced routing.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Document loading, chunking and text splitters.</li>
+          <li>Embeddings and vector stores (FAISS, Chroma).</li>
+          <li>Retrieval strategies: similarity search, MMR and self-querying.</li>
+          <li>Synthesis: prompt construction with retrieved context.</li>
+          <li>Conversational RAG and memory.</li>
+          <li>Evaluation of retrieval and generation quality.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The entire pattern fits in a few lines once the parts exist — split, embed, retrieve,
+        generate:</p>
+        <pre class="code"><span class="lang-tag">python</span><code>from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+# 1) Index: split documents and build vector embeddings
+chunks = RecursiveCharacterTextSplitter(chunk_size=500).split_documents(docs)
+index = FAISS.from_documents(chunks, embeddings)
+
+# 2) Retrieve: the documents closest to the user's question
+hits = index.similarity_search("user question", k=4)
+
+# 3) Generate: give the retrieved documents to the model as context
+answer = llm.invoke(f"Answer based on these documents:\n{hits}")</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>RAG is how most production LLM applications ground their answers in real data. The series
+        is practical from notebook one, and it demystifies the pipeline that powers chatbots,
+        document Q&amp;A and AI search products.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "RAG for Document Search" belongs to the LangChain team. This page
+        is an English overview written for the BYOX platform; all content, images and code belong to
+        the original authors. Read the original at
+        <a href="https://github.com/langchain-ai/rag-from-scratch" target="_blank" rel="noopener">github.com/langchain-ai/rag-from-scratch</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

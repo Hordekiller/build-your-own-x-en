@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | DBDB: Dog Bed Database</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>DBDB: Dog Bed Database</span>
+      </div>
+      <h1>DBDB: Dog Bed Database</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://aosabook.org/en/500L/dbdb-dog-bed-database.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "DBDB: Dog Bed Database" — the 500 Lines chapter by Taavi
+          Burns: a beefed-up BTrees persistent key-value store, directly inspired by basho's
+          Bitcask and couchdb's BTree storage.
+        </div>
+        <a class="btn solid" href="http://aosabook.org/en/500L/dbdb-dog-bed-database.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/dbdb-python.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>DBDB is a persistent, on-disk key-value store written in Python — a dictionary whose
+        data survives restarts. Built from two production ideas: Bitcask's write-once
+        behavior and the BTree's ordered, log-structured nodes, with a sorting layer, physical
+        storage, binary serialization and crash-safety built in.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Persistent data structures: writing state that survives crashes.</li>
+          <li>Logical vs. physical data views and the sorting layer between them.</li>
+          <li>BTrees: nodes, serialization and on-disk layout.</li>
+          <li>The interface that makes a library feel like a CLI database.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The database is used from a shell like any serious engine:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>$ python tool.py
+> db = connect('mydogdb')
+> db['a'] = '1'
+> db['a']
+'1'</code></pre>
+        <p>And its heart is the tool module — the user-facing door to the whole engine:</p>
+        <pre class="code"><span class="lang-tag">python</span><code>from dbdb.interface import connect
+from dbdb.tool import main</code></pre>
+        <p>Underneath: a sorting layer (one key: from logical to physical), a physical layer
+        (serializing to / deserializing from binary), and a BTree storing redundant, ordered
+        data — mirrored, log-structured, crash-safe.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Two production patterns are torn down and rebuilt in Python: Bitcask's append-only
+        write philosophy and the BTree's ordered persistence. The result is a real dictionary
+        that survives `Ctrl-C` — and the mental model transfers to any embedded database.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "DBDB: Dog Bed Database" belongs to its original author
+        (Taavi Burns). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="http://aosabook.org/en/500L/dbdb-dog-bed-database.html" target="_blank" rel="noopener">aosabook.org</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

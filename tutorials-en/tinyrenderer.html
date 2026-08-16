@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How OpenGL works: software rendering in 500 lines of code</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">3D Renderer</a>
+        <span class="sep">→</span>
+        <span>How OpenGL works: software rendering in 500 lines of code</span>
+      </div>
+      <h1>How OpenGL works: software rendering in 500 lines of code</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 3D Renderer</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/ssloy/tinyrenderer/wiki" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How OpenGL works: software rendering in 500 lines of code" by
+          Dmitry Sokolov (ssloy) — walk through the entire tinyrenderer wiki on GitHub.
+        </div>
+        <a class="btn solid" href="https://github.com/ssloy/tinyrenderer/wiki" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/tinyrenderer.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>"Tinyrenderer" is one of the most famous build-your-own renderer series. It walks through
+        the internals of OpenGL by implementing a software rasterizer from absolute zero: no graphics
+        libraries, no external dependencies — just C++ and hand-written math, ending with a shaded,
+        textured 3D head rendered to a TGA image file.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li><strong>Drawing lines</strong>: from a naive interpolation to Bresenham's algorithm.</li>
+          <li><strong>Filling triangles</strong>: scanlines and barycentric coordinates, and why the latter is cleaner.</li>
+          <li><strong>Z-buffering</strong>: the hidden-surface solution that makes depth ordering just work.</li>
+          <li><strong>Lighting</strong>: Gouraud versus Phong shading, normals and the diffuse term.</li>
+          <li><strong>Perspective projection</strong>: the viewport, camera math and the z-divide.</li>
+          <li><strong>Texture mapping</strong>, <strong>shaders</strong>, and the classic "look at" camera.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything starts with a framebuffer: an array of pixels that the CPU itself writes to.
+        The very first lesson fills a single pixel, the second draws a line, and step by step the
+        pipeline of a real GPU is reconstructed in about 500 lines.</p>
+        <pre class="code"><span class="lang-tag">cpp</span><code>#include "tgaimage.h"
+const TGAColor white = TGAColor(255, 255, 255, 255);
+const TGAColor red   = TGAColor(255, 0,   0,   255);
+int main(int argc, char** argv) {
+        TGAImage image(100, 100, TGAImage::RGB);
+        image.set(52, 41, red);
+        image.flip_vertically(); // want the origin at bottom-left
+        image.write_tga_file("output.tga");
+        return 0;
+}</code></pre>
+        <p>A 100×100 image, one red pixel, saved as TGA — the entire "GPU" is a plain array of bytes.</p>
+      </section>
+
+      <section>
+        <h2>A line, then a triangle</h2>
+        <p>The line-drawing lesson is a history of optimization in miniature: first a slow parametric
+        loop, then integer math, then Bresenham. Triangles are filled with barycentric coordinates —
+        a test of whether a pixel lies inside a triangle — which later becomes the basis for
+        interpolating colors, normals and textures across a face.</p>
+        <pre class="code"><span class="lang-tag">cpp</span><code>void line(int x0, int y0, int x1, int y1, TGAImage &amp;image, TGAColor color) {
+    for (int x=x0; x&lt;=x1; x++) {
+        float t = (x-x0)/(float)(x1-x0);
+        int y = y0*(1.-t) + y1*t;
+        image.set(x, y, color);
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>After tinyrenderer, graphics APIs stop being magic: you know exactly what a shader is,
+        what a vertex transform does, and why the z-buffer exists. It is also the perfect bridge to
+        modern GPU programming, making OpenGL/Vulkan calls comprehensible as "the hardware version of
+        the software you just wrote".</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How OpenGL works: software rendering in 500 lines of code" belongs
+        to its original author (Dmitry Sokolov). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://github.com/ssloy/tinyrenderer/wiki" target="_blank" rel="noopener">github.com/ssloy/tinyrenderer/wiki</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

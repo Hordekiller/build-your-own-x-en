@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Code a database in 45 steps: a series of test-driven small coding puzzles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>Code a database in 45 steps</span>
+      </div>
+      <h1>Code a database in 45 steps: a series of test-driven small coding puzzles</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://trialofcode.org/database/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Code a database in 45 steps" — Trial of Code's
+          test-driven series: 45 small puzzles that gradually assemble a working database in Go.
+        </div>
+        <a class="btn solid" href="https://trialofcode.org/database/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/database-go-45steps.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A database built puzzle by puzzle: 45 small, test-driven steps in Go, each one a
+        self-contained challenge. You start from Go itself — its idioms — and work up through
+        the storage engine until a database emerges, one verified step at a time.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Go syntax and idioms (as the puzzles assume no prior Go).</li>
+          <li>Test-driven construction of each storage component.</li>
+          <li>File layout, encoding and on-disk structures.</li>
+          <li>Assembling parts into one working database.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Step one is the language itself — reading code that uses Go's borrowings from C and
+        Python, minus the ceremony:</p>
+        <pre class="code"><span class="lang-tag">go</span><code>// if/else without parentheses
+if a != c {
+    // ...
+} else {
+    // ...
+}
+// switch does not fall through like C
+switch a {
+case 123:
+    // ...
+case 456:
+    // ...
+default:
+    // ...
+}</code></pre>
+        <p>Variables declared where they are used, multi-value returns, and loops that cover
+        every C pattern:</p>
+        <pre class="code"><span class="lang-tag">go</span><code>// declare and use a variable inside if
+if err := f(); err != nil {
+    // ...
+}
+// loops
+for i := 0; i &lt; N; i++ {
+    // ...
+}
+for {
+    if xxx {
+        break
+    }
+    if yyy {
+        continue
+    }
+}
+// multiple return values
+func g() (string, bool) {
+    return "hi", false
+}
+s, b := g()</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Forty-five small wins beat one big wall. Each puzzle is verified by tests, so
+        confidence compounds — a genuinely new way to teach database internals.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Code a database in 45 steps" belongs to its original authors
+        (Trial of Code). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original authors. Read the original at
+        <a href="https://trialofcode.org/database/" target="_blank" rel="noopener">trialofcode.org</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Docker implemented in around 100 lines of bash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Docker</a>
+        <span class="sep">→</span>
+        <span>Docker implemented in around 100 lines of bash</span>
+      </div>
+      <h1>Docker implemented in around 100 lines of bash</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Shell</span>
+        <span class="meta-badge">📁 Docker</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/p8952/bocker" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Docker implemented in around 100 lines of bash"
+        </div>
+        <a class="btn solid" href="https://github.com/p8952/bocker" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/docker-bocker.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Docker implemented in around 100 lines of bash: btrfs subvolumes, cgroups, chroot and veth networks — the whole container stack scripted with pure shell.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The entire container surface in one bash script</li>
+          <li>btrfs subvolumes as image/container layers</li>
+          <li>cgroups for resource limiting, chroot for isolation</li>
+          <li>Networking containers with veth links and iptables</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything is one file, and every function is a docker command:</p>
+        <pre class="code"><span class="lang-tag">sh</span><code>#!/usr/bin/env bash
+set -o errexit -o nounset -o pipefail; shopt -s nullglob
+btrfs_path='/var/bocker' &amp;&amp; cgroups='cpu,cpuacct,memory';
+[[ $# -gt 0 ]] &amp;&amp; while [ "${1:0:2}" == '--' ]; do OPTION=${1:2}; [[ $OPTION =~ ^.*=.* ]] &amp;&amp; OPTION=${OPTION%%=*}; case $OPTION in
+  help) echo ...; exit 0;; esac; shift; done</code></pre>
+        <pre class="code"><span class="lang-tag">sh</span><code>function bocker_check() {
+	btrfs subvolume list "$btrfs_path" | grep -qw "$1" &amp;&amp; echo 0 || echo 1
+}</code></pre>
+        <pre class="code"><span class="lang-tag">sh</span><code>function bocker_rm() { #HELP Delete an image or container:
+BOCKER rm &lt;image_id or container_id&gt;
+	[[ "$(bocker_check "$1")" == 1 ]] &amp;&amp; echo "No container named '$1' exists" &amp;&amp; exit 1
+	btrfs subvolume del "$btrfs_path/$1" &gt;/dev/null
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The ultimate proof of concept: if a working container runtime fits in a shell script, the underlying ideas are simple — and now they're yours to read and modify.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Docker implemented in around 100 lines of bash" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/p8952/bocker" target="_blank" rel="noopener">https://github.com/p8952/bocker</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

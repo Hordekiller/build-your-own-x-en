@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building a BitTorrent client from the ground up in Go</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">BitTorrent Client</a>
+        <span class="sep">→</span>
+        <span>Building a BitTorrent client from the ground up in Go</span>
+      </div>
+      <h1>Building a BitTorrent client from the ground up in Go</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 BitTorrent Client</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://blog.jse.li/posts/torrent/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building a BitTorrent client from the ground up in Go" — a
+          step-by-step series by Jesse Li (jse.li) that builds a minimal but working torrent client.
+        </div>
+        <a class="btn solid" href="https://blog.jse.li/posts/torrent/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/bittorrent-go.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Jesse Li's series builds a real BitTorrent client in Go in small, well-tested steps: a
+        bencode parser, a torrent file parser, tracker communication, the peer wire protocol and
+        finally a fully working downloader — including a bitfield manager, message handling and
+        verification of every downloaded piece. The final client can genuinely download a file from
+        the public BitTorrent network.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Parsing bencode by hand and representing it in Go structs.</li>
+          <li>Reading <code class="inline">.torrent</code> files and their info dictionaries.</li>
+          <li>HTTP tracker requests and parsing peer lists.</li>
+          <li>The wire protocol: handshake, bitfield, request, piece and choke messages.</li>
+          <li>Hash verification with SHA-1 and reassembling files from pieces.</li>
+          <li>Testing each component in isolation.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The data model mirrors the protocol: a struct for the info dictionary (pieces, piece
+        length, name), and helper functions that walk the bencoded tree.</p>
+        <pre class="code"><span class="lang-tag">go</span><code>import (
+    "github.com/jackpal/bencode-go"
+)
+
+// bencodeInfo holds the data inside a torrent's info section
+type bencodeInfo struct {
+    Pieces      string `bencode:"pieces"`       // binary blob of all piece hashes
+    PieceLength int    `bencode:"piece length"` // length of each piece in bytes
+    Length      int    `bencode:"length"`       // total length of the file in bytes
+    Name        string `bencode:"name"`         // the file name
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>This is the rare tutorial that ends with a genuinely functional peer-to-peer client. Go's
+        concurrency model maps beautifully onto BitTorrent's parallel piece downloading, and the
+        incremental, test-driven style makes every protocol step concrete.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building a BitTorrent client from the ground up in Go" belongs to
+        its original author (Jesse Li). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://blog.jse.li/posts/torrent/" target="_blank" rel="noopener">blog.jse.li</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

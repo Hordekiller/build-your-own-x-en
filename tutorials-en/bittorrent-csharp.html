@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building a BitTorrent client from scratch in C#</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">BitTorrent Client</a>
+        <span class="sep">→</span>
+        <span>Building a BitTorrent client from scratch in C#</span>
+      </div>
+      <h1>Building a BitTorrent client from scratch in C#</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 BitTorrent Client</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.seanjoflynn.com/research/bittorrent.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building a BitTorrent client from scratch in C#" by Sean J. O'Flynn
+          — a full research writeup implementing the BitTorrent protocol end to end.
+        </div>
+        <a class="btn solid" href="https://www.seanjoflynn.com/research/bittorrent.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/bittorrent-csharp.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This in-depth article implements a working BitTorrent client in C# from zero: parsing
+        torrent files, talking to a tracker, connecting to peers, downloading pieces and assembling
+        the final file. It explains the protocol at every layer — bencoding, handshakes, peer
+        messages, piece verification — with a codebase you can actually run.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The bencode format: dictionaries, lists, integers and byte strings.</li>
+          <li>Anatomy of a <code class="inline">.torrent</code> file and its info dictionary.</li>
+          <li>Tracker announcements (HTTP) and building the peer list.</li>
+          <li>The peer wire protocol: handshake, bitfields and request/unchoke messages.</li>
+          <li>Piece downloading, SHA-1 verification and writing the output file.</li>
+          <li>Running a local tracker (<code class="inline">opentracker</code>) for testing.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything starts with the torrent file: a single bencoded dictionary whose
+        <code class="inline">announce</code> key points to the tracker and whose
+        <code class="inline">info</code> key describes the file and its pieces.</p>
+        <pre class="code"><span class="lang-tag">text</span><code>d8:announce33:http://192.168.1.74:6969/announce7:comment17:Comment goes here10:created by25:Transmission/2.92 (14714)13:creation datei1460444420e8:encoding5:UTF-84:infod6:lengthi59616e4:name9:lorem.txt12:piece lengthi32768e6:pieces40:L@fR...9G7:privatei0eee</code></pre>
+        <p>Bencoded by hand, that is one long string: lengths prefixed, values nested, integers
+        wrapped in <code class="inline">i...e</code>.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>BitTorrent is a beautifully designed peer-to-peer protocol and a perfect project for
+        understanding distributed systems. This writeup covers the complete stack — file format,
+        tracker HTTP, peer TCP and piece verification — making it one of the most thorough
+        protocol-implementation guides available.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building a BitTorrent client from scratch in C#" belongs to its
+        original author (Sean J. O'Flynn). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://www.seanjoflynn.com/research/bittorrent.html" target="_blank" rel="noopener">seanjoflynn.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

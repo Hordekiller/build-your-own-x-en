@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Code your own blockchain in less than 200 lines of Go</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>Code your own blockchain in less than 200 lines of Go</span>
+      </div>
+      <h1>Code your own blockchain in less than 200 lines of Go</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Code your own blockchain in less than 200 lines of Go" — a
+          tutorial by Coral Health (mycoralhealth) that builds a simple chain with proof-of-work and
+          a REST API in a single file.
+        </div>
+        <a class="btn solid" href="https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/blockchain-go-200lines.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A compact, single-file blockchain implementation in Go. The article walks through a
+        proof-of-work chain exposed through Gorilla Mux HTTP endpoints: get the chain, write a
+        block, and run an automatic miner.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Block structure and SHA-256 hash chaining.</li>
+          <li>A proof-of-work mining loop.</li>
+          <li>Serving and updating the chain via REST endpoints.</li>
+          <li>Broadcasting new blocks between nodes.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>After pulling in a couple of libraries for pretty printing and routing, the whole chain
+        fits in one file:</p>
+        <pre class="code"><span class="lang-tag">bash</span><code>go get github.com/davecgh/go-spew/spew
+go get github.com/gorilla/mux</code></pre>
+        <p>Blocks are created, hashed, and verified by the mining loop; the HTTP handlers let you
+        inspect the chain and write new blocks, while a goroutine mines automatically when the
+        chain changes.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Brevity is the teacher here: in under 200 lines you hold the complete skeleton of a
+        cryptocurrency — hashing, mining, HTTP and P2P messaging — which makes later, larger
+        implementations much easier to digest.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Code your own blockchain in less than 200 lines of Go" belongs
+        to its original author (Coral Health). This page is an English overview written for the
+        BYOX platform; all content, images and code belong to the original author. Read the
+        original at
+        <a href="https://medium.com/@mycoralhealth/code-your-own-blockchain-in-less-than-200-lines-of-go-e296282bcffc" target="_blank" rel="noopener">medium.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to Augmented Reality AR Tutorial: ARKit Portal to the Upside Down</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Augmented Reality</a>
+        <span class="sep">→</span>
+        <span>ARKit Portal to the Upside Down</span>
+      </div>
+      <h1>How to Augmented Reality AR Tutorial: ARKit Portal to the Upside Down</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 Augmented Reality</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/watch?v=Z5AmqMuNi08" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to Augmented Reality AR Tutorial: ARKit Portal to the Upside
+          Down" — a video tutorial. This is a video resource, watch it on YouTube.
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/watch?v=Z5AmqMuNi08" target="_blank" rel="noopener">↗ Watch the video on YouTube</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/ar-arkit-portal.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This is the original viral "portal to the Upside Down" demo for iOS: you place a doorway
+        in the room and through it you see the eerie Stranger Things world. The tutorial builds it
+        with ARKit and SceneKit, structured around a main SCNNode that holds the frame, the world
+        inside — plus the crucial "camera inside camera" trick.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Placing a SceneKit portal node in the ARKit world.</li>
+          <li>Building the frame with simple box geometry.</li>
+          <li>Filling the portal with an interior scene and its own lighting.</li>
+          <li>The nested-camera technique that makes the illusion hold as you move.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The portal starts life as nothing more than a box node positioned in the world:</p>
+        <pre class="code"><span class="lang-tag">C#</span><code>// Add a simple portal to the scene in ARKit with SceneKit
+var portal = new SCNNode {
+    Geometry = SCNBox.Create(1f, 2f, 0.05f, 0)
+};
+portal.Position = new SCNVector3(0, 1, -2);
+sceneView.Scene.RootNode.AddChildNode(portal);   // camera-in-camera added later</code></pre>
+        <p>The magic comes later: a second camera attached to the first renders the inner world
+        exactly aligned with your device's view, so walking around the portal reveals its content
+        from every angle.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Few demos teach as much AR craft in one shot: node hierarchies, coordinate systems,
+        render alignment and camera control all show up. It is also simply the most impressive AR
+        trick to show friends — and to reuse in your own apps.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to Augmented Reality AR Tutorial: ARKit Portal to the Upside
+        Down" belongs to its original creators. This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original authors. Watch the original at
+        <a href="https://www.youtube.com/watch?v=Z5AmqMuNi08" target="_blank" rel="noopener">youtube.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

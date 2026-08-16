@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build your own fast, persistent KV store in Ruby</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>Build your own fast, persistent KV store in Ruby</span>
+      </div>
+      <h1>Build your own fast, persistent KV store in Ruby</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Ruby</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://dineshgowda.com/posts/build-your-own-persistent-kv-store/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build your own fast, persistent KV store in Ruby" — Dinesh
+          Gowda's Bitcask-style engine: a log-structured, append-only key-value store.
+        </div>
+        <a class="btn solid" href="https://dineshgowda.com/posts/build-your-own-persistent-kv-store/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/kv-store-ruby.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A Bitcask-inspired key-value store in Ruby: writes are appends to a log, a hash
+        index in memory points at each key's timestamp, size and offset in the data file, and
+        all records roll forward under CRC32 checks. Fast to read, fast to write, persistent by
+        construction.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Append-only, log-structured storage (Bitcask's model).</li>
+          <li>In-memory index → file offsets: the two-level lookup.</li>
+          <li>Binary serialization: headers, CRCs, type tags.</li>
+          <li>Writing compact Ruby modules for both.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>First, the premise — appended data beats overwriting:</p>
+        <pre class="code"><span class="lang-tag">rb</span><code>File.open('sample.txt', 'w') do |file|
+    [1, 12, 123, 1234, 12345, 123456, 1234567, 12345678].each do |num|
+        file.write(num)
+    end
+end</code></pre>
+        <p>Then the serializer — a fixed header and a zlib-guarded body:</p>
+        <pre class="code"><span class="lang-tag">rb</span><code>module Bitcask
+  module Serializer
+
+    HEADER_FORMAT = 'L&lt;L&lt;L&lt;S&lt;S&lt;'
+    HEADER_SIZE = 16
+
+    def serialize(epoch:, key:, value:)
+      key_type = type(key)
+      value_type = type(value)
+
+      key_bytes = pack(key, key_type)
+      value_bytes = pack(value, value_type)
+
+      header = serialize_header(
+        timestamp: epoch,
+        key_size: key_bytes.size,
+        value_size: value_bytes.size,
+        key_type: key_type,
+        value_type: value_type
+      )
+
+      crc32 = [Zlib.crc32(header + key_bytes + value_bytes)].pack('L')
+      crc32 + header + key_bytes + value_bytes
+    end</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Bitcask's design powers Riak's production storage; Redis was once described as a
+        similar idea. This post distills that mature, battle-tested design into an afternoon of
+        Ruby — a masterpiece of applied simplicity.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build your own fast, persistent KV store in Ruby" belongs to
+        its original author (Dinesh Gowda). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://dineshgowda.com/posts/build-your-own-persistent-kv-store/" target="_blank" rel="noopener">dineshgowda.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Rasterization: a Practical Implementation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">3D Renderer</a>
+        <span class="sep">→</span>
+        <span>Rasterization: a Practical Implementation</span>
+      </div>
+      <h1>Rasterization: a Practical Implementation</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 3D Renderer</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/overview-rasterization-algorithm" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Rasterization: a Practical Implementation" — a Scratchapixel lesson
+          that contrasts rasterization with ray tracing and implements both in real code.
+        </div>
+        <a class="btn solid" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/overview-rasterization-algorithm" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/scratchapixel-rasterization.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This Scratchapixel lesson answers a fundamental question — "why are there two rendering
+        algorithms?" — and then implements both. You first write a raytracer that finds, per pixel,
+        the closest triangle along a ray; then you flip the loops and write a rasterizer that projects
+        every triangle and fills only the pixels inside it. Comparing the two is the fastest way to
+        understand modern GPUs.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The loop order that separates rasterization from ray tracing.</li>
+          <li>Perspective projection of 3D vertices to 2D screen coordinates.</li>
+          <li>The "point in triangle" test and bounding-box optimization.</li>
+          <li>Depth testing, the z-buffer and why GPUs need it.</li>
+          <li>Backface culling and vertex normals.</li>
+          <li>Interpolating attributes (colors, normals) across a triangle.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Ray tracing iterates over <em>pixels</em> and asks which triangle they hit; rasterization
+        iterates over <em>triangles</em> and fills the pixels they cover. The rasterizer version:
+        project each vertex, clamp to the viewport, then scan only the bounding box of the projected
+        triangle and test membership with barycentric coordinates.</p>
+        <pre class="code"><span class="lang-tag">pseudo</span><code>// The rasterization algorithm
+for (each triangle in the scene) {
+    // Step 1: project the triangle's vertices with perspective projection
+    Vec2f v0 = perspectiveProject(triangle[i].v0);
+    Vec2f v1 = perspectiveProject(triangle[i].v1);
+    Vec2f v2 = perspectiveProject(triangle[i].v2);
+    for (each pixel in the image) {
+        // Step 2: is this pixel inside the projected triangle?
+        if (pixelContainedIn2DTriangle(v0, v1, v2, x, y)) {
+            image(x, y) = triangle[i].color;
+        }
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Because GPUs rasterize, understanding this algorithm is understanding how a graphics card
+        actually spends its time — thousands of triangles processed in parallel, each filling its
+        pixel footprint. Comparing it side-by-side with ray tracing also explains why real-time and
+        offline rendering use different tools.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Rasterization: a Practical Implementation" belongs to Scratchapixel.
+        This page is an English overview written for the BYOX platform; all content, images and code
+        belong to the original author. Read the original at
+        <a href="https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/overview-rasterization-algorithm" target="_blank" rel="noopener">scratchapixel.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build Your Own Database from Scratch: From B+Tree To SQL in 3000 Lines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>Build Your Own Database from Scratch: From B+Tree To SQL in 3000 Lines</span>
+      </div>
+      <h1>Build Your Own Database from Scratch: From B+Tree To SQL in 3000 Lines</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://build-your-own.org/database/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build Your Own Database from Scratch: From B+Tree to SQL in
+          3000 Lines" — the book by James Smith: a full relational database, from persistent
+          storage and a B+tree up to a mini SQL engine.
+        </div>
+        <a class="btn solid" href="https://build-your-own.org/database/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/database-go.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A relational database in about 3000 lines of Go, developed in 12 parts: crash-safe
+        persistence, perfectly sized pages, B-tree and B+tree inner workings, freelists,
+        transaction records, recovery, versioned pages, a key-value API, tables and records,
+        secondary indexes, and finally SQL — query parser and execution engine included.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Crash-safe storage: atomic writes, COW, fsync.</li>
+          <li>Why databases use trees — the B+tree in depth.</li>
+          <li>MVCC, versioned pages and transaction recovery.</li>
+          <li>Turning a key-value store into SQL with indexes and a query engine.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Durability without corruption: never overwrite live data — write to a temporary file,
+        then atomically rename:</p>
+        <pre class="code"><span class="lang-tag">go</span><code>func SaveData2(path string, data []byte) error {
+    tmp := fmt.Sprintf("%s.tmp.%d", path, randomInt())
+    fp, err := os.OpenFile(tmp, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0664)
+    if err != nil {
+        return err
+    }
+    defer func() { // 4. discard the temporary file if it still exists
+        fp.Close()
+        os.Remove(tmp)
+    }()
+    _, err = fp.Write(data)
+    if err != nil {
+        return err
+    }
+    // 1. flush to disk
+    err = fp.Sync()
+    if err != nil {
+        return err
+    }
+    // 2. close to flush metadata
+    err = fp.Close()
+    if err != nil {
+        return err
+    }
+    // 3. and rename into place
+    return os.Rename(tmp, path)
+}</code></pre>
+        <p>Updates are log-structured: new versions accumulate, later ones win:</p>
+        <pre class="code"><span class="lang-tag">text</span><code>writes =&gt; | new updates | =&gt; | accumulated data |
+               file 1               file 2</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>This is the rare end-to-end journey: by the last chapters you have executed actual SQL
+        — parsing, planning, and evaluating queries against your own B+tree — the complete
+        anatomy of a production-style database.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build Your Own Database from Scratch: From B+Tree to SQL in
+        3000 Lines" belongs to its original author (James Smith / build-your-own.org). This page
+        is an English overview written for the BYOX platform; all content, images and code belong
+        to the original author. Read the original at
+        <a href="https://build-your-own.org/database/" target="_blank" rel="noopener">build-your-own.org</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

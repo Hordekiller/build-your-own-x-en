@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building Blockchain in Go</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>Building Blockchain in Go</span>
+      </div>
+      <h1>Building Blockchain in Go</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://jeiwan.net/posts/building-blockchain-in-go-part-1/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building Blockchain in Go" — a multi-part series by Ivan Kuznetsov
+          (Jeiwan) that evolves a basic chain into a full blockchain with PoW, persistent storage
+          and networking.
+        </div>
+        <a class="btn solid" href="https://jeiwan.net/posts/building-blockchain-in-go-part-1/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/blockchain-go-jeiwan.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Jeiwan's famous series builds a blockchain step by step in Go: a minimal block chain
+        first, then proof-of-work, then persistent storage with BoltDB, then transactions, wallets,
+        addresses and finally peer-to-peer networking. Each part compiles and runs.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Defining blocks and hashing them with SHA-256.</li>
+          <li>Implementing proof-of-work mining.</li>
+          <li>Persisting the chain in BoltDB and the UTXO set.</li>
+          <li>Transactions, wallets and Bitcoin-style addresses.</li>
+          <li>A peer-to-peer node network with command-line clients.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything starts from a plain struct — a block that records data and links to the
+        previous one:</p>
+        <pre class="code"><span class="lang-tag">Go</span><code>type Block struct {
+	Timestamp     int64
+	Data          []byte
+	PrevBlockHash []byte
+	Hash          []byte
+}</code></pre>
+        <pre class="code"><span class="lang-tag">Go</span><code>func (b *Block) SetHash() {
+	timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
+	headers := bytes.Join([][]byte{b.PrevBlockHash, b.Data, timestamp}, []byte{})
+	hash := sha256.Sum256(headers)
+
+	b.Hash = hash[:]
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It is one of the most complete end-to-end blockchain tutorials available. Because every
+        layer — hashing, mining, storage, wallets, networking — is implemented by hand in a clean
+        language, you end up understanding Bitcoin's design rather than just its vocabulary.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building Blockchain in Go" belongs to its original author
+        (Ivan Kuznetsov). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="https://jeiwan.net/posts/building-blockchain-in-go-part-1/" target="_blank" rel="noopener">jeiwan.net</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

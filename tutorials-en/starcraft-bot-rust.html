@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A bot for Starcraft in Rust, C or any other language</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>A bot for Starcraft in Rust, C or any other language</span>
+      </div>
+      <h1>A bot for Starcraft in Rust, C or any other language</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Rust</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://habr.com/en/post/436254/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building a Rust bot for StarCraft II" — a Habr article that
+          creates an AI playing StarCraft II, with a practical detour into FFI to link the
+          snappy library from Rust.
+        </div>
+        <a class="btn solid" href="https://habr.com/en/post/436254/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/starcraft-bot-rust.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A different kind of bot: an AI crew member for StarCraft II, written in Rust. Along the
+        way it teaches Rust's foreign function interface — calling C libraries like snappy — which
+        is the foundation of how Rust games and engines bind native code.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Scaffolding a Rust binary project with cargo.</li>
+          <li>Declaring C functions with the <code class="inline">extern</code> block.</li>
+          <li>Linking a C library with <code class="inline">#[link]</code>.</li>
+          <li>Bringing a theory into a running game bot.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The project starts as one cargo binary and one dependency — libc for the C types:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>$ cargo new --bin snappy
+     Created binary (application) `snappy` project
+$ cd snappy
+snappy$ tree
+.
+├── Cargo.toml
+└── src
+    └── main.rs
+
+1 directory, 2 files</code></pre>
+        <pre class="code"><span class="lang-tag">toml</span><code>[dependencies]
+libc = "0.2"</code></pre>
+        <p>Calling into a C library from Rust is explicit: name the library, declare the
+        function, and cargo links it at build time:</p>
+        <pre class="code"><span class="lang-tag">rust</span><code>extern crate libc; // to import C types; in our case for size_t
+use libc::size_t;
+
+#[link(name = "snappy")] // specifies the library name to link the function from
+extern {
+    // declare the function we want to import;
+    // in C this declaration looks like:
+    // size_t snappy_max_compressed_length(size_t source_length);
+    fn snappy_max_compressed_length(source_length: size_t) -> size_t;
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>FFI is how Rust talks to the entire C universe — game engines, OS libraries, native
+        codecs. Doing it once with a tiny library removes the mystery and quietly prepares you
+        for serious Rust systems work.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building a Rust bot for StarCraft II" belongs to its original
+        author (Habr). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="https://habr.com/en/post/436254/" target="_blank" rel="noopener">habr.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

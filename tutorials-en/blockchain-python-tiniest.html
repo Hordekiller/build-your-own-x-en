@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Let’s Build the Tiniest Blockchain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>Let’s Build the Tiniest Blockchain</span>
+      </div>
+      <h1>Let’s Build the Tiniest Blockchain</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.com/crypto-currently/lets-build-the-tiniest-blockchain-e70965a248b" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Let’s Build the Tiniest Blockchain" — Gerald Nash's "SnakeCoin",
+          around 50 lines of Python that make a chain you can mint yourself.
+        </div>
+        <a class="btn solid" href="https://medium.com/crypto-currently/lets-build-the-tiniest-blockchain-e70965a248b" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/blockchain-python-tiniest.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>SnakeCoin is exactly what its name promises: the smallest blockchain you can still take
+        seriously. A handful of lines define a block, hash it, mint the genesis block and keep the
+        chain honest — and it just keeps growing as you add your own blocks.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Storing index, timestamp, data and proof in immutable-ish blocks.</li>
+          <li>Hashing a block with Python's <code class="inline">hashlib</code>.</li>
+          <li>Genesis block creation and appending new blocks.</li>
+          <li>The patience required for proof-of-work mining.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A block is a class, and it hashes itself the moment it exists:</p>
+        <pre class="code"><span class="lang-tag">py</span><code>import hashlib as hasher
+import datetime as date
+
+# Define what a SnakeCoin block is
+class Block:
+  def __init__(self, index, timestamp, data, previous_hash):
+    self.index = index
+    self.timestamp = timestamp
+    self.data = data
+    self.previous_hash = previous_hash
+    self.hash = self.hash_block()
+
+  def hash_block(self):
+    sha = hasher.sha256()
+    sha.update(str(self.index).encode('utf-8') +
+               str(self.timestamp).encode('utf-8') +
+               str(self.data).encode('utf-8') +
+               str(self.previous_hash).encode('utf-8'))
+    return sha.hexdigest()
+    # ...</code></pre>
+        <p>The first block is crafted by hand — index zero, arbitrary previous hash:</p>
+        <pre class="code"><span class="lang-tag">py</span><code># Generate the genesis block
+def create_genesis_block():
+  # construct a block manually with
+  # index zero and an arbitrary previous hash
+  return Block(0, date.datetime.now(), "Genesis Block", "0")</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>When every line is visible at once, the "what is a blockchain?" question answers
+        itself. Because mining is intentionally slow, the tiny chain also teaches real patience.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Let’s Build the Tiniest Blockchain" belongs to its original
+        author (Gerald Nash). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="https://medium.com/crypto-currently/lets-build-the-tiniest-blockchain-e70965a248b" target="_blank" rel="noopener">medium.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Visualize your local git contributions with Go</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Command-Line Tool</a>
+        <span class="sep">→</span>
+        <span>Visualize your local git contributions with Go</span>
+      </div>
+      <h1>Visualize your local git contributions with Go</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Command-Line Tool</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://flaviocopes.com/go-git-contributions/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build a CLI tool to show your git contributions with Go" — a
+          Flavio Copes tutorial that builds a small CLI scanning git repos and rendering your
+          contribution stats.
+        </div>
+        <a class="btn solid" href="https://flaviocopes.com/go-git-contributions/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/go-git-contributions.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A practical Go CLI: pass a folder with the <code class="inline">-add</code> flag, scan it
+        recursively for git repositories, persist the found paths, then produce a summary of your
+        commits — a real daily tool you work with as you build it.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Reading flags with the <code class="inline">flag</code> package.</li>
+          <li>Recursive folder scanning and file persistence.</li>
+          <li>Executing git commands from Go and parsing the output.</li>
+          <li>Separating concerns: scan, stats, render.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The program is planned as three functions, each with a clear job:</p>
+        <pre class="code"><span class="lang-tag">go</span><code>package main
+
+import (
+    "flag"
+)
+
+// scan walks a path and its subfolders
+// searching for git repositories
+func scan(path string) {
+    print("scan")
+}
+
+// stats produces a nice overview of your git contributions
+func stats(email string) {
+    print("stats")
+}
+
+func main() {
+    var folder string
+    var email string
+    flag.StringVar(&amp;folder, "add", "", "add a new folder to scan")
+    // ...
+}</code></pre>
+        <p>Then each function is filled in — the scan grows into recursive traversal and file
+        logging:</p>
+        <pre class="code"><span class="lang-tag">go</span><code>// scan walks a new folder for git repositories
+func scan(folder string) {
+    fmt.Printf("Found folders:\n\n")
+    repositories := recursiveScanFolder(folder)
+    filePath := getDotFilePath()
+    addNewSliceElementsToFile(filePath, repositories)
+    fmt.Printf("\n\nSuccessfully added\n\n")
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Small CLIs are where Go shines, and this one hits every core skill: flags, filesystem
+        walking, shelling out to git and structured output — leaving you with a tool you will
+        actually run.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build a CLI tool to show your git contributions with Go"
+        belongs to its original author (Flavio Copes). This page is an English overview written
+        for the BYOX platform; all content, images and code belong to the original author. Read
+        the original at
+        <a href="https://flaviocopes.com/go-git-contributions/" target="_blank" rel="noopener">flaviocopes.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

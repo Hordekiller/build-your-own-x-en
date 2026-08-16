@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building React From Scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Front-end Framework / Library</a>
+        <span class="sep">→</span>
+        <span>Building React From Scratch</span>
+      </div>
+      <h1>Building React From Scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Front-end Framework / Library</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/watch?v=_MAD4Oly9yg" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building React From Scratch"
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/watch?v=_MAD4Oly9yg" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/frontend-react-from-scratch.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Building React From Scratch: a video walkthrough that creates a minimal React clone live — elements, render, reconciliation and state updates, all in plain JavaScript.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>What a React element is and how render turns it into a DOM node</li>
+          <li>A naive but correct diff algorithm</li>
+          <li>The open-sourced spirit: you can read all of React's core tricks here</li>
+          <li>The minimum viable React that still feels like React</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The seed of everything React does is one function from element to node:</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>// the heart of React: turning an element into a real DOM node
+function render(element, container) {
+  const node = document.createElement(element.type);
+  node.textContent = element.props.children;
+  for (const name in element.props) {
+    node[name] = element.props[name];   // apply props
+  }
+  container.appendChild(node);
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Video is the fastest format for a tour like this: you watch a React-miniature assemble itself in minutes, and every subsequent chapter of the React docs makes sense.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building React From Scratch" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.youtube.com/watch?v=_MAD4Oly9yg" target="_blank" rel="noopener">https://www.youtube.com/watch?v=_MAD4Oly9yg</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Ray Tracing in One Weekend</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">3D Renderer</a>
+        <span class="sep">→</span>
+        <span>Ray Tracing in One Weekend</span>
+      </div>
+      <h1>Ray Tracing in One Weekend</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 3D Renderer</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://raytracing.github.io/books/RayTracingInOneWeekend.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Ray Tracing in One Weekend" by Peter Shirley — the most famous
+          weekend-sized raytracer project, complete with source and free online book.
+        </div>
+        <a class="btn solid" href="https://raytracing.github.io/books/RayTracingInOneWeekend.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/raytracing-in-one-weekend.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Peter Shirley's classic walks you through building a complete path tracer over a weekend:
+        starting from an empty file that outputs a PPM image, and ending with a photorealistic scene
+        full of reflective and refractive spheres. Every step is a small C++ file you can compile and
+        run immediately.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Writing images: the simple PPM file format, no libraries needed.</li>
+          <li>Building a <code class="inline">vec3</code> class and a ray-traced color function.</li>
+          <li>A camera as position + viewport, with anti-aliasing by multi-sampling.</li>
+          <li>Diffuse, metal and dielectric materials.</li>
+          <li>Positionable cameras and depth-of-field.</li>
+          <li>Acceleration with bounding volume hierarchies (BVH).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The first render is just a gradient written to stdout: for each pixel, map its coordinates
+        to an RGB value and print the PPM header followed by the colors. From there each chapter adds
+        exactly one concept.</p>
+        <pre class="code"><span class="lang-tag">cpp</span><code>#include &lt;iostream&gt;
+
+int main() {
+
+    // Image
+    int image_width = 256;
+    int image_height = 256;
+
+    // Render
+    std::cout &lt;&lt; "P3\n" &lt;&lt; image_width &lt;&lt; ' ' &lt;&lt; image_height &lt;&lt; "\n255\n";
+
+    for (int j = 0; j &lt; image_height; j++) {
+        for (int i = 0; i &lt; image_width; i++) {
+            auto r = double(i) / (image_width-1);
+            auto g = double(j) / (image_height-1);
+            auto b = 0.0;
+
+            int ir = int(255.999 * r);
+            int ig = int(255.999 * g);
+            int ib = int(255.999 * b);
+
+            std::cout &lt;&lt; ir &lt;&lt; ' ' &lt;&lt; ig &lt;&lt; ' ' &lt;&lt; ib &lt;&lt; '\n';
+        }
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It is the ideal first raytracer: minimal dependencies, tiny files, and a satisfying image
+        after every section. The follow-up books in the series add motion blur, textures, lights,
+        volumes and a final production scene — together they form the best-known path-tracing
+        curriculum available.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Ray Tracing in One Weekend" belongs to Peter Shirley. This page is
+        an English overview written for the BYOX platform; all content, images and code belong to the
+        original author. Read the original at
+        <a href="https://raytracing.github.io/books/RayTracingInOneWeekend.html" target="_blank" rel="noopener">raytracing.github.io</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

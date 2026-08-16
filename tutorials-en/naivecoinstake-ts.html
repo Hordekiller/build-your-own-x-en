@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | NaivecoinStake: a tutorial for building a cryptocurrency with the Proof of Stake consensus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>NaivecoinStake: a tutorial for building a cryptocurrency with the Proof of Stake consensus</span>
+      </div>
+      <h1>NaivecoinStake: a tutorial for building a cryptocurrency with the Proof of Stake consensus</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: TypeScript</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://naivecoinstake.learn.uno/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "NaivecoinStake: a tutorial for building a cryptocurrency with the
+          Proof of Stake consensus" — a step-by-step TypeScript tutorial by Rich V. Ruch that
+          replaces proof-of-work with proof-of-stake consensus.
+        </div>
+        <a class="btn solid" href="https://naivecoinstake.learn.uno/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/naivecoinstake-ts.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>NaivecoinStake continues where Naivecoin ended: instead of burning electricity on
+        proof-of-work, nodes stake coins and the protocol chooses who may forge the next block
+        proportionally to their stake — all in a TypeScript codebase that builds on the previous
+        tutorial.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A minimal working blockchain as a distributed, growing list of records.</li>
+          <li>Proof of Stake: a distributed choice of the next block's forger.</li>
+          <li>Turning a generic chain into a real cryptocurrency via transactions.</li>
+          <li>Wallets, addresses and proving ownership of coins.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The tutorial is organized in chapters, each ending with a working milestone. The first
+        chapter establishes the base: a minimal blockchain — a distributed database that keeps a
+        continuously growing list of ordered records. The second chapter swaps consensus: a
+        distributed algorithm decides which block should be next, and famously, proof of stake
+        replaces proof of work. The third chapter turns the generic chain into a real currency:
+        coins can be sent to addresses — provided you first prove you own them.</p>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Like its predecessor, everything starts with a typed Block and a pure hash
+        function:</p>
+        <pre class="code"><span class="lang-tag">typescript</span><code>// Block class: the base structure of every block in the blockchain
+class Block {
+
+    public index: number;          // block height in the chain
+    public hash: string;           // block hash (unique identifier)
+    public previousHash: string;   // hash of the previous block
+    public timestamp: number;      // timestamp (seconds)
+    public data: string;           // data stored in the block
+    // ...
+}</code></pre>
+        <pre class="code"><span class="lang-tag">typescript</span><code>// Computing the block hash with SHA256 from the block content
+const calculateHash = (index: number, previousHash: string, timestamp: number, data: string): string =>
+    CryptoJS.SHA256(index + previousHash + timestamp + data).toString();</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Altcoins are built on consensus design, and this tutorial is the rare one that goes
+        beyond proof-of-work with a complete, readable proof-of-stake implementation — including
+        forging, signing and network sync.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "NaivecoinStake" belongs to its original author (Rich V. Ruch).
+        This page is an English overview written for the BYOX platform; all content, images and
+        code belong to the original author. Read the original at
+        <a href="https://naivecoinstake.learn.uno/" target="_blank" rel="noopener">naivecoinstake.learn.uno</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

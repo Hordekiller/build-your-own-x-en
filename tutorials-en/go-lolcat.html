@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build a command line app with Go: lolcat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Command-Line Tool</a>
+        <span class="sep">→</span>
+        <span>Build a command line app with Go: lolcat</span>
+      </div>
+      <h1>Build a command line app with Go: lolcat</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Command-Line Tool</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://flaviocopes.com/go-tutorial-lolcat/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build a command-line app with Go: lolcat" — Flavio Copes
+          rebuilds the beloved lolcat (rainbow-colored text) as a Go CLI, reading stdin and
+          printing ANSI colors.
+        </div>
+        <a class="btn solid" href="https://flaviocopes.com/go-tutorial-lolcat/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/go-lolcat.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The fun one: reimplement <code class="inline">lolcat</code> — the tool that colors every
+        line of text in a rainbow — in Go. You read from standard input, iterate over the text,
+        and emit ANSI color codes, one character at a time.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Reading piped stdin in Go.</li>
+          <li>Generating random content with the faker library.</li>
+          <li>ANSI escape sequences and terminal colors.</li>
+          <li>Iterating over strings and runes safely.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>For a demonstration of the rainbow effect, the tutorial even generates its own input
+        with a fake-hacker-phrases library:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>go get -u github.com/enodata/faker</code></pre>
+        <pre class="code"><span class="lang-tag">go</span><code>package main
+
+import (
+    "fmt"
+    "strings"
+
+    "github.com/enodata/faker"
+)
+
+func main() {
+    var phrases []string
+
+    for i := 1; i &lt; 3; i++ {
+        phrases = append(phrases, faker.Hacker().Phrases()...)
+    }
+
+    fmt.Println(strings.Join(phrases[:], "; "))
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>ANSI colors and stdin pipelines are the everyday texture of the Unix command line;
+        building lolcat makes both tangible — and the result is a delightful tool you'll keep in
+        your PATH.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build a command-line app with Go: lolcat" belongs to its
+        original author (Flavio Copes). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://flaviocopes.com/go-tutorial-lolcat/" target="_blank" rel="noopener">flaviocopes.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

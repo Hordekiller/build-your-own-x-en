@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How To Launch Your Own Production-Ready Cryptocurrency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>How To Launch Your Own Production-Ready Cryptocurrency</span>
+      </div>
+      <h1>How To Launch Your Own Production-Ready Cryptocurrency</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://hackernoon.com/how-to-launch-your-own-production-ready-cryptocurrency-ab97cb773371" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How To Launch Your Own Production-Ready Cryptocurrency" — a
+          Hacker Noon guide by Adam Bouhmad through building an Ethereum ERC-20 token soup to nuts.
+        </div>
+        <a class="btn solid" href="https://hackernoon.com/how-to-launch-your-own-production-ready-cryptocurrency-ab97cb773371" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/blockchain-crypto-launch.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This guide covers the full journey of launching a real cryptocurrency: designing the
+        token economics, writing an ERC-20 smart contract, deploying it to the Ethereum network,
+        and building the web infrastructure around it — including hosting, security and
+        communication with the public.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Tokenomics: rationale, supply, ICO pricing and allocation.</li>
+          <li>ERC-20 smart contract development and testing.</li>
+          <li>Deployment to the Ethereum network.</li>
+          <li>Infrastructure: website, security, exchanges and post-launch ops.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The contract is the heart of any coin — balances and transfers define everything else:</p>
+        <pre class="code"><span class="lang-tag">Solidity</span><code>// Core ERC-20 standard: balances and transfers
+contract MyCoin {
+    mapping(address => uint256) public balanceOf;
+
+    function transfer(address to, uint256 value) public returns (bool) {
+        require(balanceOf[msg.sender] >= value);   // sufficient balance
+        balanceOf[msg.sender] -= value;            // deduct from sender
+        balanceOf[to] += value;                    // credit the recipient
+        return true;
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Most tutorials stop at a toy chain; this one walks into production territory — which is
+        where real engineering happens: testing, deployment, exchanges, security and community
+        handling.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How To Launch Your Own Production-Ready Cryptocurrency"
+        belongs to its original author (Adam Bouhmad). This page is an English overview written for
+        the BYOX platform; all content, images and code belong to the original author. Read the
+        original at
+        <a href="https://hackernoon.com/how-to-launch-your-own-production-ready-cryptocurrency-ab97cb773371" target="_blank" rel="noopener">hackernoon.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

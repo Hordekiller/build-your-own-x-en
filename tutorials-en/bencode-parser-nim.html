@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Writing a Bencode Parser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">BitTorrent Client</a>
+        <span class="sep">→</span>
+        <span>Writing a Bencode Parser</span>
+      </div>
+      <h1>Writing a Bencode Parser</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Nim</span>
+        <span class="meta-badge">📁 BitTorrent Client</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://xmonader.github.io/nimdays/day02_bencode.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Writing a Bencode Parser" — day 2 of the NimDays series by xmonader
+          (Ahmed Soliman), building a bencode encoder/decoder in Nim.
+        </div>
+        <a class="btn solid" href="https://xmonader.github.io/nimdays/day02_bencode.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/bencode-parser-nim.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Bencode is the serialization format behind BitTorrent — compact, unambiguous and easy to
+        hand-parse. This NimDays article implements a complete bencode library in Nim: a
+        variant-based data model, an encoder and a decoder, exercised against real-world samples.
+        It is part of a series where each day is one small, self-contained project.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The four bencode types: strings, integers, lists and dictionaries.</li>
+          <li>Representing them in a statically typed language with a variant object.</li>
+          <li>Writing an encoder and a decoder that round-trip correctly.</li>
+          <li>Handling edge cases like nested structures and raw byte strings.</li>
+          <li>Testing the library against known bencoded values.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The whole format rests on one discriminated union. Everything else — encode, decode —
+        is a recursive walk over this type:</p>
+        <pre class="code"><span class="lang-tag">nim</span><code>type
+    BencodeKind* = enum
+        btString, btInt, btList, btDict</code></pre>
+        <p>With an encoder and decoder in place, real torrent data parses cleanly:</p>
+        <pre class="code"><span class="lang-tag">nim</span><code>let encoder = newEncoder()
+let decoder = newDecoder()
+
+let btListSample1 = @[BencodeType(kind:btInt, i:1), BencodeType(kind:btString, s:"hi") ]
+var btDictSample1 = initOrderedTable[BencodeType, BencodeType]()
+btDictSample1[BencodeType(kind:btString, s:"name")] = BencodeType(kind:btString, s:"dmdm")
+btDictSample1[BencodeType(kind:btString, s:"lang")] = BencodeType(kind:btString, s:"nim")</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Parsers are the foundation of every network protocol, and bencode is one of the simplest
+        realistic examples — enough to be interesting, small enough to finish in an evening. It also
+        makes a great first Nim project, showing off the language's variants, iterators and test
+        tooling.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Writing a Bencode Parser" belongs to its original author
+        (Ahmed Soliman / xmonader). This page is an English overview written for the BYOX platform;
+        all content, images and code belong to the original author. Read the original at
+        <a href="https://xmonader.github.io/nimdays/day02_bencode.html" target="_blank" rel="noopener">xmonader.github.io/nimdays</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

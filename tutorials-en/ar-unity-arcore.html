@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How To Unity ARCore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Augmented Reality</a>
+        <span class="sep">→</span>
+        <span>How To Unity ARCore</span>
+      </div>
+      <h1>How To Unity ARCore</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 Augmented Reality</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/playlist?list=PLKIKuXdn4ZMjuUAtdQfK1vwTZPQn_rgSv" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How To Unity ARCore" — a video playlist teaching ARCore
+          development with Unity. This is a video resource, watch the playlist on YouTube.
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/playlist?list=PLKIKuXdn4ZMjuUAtdQfK1vwTZPQn_rgSv" target="_blank" rel="noopener">↗ Watch the playlist on YouTube</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/ar-unity-arcore.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>ARCore is Google's platform for augmented reality on Android. This video playlist shows
+        how to build ARCore applications with Unity and the AR Foundation framework — detecting
+        planes, placing objects on them with a tap, and handling light estimation so virtual objects
+        blend with the real scene.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Setting up an AR Foundation project with ARCore support.</li>
+          <li>Plane detection: how the camera floor/wall detection works.</li>
+          <li>Raycasting touch points onto detected planes.</li>
+          <li>Instantiating 3D objects anchored to real-world surfaces.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The key interaction is a raycast: your finger taps the screen, a ray is cast into the
+        scene, and if it hits a detected plane, the object is placed exactly there.</p>
+        <pre class="code"><span class="lang-tag">C#</span><code>// Raycast onto detected planes and place an object (AR Foundation)
+if (arRaycastManager.Raycast(touchPos, hits,
+        TrackableType.PlaneWithinPolygon)) {
+    var pose = hits[0].pose;                    // the ray's hit position
+    Instantiate(prefab, pose.position, pose.rotation);
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Google's approach differs from marker-based AR: the world itself is the target. Knowing
+        ARCore gives you the platform-agnostic AR Foundation pattern, which carries over to iOS's
+        ARKit later — one codebase, two mobile platforms.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How To Unity ARCore" belongs to its original creators. This page
+        is an English overview written for the BYOX platform; all content, images and code belong to
+        the original authors. Watch the original at
+        <a href="https://www.youtube.com/playlist?list=PLKIKuXdn4ZMjuUAtdQfK1vwTZPQn_rgSv" target="_blank" rel="noopener">youtube.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

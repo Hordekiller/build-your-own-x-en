@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to make a responsive telegram bot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>How to make a responsive telegram bot</span>
+      </div>
+      <h1>How to make a responsive telegram bot</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Node.js</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.sohamkamani.com/blog/2016/09/21/making-a-telegram-bot/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Making a telegram bot" — Soham Kamani's guide that builds a
+          Telegram bot with webhooks, Node.js and Express, deployable with a single command.
+        </div>
+        <a class="btn solid" href="https://www.sohamkamani.com/blog/2016/09/21/making-a-telegram-bot/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/telegram-bot-node.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A compact tutorial that turns a blank folder into a deployed Telegram bot: get a token
+        from BotFather, create an Express server, register a webhook, and reply to every incoming
+        message — then publish the whole thing with Zeit's now.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Creating a bot and obtaining an API token from BotFather.</li>
+          <li>Setting a webhook and digesting updates with Express + body-parser.</li>
+          <li>Calling the Telegram sendMessage API with axios.</li>
+          <li>Deploying the bot to a public URL.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Start with a fresh npm project and install the three libraries the bot needs:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>## Create a new folder and enter it
+mkdir my-telegram-bot
+cd my-telegram-bot
+
+## Initialize the npm project
+npm init
+npm install --save express axios body-parser</code></pre>
+        <p>Then the server exposes the route Telegram will call on every message:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>var express = require("express")
+var app = express()
+var bodyParser = require("body-parser")
+const axios = require("axios")
+
+app.use(bodyParser.json()) // for parsing application/json
+app.use(
+	bodyParser.urlencoded({
+		extended: true,
+	})
+) // for parsing application/x-www-form-urlencoded
+
+// This is the route the API will call
+app.post("/new-message", /* read the update and reply via sendMessage */)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The webhook model — traffic arrives at your server, you reply over HTTP — is the
+        bedrock of modern chat bots, and this tutorial gives you a deployable example under 60
+        lines.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Making a telegram bot" belongs to its original author (Soham
+        Kamani). This page is an English overview written for the BYOX platform; all content,
+        images and code belong to the original author. Read the original at
+        <a href="https://www.sohamkamani.com/blog/2016/09/21/making-a-telegram-bot/" target="_blank" rel="noopener">sohamkamani.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

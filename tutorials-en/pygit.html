@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Just enough of a Git client to create a repo, commit, and push itself to GitHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Git</a>
+        <span class="sep">→</span>
+        <span>Just enough of a Git client to create a repo, commit, and push itself to GitHub</span>
+      </div>
+      <h1>Just enough of a Git client to create a repo, commit, and push itself to GitHub</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Git</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://benhoyt.com/writings/pygit/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Just enough of a Git client to create a repo, commit, and push itself to GitHub — by Ben Hoyt"
+        </div>
+        <a class="btn solid" href="https://benhoyt.com/writings/pygit/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/pygit.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>pygit: just enough of a Git client to create a repo, commit, and push itself to GitHub — a clean Python implementation of objects, index, refs and HTTP push.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Git's three object types: blob, tree, commit</li>
+          <li>The index file: stat data, paths, sha1s</li>
+          <li>Writing a tree from index entries</li>
+          <li>Pushing to GitHub over the smart HTTP protocol</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The index is a namedtuple per entry — everything worth knowing about a staging area:</p>
+        <pre class="code"><span class="lang-tag">python</span><code># Data for one entry in the git index (.git/index)
+IndexEntry = collections.namedtuple('IndexEntry', [
+    'ctime_s', 'ctime_n', 'mtime_s', 'mtime_n', 'dev', 'ino', 'mode',
+    'uid', 'gid', 'size', 'sha1', 'flags', 'path',
+])</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code>changed = {p for p in (paths &amp; entry_paths)
+           if hash_object(read_file(p), 'blob', write=False) !=
+              entries_by_path[p].sha1.hex()}</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code>def write_tree():
+    """Write a tree object from the current index entries."""
+    tree_entries = []
+    for entry in read_index():
+        assert '/' not in entry.path, \
+                'currently only supports a flat directory structure'
+        tree_entries.append((entry.path.encode(), entry.sha1))</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Ben's pygit proves a useful Git client is a few hundred lines of Python — and that pushing to GitHub is just HTTP plus a hash — perfection for the curious.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Just enough of a Git client to create a repo, commit, and push itself to GitHub" belongs to its original author (Ben Hoyt). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://benhoyt.com/writings/pygit/" target="_blank" rel="noopener">https://benhoyt.com/writings/pygit/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build A Cryptocurrency Trading Bot with R</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>Build A Cryptocurrency Trading Bot with R</span>
+      </div>
+      <h1>Build A Cryptocurrency Trading Bot with R</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: R</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://towardsdatascience.com/build-a-cryptocurrency-trading-bot-with-r-1445c429e1b1" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build a Cryptocurrency Trading Bot with R" — a practical bot
+          by Brad Lindblad that trades on GDAX: balances, EMA indicators and automatic limit
+          orders, all under an always-on loop.
+        </div>
+        <a class="btn solid" href="https://towardsdatascience.com/build-a-cryptocurrency-trading-bot-with-r-1445c429e1b1" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/crypto-trading-bot-r.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A real trading bot in R that talks to the GDAX exchange: read your USD and ETH
+        balances, compute technical indicators (EMAs), compare them, and place limit buy/sell
+        orders — logged to a file so you can audit every decision.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Connecting to the GDAX API with rgdax and your keys.</li>
+          <li>Reading account balances and market candles.</li>
+          <li>Computing EMAs with TTR for signals.</li>
+          <li>Placing orders and logging the bot's activity.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The bot is a set of small, single-purpose functions. Reading your balance is one:</p>
+        <pre class="code"><span class="lang-tag">r</span><code># Building the functions
+curr_bal_usd <- function(x){
+  m <-  accounts(api.key = "your_api_key", secret = "your_secret", passphrase = "your_passphrase")
+  m <-  subset(m$available, m$currency == 'USD')
+  m
+}
+curr_bal_eth <- function(x){
+  n <- accounts(api.key = "your_api_key", secret = "your_secret", passphrase = "your_passphrase")
+  n <- subset(n$available, n$currency == 'ETH')
+  n
+}</code></pre>
+        <p>Signals come from indicator comparisons, and the loop is written so logs separate
+        every run:</p>
+        <pre class="code"><span class="lang-tag">r</span><code># For separating the entries in the log files
+print("################## Start Log Entry ######################")
+
+library(rgdax)
+library(mailR)
+library(stringi)
+library(curl)
+library(xts)
+library(TTR)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It demonstrates automating a financial API end to end — auth, market data, indicators,
+        order placement — and the discipline of logging makes your decisions auditable and your
+        mistakes fixable.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build a Cryptocurrency Trading Bot with R" belongs to its
+        original author (Brad Lindblad). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://towardsdatascience.com/build-a-cryptocurrency-trading-bot-with-r-1445c429e1b1" target="_blank" rel="noopener">towardsdatascience.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to create your own simple 3D render engine in pure Java</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">3D Renderer</a>
+        <span class="sep">→</span>
+        <span>How to create your own simple 3D render engine in pure Java</span>
+      </div>
+      <h1>How to create your own simple 3D render engine in pure Java</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Java</span>
+        <span class="meta-badge">📁 3D Renderer</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://blog.rogach.org/2015/08/how-to-create-your-own-simple-3d-render.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to create your own simple 3D render engine in pure Java" by
+          Rogach — a complete Java 3D engine using only Swing and the standard library.
+        </div>
+        <a class="btn solid" href="http://blog.rogach.org/2015/08/how-to-create-your-own-simple-3d-render.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/rogach-java-3d-render.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This tutorial builds an interactive 3D engine in pure Java: a Swing window shows a
+        wireframe-then-filled cube, sliders rotate the camera, and step by step you implement
+        perspective projection, depth sorting and flat shading. Everything runs in the JVM with no
+        graphics library at all.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Representing 3D scenes: vertices, triangles and faces.</li>
+          <li>Perspective projection from 3D space to the 2D screen.</li>
+          <li>Rotation matrices and camera controls via sliders.</li>
+          <li>The painter's algorithm: sorting polygons by depth before drawing.</li>
+          <li>Flat shading with a simple light model.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The engine's data model is minimal: a <code class="inline">Vertex</code> is three
+        coordinates, a <code class="inline">Triangle</code> references three vertices and holds a
+        color, and a scene is just a list of triangles.</p>
+        <pre class="code"><span class="lang-tag">java</span><code>class Vertex {
+    double x;
+    double y;
+    double z;
+    Vertex(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+}
+
+class Triangle {
+    Vertex v1;
+    Vertex v2;
+    Vertex v3;
+    Color color;
+    Triangle(Vertex v1, Vertex v2, Vertex v3, Color color) {
+        this.v1 = v1;
+        this.v2 = v2;
+        this.v3 = v3;
+        this.color = color;
+    }
+}</code></pre>
+        <p>A cube is simply twelve such triangles — two per face — and rendering is projecting each
+        vertex and filling each triangle.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>For Java developers this is the smoothest possible on-ramp to computer graphics: only the
+        JDK is needed, the interactive sliders make every transformation tangible, and the finished
+        engine is genuinely extensible — the author even ports it to a full demo with multiple
+        textured shapes.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to create your own simple 3D render engine in pure Java"
+        belongs to its original author (Rogach). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="http://blog.rogach.org/2015/08/how-to-create-your-own-simple-3d-render.html" target="_blank" rel="noopener">blog.rogach.org</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

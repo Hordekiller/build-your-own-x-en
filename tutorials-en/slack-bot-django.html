@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to build a Slack Bot with Python using Slack Events API &amp; Django under 20 minute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>How to build a Slack Bot with Python using Slack Events API &amp; Django under 20 minute</span>
+      </div>
+      <h1>How to build a Slack Bot with Python using Slack Events API &amp; Django under 20 minute</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.com/freehunch/how-to-build-a-slack-bot-with-python-using-slack-events-api-django-under-20-minute-code-included-269c3a9bf64e" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to build a Slack bot with Python and Django" — a guide by
+          freehunch that builds an events-API Slack bot on top of Django and Django REST
+          Framework.
+        </div>
+        <a class="btn solid" href="https://medium.com/freehunch/how-to-build-a-slack-bot-with-python-using-slack-events-api-django-under-20-minute-code-included-269c3a9bf64e" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/slack-bot-django.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A production-shaped Slack bot: Django REST Framework exposes an <code class="inline">/events</code>
+        endpoint that Slack's Events API calls, verification tokens protect it, and the bot
+        replies through the Web API. Environment isolation comes from conda.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Creating a conda workspace for the project.</li>
+          <li>Installing Django, DRF, slackclient and slackeventsapi.</li>
+          <li>Scaffolding a Django project and events app.</li>
+          <li>Handling Slack events in a DRF APIView.</li>
+          <li>Storing Slack credentials in Django settings.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything rests on a handful of packages — web framework, REST framework and Slack
+        clients:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>conda create -n slack_bot python==3.5
+# Windows
+activate slack_bot
+# macOS, Linux
+source activate slack_bot
+
+pip install django
+pip install djangorestframework
+pip install slackclient
+pip install slackeventsapi</code></pre>
+        <p>The events app is registered in Django settings and the bot's credentials are read
+        from settings too:</p>
+        <pre class="code"><span class="lang-tag">py</span><code># slack/settings.py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',             # &lt;== add this line
+    'events',
+]</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It shows the "grown-up" bot architecture: a verified event endpoint backed by a real
+        web framework — the same shape used by production integrations, rather than a quick
+        script.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to build a Slack bot with Python and Django" belongs to
+        its original author (freehunch). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://medium.com/freehunch/how-to-build-a-slack-bot-with-python-using-slack-events-api-django-under-20-minute-code-included-269c3a9bf64e" target="_blank" rel="noopener">medium.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

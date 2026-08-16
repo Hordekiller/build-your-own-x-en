@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Emulation tutorial (GameBoy emulator)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Emulator / Virtual Machine</a>
+        <span class="sep">→</span>
+        <span>Emulation tutorial (GameBoy emulator)</span>
+      </div>
+      <h1>Emulation tutorial (GameBoy emulator)</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Emulator / Virtual Machine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.codeslinger.co.uk/pages/projects/gameboy.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Emulation tutorial (GameBoy emulator)"
+        </div>
+        <a class="btn solid" href="http://www.codeslinger.co.uk/pages/projects/gameboy.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/emulator-codeslinger-gameboy.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The companion tutorial that carries the same style to the Game Boy: a Z80-based CPU core, carefully timed instruction execution, dual video layers and a sound output in C++.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Running the CPU with cycle counting to match the hardware</li>
+          <li>Building the 160x144 screen from tile and background layers</li>
+          <li>VRAM, palettes and the video controller</li>
+          <li>The discipline of matching real hardware timing</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The engine is a clock: execute opcodes until a frame of cycles has elapsed:</p>
+        <pre class="code"><span class="lang-tag">cpp</span><code>void Emulator::Update( )
+{
+  const int MAXCYCLES = 69905 ;
+  int cyclesThisUpdate = 0 ;
+
+  while (cyclesThisUpdate &lt; MAXCYCLES)
+  {
+     int cycles = ExecuteNextOpcode( ) ;
+     cyclesThisUpdate += cycles ;
+  }
+}</code></pre>
+        <pre class="code"><span class="lang-tag">cpp</span><code>BYTE m_ScreenData[160][144][3] ;</code></pre>
+        <pre class="code"><span class="lang-tag">cpp</span><code>m_ScreenData[160/2][144/2][0] = 0xFF ;
+m_ScreenData[160/2][144/2][1] = 0 ;
+m_ScreenData[160/2][144/2][2] = 0 ;</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>From CHIP-8 to Game Boy is a short hop: same discipline, harder hardware. The tutorial sequence shows emulation as one continuous skill, not a ladder of separate projects.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Emulation tutorial (GameBoy emulator)" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://www.codeslinger.co.uk/pages/projects/gameboy.html" target="_blank" rel="noopener">http://www.codeslinger.co.uk/pages/projects/gameboy.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

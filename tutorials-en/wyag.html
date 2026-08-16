@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Write yourself a Git!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Git</a>
+        <span class="sep">→</span>
+        <span>Write yourself a Git!</span>
+      </div>
+      <h1>Write yourself a Git!</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Git</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://wyag.thb.lt/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Write yourself a Git! — by Thibault Polge"
+        </div>
+        <a class="btn solid" href="https://wyag.thb.lt/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/wyag.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Write yourself a Git!: wyag (Write Yourself a Git) implements init, add, commit, branch, checkout, log and track in Python — real Git's internal model made explicit.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The .git layout: objects, refs, HEAD and the index</li>
+          <li>GitRepository and GitObject abstractions</li>
+          <li>Kat: how read, write, compress and hash objects work</li>
+          <li>A command surface that mirrors real git</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A repository is a directory with a contract — and a friendly class to create one:</p>
+        <pre class="code"><span class="lang-tag">python</span><code>def repo_create(path):
+    """Create a new repository at path."""
+    repo = GitRepository(path, True)
+
+    if os.path.exists(repo.worktree):
+        if not os.path.isdir(repo.worktree):
+            raise Exception(f"{path} is not a directory!")
+        ...</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code>def repo_find(path=".", required=True):
+    path = os.path.realpath(path)
+
+    if os.path.isdir(os.path.join(path, ".git")):
+        return GitRepository(path)
+
+    parent = os.path.realpath(os.path.join(path, ".."))
+    ...</code></pre>
+        <pre class="code"><span class="lang-tag">python</span><code>class GitObject(object):
+
+    def __init__(self, data=None):
+        if data != None:
+            self.deserialize(data)
+        else:
+            self.init()
+
+    def serialize(self, repo):
+        ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>wyag is the only tutorial that reimplements git's commands while explaining the object model with essay-grade clarity — the popular choice for a reason.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Write yourself a Git!" belongs to its original author (Thibault Polge). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://wyag.thb.lt/" target="_blank" rel="noopener">https://wyag.thb.lt/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

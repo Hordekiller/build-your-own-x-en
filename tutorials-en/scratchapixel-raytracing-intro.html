@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Introduction to Ray Tracing: a Simple Method for Creating 3D Images</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">3D Renderer</a>
+        <span class="sep">→</span>
+        <span>Introduction to Ray Tracing: a Simple Method for Creating 3D Images</span>
+      </div>
+      <h1>Introduction to Ray Tracing: a Simple Method for Creating 3D Images</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 3D Renderer</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing/how-does-it-work" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Introduction to Ray Tracing: a Simple Method for Creating 3D Images"
+          — a Scratchapixel lesson explaining the physics and math of ray tracing.
+        </div>
+        <a class="btn solid" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing/how-does-it-work" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/scratchapixel-raytracing-intro.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This Scratchapixel lesson explains, from first principles, why ray tracing is the simplest
+        model of image synthesis. It builds the idea from real-world physics — light travelling along
+        straight lines — and shows how simulating those light paths backwards (from camera to light
+        source) produces photorealistic images without the approximations of the rasterization
+        pipeline.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Why rays of light can be treated as straight lines (geometric optics).</li>
+          <li>The conceptual difference between rasterization and ray tracing.</li>
+          <li>How a camera model — a position and an image plane — turns into rays through pixels.</li>
+          <li>How intersection tests, shadows, reflections and refractions are all the same operation.</li>
+          <li>The math vocabulary of a raytracer: rays, directions, t-parameters and normals.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A raytracer inverts reality: instead of waiting for light to hit the eye, it shoots a ray
+        from the eye through every pixel of the image and asks "what did this ray hit first?". The
+        color of that hit — modulated by light sources, shadows and material — becomes the pixel's
+        color.</p>
+        <pre class="code"><span class="lang-tag">C++</span><code>// The heart of every raytracer: cast one ray per pixel and find its color
+for (int y = 0; y &lt; imageHeight; ++y) {
+  for (int x = 0; x &lt; imageWidth; ++x) {
+    Ray ray = shootRay(x, y);         // ray from camera through pixel
+    Color c = castRay(ray);           // first hit of the ray in the scene
+    framebuffer[y * imageWidth + x] = c;
+  }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Ray tracing is the rendering algorithm behind movie VFX and modern game engines — and its
+        core fits in a few dozen lines. This lesson gives you the mental model before ever touching
+        code, which makes every later raytracer (including "Ray Tracing in One Weekend") dramatically
+        easier to follow.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Introduction to Ray Tracing: a Simple Method for Creating 3D Images"
+        belongs to Scratchapixel. This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing/how-does-it-work" target="_blank" rel="noopener">scratchapixel.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

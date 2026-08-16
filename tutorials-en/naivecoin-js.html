@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A cryptocurrency implementation in less than 1500 lines of code</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>A cryptocurrency implementation in less than 1500 lines of code</span>
+      </div>
+      <h1>A cryptocurrency implementation in less than 1500 lines of code</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/conradoqg/naivecoin" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Naivecoin: a cryptocurrency implementation in less than 1500
+          lines of code" — Conrado Gouvea's educational coin with transactions, wallets, mining
+          and peer-to-peer networking.
+        </div>
+        <a class="btn solid" href="https://github.com/conradoqg/naivecoin" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/naivecoin-js.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Naivecoin is a complete, runnable cryptocurrency in JavaScript. It hashes with SHA-256,
+        keeps balances via transactions and mining, and communicates between nodes over HTTP. The
+        code is organized into small modules: blocks, chain, operator, miner, node and wallet.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A modular architecture for a coin: chain, operator, miner, node.</li>
+          <li>Block hashing and the longest-chain rule.</li>
+          <li>Transactions, balances and a simple in-file database.</li>
+          <li>HTTP-based peer-to-peer communication.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The entry point composes the modules into a running node:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>const HttpServer = require('./httpServer');
+const Blockchain = require('./blockchain');
+const Operator = require('./operator');
+const Miner = require('./miner');
+const Node = require('./node');
+
+module.exports = function naivecoin(host, port, peers, logLevel, name) {
+    host = process.env.HOST || host || 'localhost';
+    port = process.env.PORT || process.env.HTTP_PORT || port || 3001;
+    peers = (process.env.PEERS ? process.env.PEERS.split(',') : []) || peers;
+    // ...
+};</code></pre>
+        <p>Mining attaches to the longest chain, and every node validates what it receives —
+        keeping the whole system honest with plain HTTP requests.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Reading a full working coin in 1500 lines is far more illuminating than any lecture: you
+        see the trade-offs (a simple file-backed store), the network protocol, and exactly which
+        parts of a real cryptocurrency are hard.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Naivecoin" belongs to its original author (Conrado Gouvea).
+        This page is an English overview written for the BYOX platform; all content, images and
+        code belong to the original author. Read the original at
+        <a href="https://github.com/conradoqg/naivecoin" target="_blank" rel="noopener">github.com/conradoqg/naivecoin</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

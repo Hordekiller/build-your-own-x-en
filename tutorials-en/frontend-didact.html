@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A DIY guide to build your own React</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Front-end Framework / Library</a>
+        <span class="sep">→</span>
+        <span>A DIY guide to build your own React</span>
+      </div>
+      <h1>A DIY guide to build your own React</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Front-end Framework / Library</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/hexacta/didact" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A DIY guide to build your own React — by Pompeu"
+        </div>
+        <a class="btn solid" href="https://github.com/hexacta/didact" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/frontend-didact.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A DIY guide to build your own React: Didact walks through every React 16 feature — elements, rendering, component classes, reconciliation, fibers and hooks — in readable JavaScript.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The React architecture distilled into a series of small steps</li>
+          <li>Reconciliation: comparing fibers and committing minimal patches</li>
+          <li>Implementing useState on top of the fiber tree</li>
+          <li>When hooks really are: fields on a fiber</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The reconciler walks the fiber tree and diffs children one sibling at a time:</p>
+        <p>And hooks fall out of fibers naturally — each fiber keeps an array of hook states:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>function reconcileChildren(wipFiber, elements) {
+  let index = 0;
+  let oldFiber = wipFiber.alternate &amp;&amp; wipFiber.alternate.child;
+  let prevSibling = null;
+
+  while (index &lt; elements.length) {
+    const element = elements[index];
+    const type = oldFiber &amp;&amp; oldFiber.element ? oldFiber.element.type : null;
+    let newFiber = null;
+    if (type === element.type) {
+      // same type: update the existing fiber
+      newFiber = { type: element.type, element, parent: wipFiber, alternate: oldFiber };
+    }
+    ...
+  }
+}</code></pre>
+        <pre class="code"><span class="lang-tag">js</span><code>let wipFiber = null;
+let hookIndex = null;
+
+function useState(initial) {
+  const oldHook =
+    wipFiber.alternate &amp;&amp; wipFiber.alternate.hooks &amp;&amp;
+    wipFiber.alternate.hooks[hookIndex];
+  const hook = { state: oldHook ? oldHook.state : initial, queue: [] };
+  ...
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Wasn't it build-your-own? If you've ever interviewed at a frontend company or merely wondered how React works, Didact is the complete, honest answer in ~300 lines.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A DIY guide to build your own React" belongs to its original author (Pompeu). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/hexacta/didact" target="_blank" rel="noopener">https://github.com/hexacta/didact</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | NES Emulator From Scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Emulator / Virtual Machine</a>
+        <span class="sep">→</span>
+        <span>NES Emulator From Scratch</span>
+      </div>
+      <h1>NES Emulator From Scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Emulator / Virtual Machine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/playlist?list=PLrOv9FMX8xJHqMvSGB_9G9nZZ_4IgteYf" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "NES Emulator From Scratch"
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/playlist?list=PLrOv9FMX8xJHqMvSGB_9G9nZZ_4IgteYf" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/emulator-nes-video.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>NES Emulator From Scratch: a video series that builds a full NES emulator live — the 6502 CPU, PPU graphics, cartridges, controllers and audio, one episode at a time.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Emulating the 6502 instruction set</li>
+          <li>The PPU: nametables, sprites and palette handling</li>
+          <li>Header parsing: mapper 0 and cartridge basics</li>
+          <li>Running real NES games in your own emulator</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Every episode starts in the fetch unit — the opcode read that begins each cycle:</p>
+        <pre class="code"><span class="lang-tag">C++</span><code>// the base instruction execution cycle in the 6502
+uint8_t opcode = read(cpu.PC++);              // fetch the opcode
+switch (opcode) {
+  case 0xA9:                                  // LDA #imm: load immediate
+    cpu.A = read(cpu.PC++);
+    cpu.updateNZ(cpu.A);
+    ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The 6502 and PPU combine into the most instructive emulator project on Earth, and this series shows every step — you emerge with a working NES and total understanding.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "NES Emulator From Scratch" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.youtube.com/playlist?list=PLrOv9FMX8xJHqMvSGB_9G9nZZ_4IgteYf" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLrOv9FMX8xJHqMvSGB_9G9nZZ_4IgteYf</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

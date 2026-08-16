@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Gitlet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Git</a>
+        <span class="sep">→</span>
+        <span>Gitlet</span>
+      </div>
+      <h1>Gitlet</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Git</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://gitlet.maryrosecook.com/docs/gitlet.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Gitlet — by Mary Rose Cook"
+        </div>
+        <a class="btn solid" href="http://gitlet.maryrosecook.com/docs/gitlet.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/gitlet.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Gitlet: a Git implementation in JavaScript, sized for humans — init, add, commit, branch, merge, checkout and remote basics, with docs that read like a novel.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The object model: blobs, trees, commits and refs</li>
+          <li>A working tree you can actually diff and merge</li>
+          <li>Branches, HEAD and detached HEAD semantics</li>
+          <li>Reading a complete Git core in one sitting</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Commit is nothing but plumbing — three objects chained:</p>
+        <pre class="code"><span class="lang-tag">javascript</span><code>  commit: function(opts) {
+    files.assertInRepo();
+    config.assertNotBare();
+
+    var treeHash = gitlet.write_tree();
+    var headDesc = refs.isHeadDetached() ? "detached HEAD" : refs.headBranchName();
+    ...
+  },</code></pre>
+        <pre class="code"><span class="lang-tag">javascript</span><code>  branch: function(name, opts) {
+    files.assertInRepo();
+    opts = opts || {};
+
+    if (name === undefined) {
+      return Object.keys(refs.localHeads()).map(function(branch) {
+        return (branch === refs.headBranchName() ? "* " : "  ") + branch;
+      });
+    }
+    ...
+  },</code></pre>
+        <pre class="code"><span class="lang-tag">javascript</span><code>  checkout: function(ref, _) {
+    // ...checks: ref must reach a commit, no dirty files may be overwritten...
+    var isDetachingHead = objects.exists(ref);
+    workingCopy.write(diff.diff(refs.headId(), ref));
+    ...
+  },</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Gitlet is the 'I now understand Git' experience in under 2,000 lines — beautiful enough to read end to end, correct enough to use as your reference.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Gitlet" belongs to its original author (Mary Rose Cook). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://gitlet.maryrosecook.com/docs/gitlet.html" target="_blank" rel="noopener">http://gitlet.maryrosecook.com/docs/gitlet.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

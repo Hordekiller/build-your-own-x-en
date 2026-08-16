@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Learn &amp; Build a JavaScript Blockchain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>Learn &amp; Build a JavaScript Blockchain</span>
+      </div>
+      <h1>Learn &amp; Build a JavaScript Blockchain</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.com/digital-alchemy-holdings/learn-build-a-javascript-blockchain-part-1-ca61c285821e" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Learn &amp; Build a JavaScript Blockchain" — a Medium tutorial by
+          Spenser Huang that builds blocks, proof-of-work mining and validation step by step.
+        </div>
+        <a class="btn solid" href="https://medium.com/digital-alchemy-holdings/learn-build-a-javascript-blockchain-part-1-ca61c285821e" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/blockchain-js-learn-build.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A focused tutorial on the core mechanics: a Block class with hash calculation, a
+        proof-of-work mining loop, and chain validation. It uses <code class="inline">crypto-js</code>
+        for SHA-256 hashing and finishes with a difficulty-based miner.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Block structure: index, timestamp, data, previous hash.</li>
+          <li>Calculating hashes with crypto-js.</li>
+          <li>Proof-of-work via nonce brute force.</li>
+          <li>Validating the integrity of a chain.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The block skeleton is created first, then filled in step by step:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>class Block {
+    constructor(timestamp, data) {
+        this.index = 0;
+        this.timestamp = timestamp;
+        this.data = data;
+        this.previousHash = "0";
+        this.hash = this.calculateHash();
+        this.nonce = 0;
+    }
+
+    calculateHash() {
+
+    }
+
+    mineBlock(difficulty) {
+
+    }
+}</code></pre>
+        <p>The hashing dependency is a single install:</p>
+        <pre class="code"><span class="lang-tag">bash</span><code>npm install --save crypto-js</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The minimal surface area — three methods on one class — makes proof-of-work click. You
+        watch the nonce increment and the hash change until it meets the difficulty target.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Learn &amp; Build a JavaScript Blockchain" belongs to its
+        original author (Spenser Huang). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://medium.com/digital-alchemy-holdings/learn-build-a-javascript-blockchain-part-1-ca61c285821e" target="_blank" rel="noopener">medium.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

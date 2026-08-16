@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Creating a Simple Facebook Messenger AI Bot with API.ai in Node.js</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>Creating a Simple Facebook Messenger AI Bot with API.ai in Node.js</span>
+      </div>
+      <h1>Creating a Simple Facebook Messenger AI Bot with API.ai in Node.js</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Node.js</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://tutorials.botsfloor.com/creating-a-simple-facebook-messenger-ai-bot-with-api-ai-in-node-js-50ae2fa5c80d" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Creating a Simple Facebook Messenger AI Bot with API.ai" — a
+          hands-on tutorial by Tomomi Imura that wires an Express webhook to the API.ai natural
+          language service.
+        </div>
+        <a class="btn solid" href="https://tutorials.botsfloor.com/creating-a-simple-facebook-messenger-ai-bot-with-api-ai-in-node-js-50ae2fa5c80d" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/bot-fb-messenger-api-ai.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This tutorial builds a Messenger bot that understands natural language: Facebook posts
+        incoming messages to your Express webhook, which forwards them to API.ai (now Dialogflow)
+        for intent parsing, and sends the reply back to the user.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Setting up a webhook with Express and verifying it with Facebook.</li>
+          <li>Using API.ai for natural language intent detection.</li>
+          <li>Sending structured messages back through the Messenger API.</li>
+          <li>The full request/response cycle of a chat platform bot.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Only two dependencies are needed — the HTTP server and the request library:</p>
+        <pre class="code"><span class="lang-tag">bash</span><code>npm init
+npm install express request --save</code></pre>
+        <p>The heart of the bot is the webhook: verify it, then listen for messages:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>// app.js — Facebook Messenger bot with API.ai
+const express = require('express');
+const request = require('request');
+
+const app = express();
+
+// Page access token — from your Facebook app settings
+const PAGE_ACCESS_TOKEN = 'your_page_token';
+// Webhook verify token — the one you define yourself
+const VERIFY_TOKEN = 'your_verify_token';
+
+app.use(express.json());
+
+// Webhook verification by Facebook
+app.get('/webhook', (req, res) =&gt; { /* ... */ });
+
+// Handle incoming messages
+app.post('/webhook', (req, res) =&gt; { /* ... */ });</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It demystifies the most common bot architecture: a plain HTTP endpoint plus a language
+        API. Understanding webhooks, tokens and the request/response shape applies to Slack,
+        Telegram and every other chat platform.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Creating a Simple Facebook Messenger AI Bot with API.ai"
+        belongs to its original author (Tomomi Imura). This page is an English overview written
+        for the BYOX platform; all content, images and code belong to the original author. Read
+        the original at
+        <a href="https://tutorials.botsfloor.com/creating-a-simple-facebook-messenger-ai-bot-with-api-ai-in-node-js-50ae2fa5c80d" target="_blank" rel="noopener">tutorials.botsfloor.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

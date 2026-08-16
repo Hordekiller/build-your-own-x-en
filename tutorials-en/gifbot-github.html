@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | gifbot - Building a GitHub App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>gifbot - Building a GitHub App</span>
+      </div>
+      <h1>gifbot - Building a GitHub App</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Node.js</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://blog.scottlogic.com/2017/05/22/gifbot-github-integration.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "gifbot: all the GIFs from GitHub" — Scott Logic's walkthrough
+          of using the gifbot demo, an AWS Lambda-powered GitHub bot that posts GIFs on demand.
+        </div>
+        <a class="btn solid" href="https://blog.scottlogic.com/2017/05/22/gifbot-github-integration.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/gifbot-github.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Gifbot watches GitHub events and reacts to comments that use the <code class="inline">[gifbot:&lt;query&gt;]</code>
+        syntax: it searches Giphy, posts the top result as a commit comment on the pull request,
+        and learns as a serverless Lambda function.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Consuming GitHub webhook events in a serverless function.</li>
+          <li>Searching Giphy and posting results to pull requests.</li>
+          <li>Parsing a trigger syntax from comment bodies.</li>
+          <li>Deploying a bot as an AWS Lambda with API Gateway.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The bot is two halves: search Giphy, then write a comment on GitHub — both plain HTTP
+        calls with a token:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>const requestp = require('./requestAsPromise');
+
+const searchGifs = (searchTerm) =&gt;
+  requestp({
+    url: 'http://api.giphy.com/v1/gifs/search',
+    json: true,
+    qs: {
+      q: searchTerm,
+      api_key: 'dc6zaTOxFJmzC'
+    }
+  });
+
+const addComment = (url, body, token) =&gt;
+  requestp({
+    json: true,
+    headers: {
+      'Authorization': 'token ' + token,
+      'User-Agent': 'ColinEberhardt',
+    },
+    /* ... */
+  });</code></pre>
+        <p>The Lambda handler decides when to act, based on the event type and the trigger
+        syntax in the comment:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>const regex = /\[gifbot:(.*?)\]/g;
+
+const accessToken = process.env.GITHUB_ACCESS_TOKEN;
+
+exports.handler = ({ body }, lambdaContext, callback) =&gt; {
+
+  // 1. Check whether this action adds a comment
+  if (body.action !== 'created') {
+    callback(null, {'message': 'ignored action of type ' + body.action});
+    return;
+  }
+
+  // 2. Check whether the comment body contains '[gifbot:search]'
+  // ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It demonstrates the modern bot architecture — event-driven, serverless, zero
+        maintenance — and shows how external APIs (GitHub, Giphy) compose into one useful bot
+        with a few dozen lines.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "gifbot" belongs to its original author (Colin Eberhardt /
+        Scott Logic). This page is an English overview written for the BYOX platform; all content,
+        images and code belong to the original author. Read the original at
+        <a href="https://blog.scottlogic.com/2017/05/22/gifbot-github-integration.html" target="_blank" rel="noopener">blog.scottlogic.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

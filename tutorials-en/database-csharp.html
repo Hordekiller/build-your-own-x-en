@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build Your Own Database</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>Build Your Own Database</span>
+      </div>
+      <h1>Build Your Own Database</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.codeproject.com/Articles/1029838/Build-Your-Own-Database" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build Your Own Database" — a CodeProject series by Dudi
+          (Moka) that implements a full on-disk database in C#, modeled on real storage engines.
+        </div>
+        <a class="btn solid" href="https://www.codeproject.com/Articles/1029838/Build-Your-Own-Database" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/database-csharp.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A C# database engine developed in three layers: a block-oriented file storage, a
+        record storage built on top of it, and indexes that map keys to record ids — a realistic
+        on-disk architecture inspired by the CodeProject "Build Your Own" series.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Modeling domain data (a cow farm) in C# classes.</li>
+          <li>Append-only file persistence with block headers.</li>
+          <li>Record storage: insert, update, delete, find.</li>
+          <li>Indexes: maps, B-trees and search structures.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The whole database is defined by two contracts. The first is the domain — the data
+        you store:</p>
+        <pre class="code"><span class="lang-tag">csharp</span><code>public class CowModel
+{
+    public Guid Id { get; set; }
+    public string Breed { get; set; }
+    public int Age { get; set; }
+    public string Name { get; set; }
+    public byte[] DnaData { get; set; }
+}</code></pre>
+        <p>The second is the record API — ad-hoc queries included:</p>
+        <pre class="code"><span class="lang-tag">csharp</span><code>public interface ICowDatabase
+{
+    void Insert (CowModel cow);
+    void Delete (CowModel cow);
+    void Update (CowModel cow);
+    CowModel Find (Guid id);                       // adhoc
+    IEnumerable&lt;CowModel&gt; FindBy (string breed, int age); // adhoc
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Layered storage — block layer, record layer, index layer — is the architecture behind
+        real databases like SQLite and Postgres, and this series makes each layer a discrete,
+        testable milestone.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build Your Own Database" belongs to its original author
+        (Dudi / Moka). This page is an English overview written for the BYOX platform; all content,
+        images and code belong to the original author. Read the original at
+        <a href="https://www.codeproject.com/Articles/1029838/Build-Your-Own-Database" target="_blank" rel="noopener">codeproject.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

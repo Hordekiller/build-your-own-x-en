@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Creating Reddit Bot with Python &amp; PRAW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>Creating Reddit Bot with Python &amp; PRAW</span>
+      </div>
+      <h1>Creating Reddit Bot with Python &amp; PRAW</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/playlist?list=PLIFBTFgFpoJ9vmYYlfxRFV6U_XhG-4fpP" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build a Reddit bot with PRAW" — a YouTube video playlist by
+          BigDataElearning that walks through Reddit's API with the PRAW library.
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/playlist?list=PLIFBTFgFpoJ9vmYYlfxRFV6U_XhG-4fpP" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/reddit-bot-praw.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A video playlist that turns classic Reddit bot code into screencasts: register the
+        app, create a PRAW <code class="inline">Reddit</code> instance, stream comments, and reply
+        automatically — with each concept demonstrated live.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Application registration and PRAW credential setup.</li>
+          <li>Initializing <code class="inline">praw.Reddit</code> with client credentials.</li>
+          <li>Streaming a subreddit's new comments.</li>
+          <li>Detecting trigger phrases and replying automatically.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Connecting to Reddit is a few lines — and streaming comments is a for-loop away:</p>
+        <pre class="code"><span class="lang-tag">Python</span><code># Connect to Reddit with PRAW and watch a subreddit
+import praw
+
+reddit = praw.Reddit(
+    client_id="your_client_id",
+    client_secret="your_client_secret",
+    user_agent="my-bot/0.1",
+)
+
+for comment in reddit.subreddit("learnpython").stream.comments(skip_existing=True):
+    if "hello" in comment.body:
+        comment.reply("Hello! Welcome.")   # automated reply</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Watching a live comment stream appear in your terminal makes the "always-on bot"
+        concept concrete, and the trigger-and-reply loop is the same pattern behind moderation
+        bots and market-monitoring agents.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build a Reddit bot with PRAW" belongs to its original authors.
+        This page is an English overview written for the BYOX platform; all content, images and
+        code belong to the original authors. Read the original at
+        <a href="https://www.youtube.com/playlist?list=PLIFBTFgFpoJ9vmYYlfxRFV6U_XhG-4fpP" target="_blank" rel="noopener">youtube.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

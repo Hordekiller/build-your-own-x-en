@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Augmented Reality with Python and OpenCV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Augmented Reality</a>
+        <span class="sep">→</span>
+        <span>Augmented Reality with Python and OpenCV</span>
+      </div>
+      <h1>Augmented Reality with Python and OpenCV</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Augmented Reality</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://bitesofcode.wordpress.com/2017/09/12/augmented-reality-with-python-and-opencv-part-1/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Augmented Reality with Python and OpenCV" — a two-part series on
+          marker-based augmented reality by Bites of Code (Sergio Canu).
+        </div>
+        <a class="btn solid" href="https://bitesofcode.wordpress.com/2017/09/12/augmented-reality-with-python-and-opencv-part-1/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/ar-python-opencv.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Unlike the Unity-based AR tutorials, this series builds augmented reality with pure
+        computer vision: Python and OpenCV, with the math spelled out. You place a flat reference
+        surface in front of the camera, estimate the homography between the reference and the image,
+        extract the camera pose, and render a 3D model over the video feed — marker-based AR, from
+        first principles.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Detecting a reference plane in the camera image.</li>
+          <li>Estimating the homography with keypoint matching and RANSAC.</li>
+          <li>Deriving the camera's calibration matrix.</li>
+          <li>Extracting rotation and translation (the pose) from the homography.</li>
+          <li>Projecting a 3D model into the image and drawing it per frame.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>The pipeline</h2>
+        <p>The first part ends with a clear road map of the whole system; the second part executes
+        every step:</p>
+        <ol>
+          <li><strong>Derive the camera model</strong> — at this point everything is unknown.</li>
+          <li><strong>Estimate the homography</strong> empirically via keypoints and RANSAC — the homography is no longer unknown.</li>
+          <li><strong>Estimate the camera calibration matrix</strong> — now the intrinsic matrix is known.</li>
+          <li><strong>Recover pose</strong>: combine the homography, the calibration matrix and the camera model to compute rotation directions and translation.</li>
+          <li><strong>Render</strong> the 3D model in the pixel space and draw it.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The pipeline starts by detecting ORB keypoints in the camera frame:</p>
+        <pre class="code"><span class="lang-tag">python</span><code>img = cv2.imread('scene.jpg', 0)
+
+# Create an ORB detector
+orb = cv2.ORB_create()
+
+# Find keypoints with ORB
+kp = orb.detect(img, None)
+
+# Compute descriptors with ORB
+kp, des = orb.compute(img, kp)
+
+# Draw only the location of keypoints, not their size and orientation
+img2 = cv2.drawKeypoints(img, kp, img, color=(0,255,0), flags=0)
+cv2.imshow('keypoints', img2)
+cv2.waitKey(0)</code></pre>
+        <p>Next, keypoints are matched against the reference image, and a homography is
+        computed — the transform that tells you where the 3D content must be drawn:</p>
+        <pre class="code"><span class="lang-tag">python</span><code># Assuming matches holds the found matches, returned by
+# bf.match(des_model, des_frame)
+# Distinguish between source points and destination points
+src_pts = np.float32([kp_model[m.queryIdx].pt for m in matches]).reshape(-1, 1, 2)
+dst_pts = np.float32([kp_frame[m.trainIdx].pt for m in matches]).reshape(-1, 1, 2)
+# Compute the homography
+M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Commercial AR SDKs must feel like magic; this series removes the illusion. Understanding
+        homography and pose estimation is the foundation not only of AR, but of camera calibration,
+        Structure-from-Motion and robotics — and the Python code lets you run the whole pipeline on
+        a webcam today.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Augmented Reality with Python and OpenCV" belongs to its original
+        author (Bites of Code). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="https://bitesofcode.wordpress.com/2017/09/12/augmented-reality-with-python-and-opencv-part-1/" target="_blank" rel="noopener">bitesofcode.wordpress.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

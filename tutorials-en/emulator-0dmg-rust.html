@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | 0dmg: Learning Rust by building a partial Game Boy emulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Emulator / Virtual Machine</a>
+        <span class="sep">→</span>
+        <span>0dmg: Learning Rust by building a partial Game Boy emulator</span>
+      </div>
+      <h1>0dmg: Learning Rust by building a partial Game Boy emulator</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Rust</span>
+        <span class="meta-badge">📁 Emulator / Virtual Machine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://jeremybanks.github.io/0dmg/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "0dmg: Learning Rust by building a partial Game Boy emulator — by Jeremy Banks"
+        </div>
+        <a class="btn solid" href="https://jeremybanks.github.io/0dmg/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/emulator-0dmg-rust.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>0dmg: Learning Rust by building a partial Game Boy emulator — a handful of assembled routines are traced opcode by opcode against a real Z80, bringing the CPU to life.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Rust applied to systems programming with real purpose</li>
+          <li>Reading raw Z80 assembly alongside a full trace</li>
+          <li>How opcode handlers compose (LD, XOR, BIT, JR)</li>
+          <li>Deterministic debugging: the trace as your oracle</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The tutorial reads like a debug session — each opcode, its machine state, and the consequence:</p>
+        <pre class="code"><span class="lang-tag">log</span><code>&gt; 0x32: write the A register to the address pointed by HL; then decrement HL.
+
+read opcode 0x32 at 0x7
+  memory[HL] = A; HL -= 1
+    memory[0xFF9F] = 0x0
+      high_ram[0x1F] = 0x0</code></pre>
+        <pre class="code"><span class="lang-tag">log</span><code>&gt; 0xCB7C: set the Z flag equal to the 7th bit of the H register.
+
+read opcode 0xCB at 0x8
+  setting Z flag to 7th bit of H register (true)</code></pre>
+        <pre class="code"><span class="lang-tag">z80</span><code>  LD SP,$fffe      ; $0000  Setup Stack
+  XOR A            ; $0003  Zero the memory from $8000-$9FFF (VRAM)
+  LD HL,$9fff      ; $0004
+Addr_0007:
+  LD (HL-),A       ; $0007
+  BIT 7,H          ; $0008
+  JR NZ, Addr_0007 ;</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Rust's type system is an ally for emulator correctness — and tracing real boot code gives you the most satisfying 'it works' moment in systems programming.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "0dmg: Learning Rust by building a partial Game Boy emulator" belongs to its original author (Jeremy Banks). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://jeremybanks.github.io/0dmg/" target="_blank" rel="noopener">https://jeremybanks.github.io/0dmg/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

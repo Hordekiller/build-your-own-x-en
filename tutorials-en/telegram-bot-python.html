@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How To Create a Telegram Bot Using Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>How To Create a Telegram Bot Using Python</span>
+      </div>
+      <h1>How To Create a Telegram Bot Using Python</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.freecodecamp.org/news/how-to-create-a-telegram-bot-using-python/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to create a Telegram bot with Python" — a freeCodeCamp
+          tutorial by Athul Cyriac Ajay with a music-crafting twist: a bot that searches songs
+          and plays previews.
+        </div>
+        <a class="btn solid" href="https://www.freecodecamp.org/news/how-to-create-a-telegram-bot-using-python/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/telegram-bot-python.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A beginner-friendly Telegram bot with pyTelegramBotAPI: set a token from BotFather,
+        register command and message handlers with decorators, and layer a real feature on top —
+        searching songs with the Deezer API and sending audio previews.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Creating a bot with BotFather and exporting its token.</li>
+          <li>Installing pyTelegramBotAPI and bootstrapping the client.</li>
+          <li>Command and message handlers with decorators.</li>
+          <li>Calling a music search API and sending results.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The setup is small and immediate — install, export the token, and connect:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>pip install pyTelegramBotAPI
+export BOT_TOKEN=your-bot-token-here</code></pre>
+        <pre class="code"><span class="lang-tag">py</span><code>import os
+
+import telebot
+
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
+
+bot = telebot.TeleBot(BOT_TOKEN)</code></pre>
+        <p>Handlers read like the API documentation itself:</p>
+        <pre class="code"><span class="lang-tag">py</span><code>@bot.message_handler(commands=['start', 'hello'])
+def send_welcome(message):
+    bot.reply_to(message, "Howdy, how are you doing?")
+
+@bot.message_handler(func=lambda msg: True)
+def echo_all(message):
+    bot.reply_to(message, message.text)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The decorator-based handler model makes bot logic legible from the first minute, and
+        the music search feature shows how to move from "bot skeleton" to a genuinely useful
+        tool in one sitting.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to create a Telegram bot with Python" belongs to its
+        original author (Athul Cyriac Ajay). This page is an English overview written for the
+        BYOX platform; all content, images and code belong to the original author. Read the
+        original at
+        <a href="https://www.freecodecamp.org/news/how-to-create-a-telegram-bot-using-python/" target="_blank" rel="noopener">freecodecamp.org</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building Your Own Kafka-like System From Scratch: A Step-by-Step Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Distributed Systems</a>
+        <span class="sep">→</span>
+        <span>Building Your Own Kafka-like System From Scratch</span>
+      </div>
+      <h1>Building Your Own Kafka-like System From Scratch: A Step-by-Step Guide</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Java</span>
+        <span class="meta-badge">📁 Distributed Systems</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/buildthingsuseful/build-your-own-kafka" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Building Your Own Kafka-like System From Scratch" — read the complete
+          tutorial at its GitHub repository.
+        </div>
+        <a class="btn solid" href="https://github.com/buildthingsuseful/build-your-own-kafka" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/distributed-kafka-java.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This guide walks you through building a simplified Apache Kafka clone in Java — a distributed
+        message broker where producers write records to topics and consumers read them back, all while
+        data is stored in an append-only log. The project targets developers who understand Kafka's
+        terminology (brokers, topics, partitions, offsets) and want to see how these pieces actually
+        work under the hood.</p>
+        <p>By the end you will have a working system: multiple broker processes coordinated through
+        ZooKeeper, a producer that assigns partitions and publishes records, and a consumer that pulls
+        records by offset — plus the tests that keep it honest.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li><strong>Broker architecture</strong>: how a broker stores records in an append-only log and serves consumers by offset.</li>
+          <li><strong>ZooKeeper coordination</strong>: registering brokers, tracking partition ownership and handling leader election.</li>
+          <li><strong>Producer side</strong>: serializing records, partitioning them across brokers and acknowledging writes.</li>
+          <li><strong>Consumer side</strong>: subscribing to topics, tracking the current offset and reading records in order.</li>
+          <li><strong>Multi-broker setup</strong>: running several brokers on one machine and observing how they cooperate.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The heart of Kafka is the log: records are only ever appended, and consumers remember where
+        they stopped. This tutorial rebuilds that model in plain Java — a broker class backed by a log
+        file, and client classes that talk to it over TCP.</p>
+        <pre class="code"><span class="lang-tag">bash</span><code style="direction:ltr;text-align:left"># Terminal 1 — broker 1
+java -cp target/simple-kafka-1.0-SNAPSHOT.jar com.simplekafka.broker.SimpleKafkaBroker 1 localhost 9091 2181
+
+# Terminal 2 — broker 2
+java -cp target/simple-kafka-1.0-SNAPSHOT.jar com.simplekafka.broker.SimpleKafkaBroker 2 localhost 9092 2181
+
+# Terminal 3 — broker 3
+java -cp target/simple-kafka-1.0-SNAPSHOT.jar com.simplekafka.broker.SimpleKafkaBroker 3 localhost 9093 2181</code></pre>
+        <p>Three broker processes, each bound to its own port, all registering themselves with a shared
+        ZooKeeper instance — that is the whole "cluster" for this tutorial.</p>
+      </section>
+
+      <section>
+        <h2>Producing and consuming</h2>
+        <p>Once the brokers are running, the included CLI clients demonstrate the round trip: the
+        producer publishes records to a topic, and the consumer reads them back starting from a chosen
+        offset.</p>
+        <pre class="code"><span class="lang-tag">bash</span><code style="direction:ltr;text-align:left"># Publish records to "test-topic" through broker 1
+java -cp target/simple-kafka-1.0-SNAPSHOT.jar com.simplekafka.client.SimpleKafkaProducer localhost 9091 test-topic
+
+# Read records back, starting from offset 0
+java -cp target/simple-kafka-1.0-SNAPSHOT.jar com.simplekafka.client.SimpleKafkaConsumer localhost 9091 test-topic 0</code></pre>
+        <p>Because records are stored in an append-only log, a consumer can always re-read history by
+        replaying offsets — the same property that makes Kafka-style systems so useful for event
+        streaming and replay.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Kafka's real implementation is thousands of lines of distributed-systems engineering. This
+        project cuts through the noise and shows the essential ideas — logs, offsets, broker
+        coordination — in a codebase small enough to read in an afternoon. Afterward, Kafka's docs and
+        configuration options make far more sense.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Building Your Own Kafka-like System From Scratch: A Step-by-Step Guide"
+        belongs to its original author. This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="https://github.com/buildthingsuseful/build-your-own-kafka" target="_blank" rel="noopener">github.com/buildthingsuseful/build-your-own-kafka</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

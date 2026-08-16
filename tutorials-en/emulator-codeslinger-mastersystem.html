@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Emulation tutorial (Master System emulator)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Emulator / Virtual Machine</a>
+        <span class="sep">→</span>
+        <span>Emulation tutorial (Master System emulator)</span>
+      </div>
+      <h1>Emulation tutorial (Master System emulator)</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Emulator / Virtual Machine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.codeslinger.co.uk/pages/projects/mastersystem/memory.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Emulation tutorial (Master System emulator)"
+        </div>
+        <a class="btn solid" href="http://www.codeslinger.co.uk/pages/projects/mastersystem/memory.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/emulator-codeslinger-mastersystem.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The final step in the Codeslinger emulation series: a Sega Master System emulator, covering the Z80 CPU, the VDP video processor, memory banks and accurate I/O ports.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The Master System's Z80 + VDP architecture</li>
+          <li>Memory banking and the 0x0000-0xFFFF map</li>
+          <li>Reading and writing VDP control ports</li>
+          <li>Frame-synchronized main loops</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The main loop targets real display timing — 60 frames per second, measured per frame:</p>
+        <pre class="code"><span class="lang-tag">cpp</span><code>void Emulator::MainLoop( )
+{
+  const double SIXTYTH = 1000/60 ; // working in milliseconds
+  double lastFrameTime = 0 ;
+  while (notQuitting) // loop until the player quits
+  {
+    double currentTime = GetCurrentTime() ;
+    if (currentTime - lastFrameTime >= SIXTYTH)
+    {
+      lastFrameTime = currentTime ;
+      UpdateGameState() ;   // one frame of the emulated machine
+    }
+  }
+}
+</code></pre>
+        <pre class="code"><span class="lang-tag">text</span><code>0x7E : read: returns the V counter from the VDP. write: data to the sound chip
+0x7F : read: returns the H counter from the VDP. write: data to the sound chip (mirror of above)</code></pre>
+        <pre class="code"><span class="lang-tag">text</span><code>0x0000-0x3FFF : ROM Slot 1
+0x4000-0x7FFF : ROM Slot 2
+0x8000-0xBFFF : ROM Slot 3 / RAM Slot
+0xC000-0xDFFF : RAM
+0xE000-0xFFFF : mirrored RAM</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Completing the series means you've built three emulators of increasing complexity — the soundest possible foundation for whatever hardware bears your name next.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Emulation tutorial (Master System emulator)" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://www.codeslinger.co.uk/pages/projects/mastersystem/memory.html" target="_blank" rel="noopener">http://www.codeslinger.co.uk/pages/projects/mastersystem/memory.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

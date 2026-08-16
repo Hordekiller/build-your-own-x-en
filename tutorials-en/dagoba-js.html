@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Dagoba: an in-memory graph database</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>Dagoba: an in-memory graph database</span>
+      </div>
+      <h1>Dagoba: an in-memory graph database</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://aosabook.org/en/500L/dagoba-an-in-memory-graph-database.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Dagoba: an in-memory graph database" — the 500 Lines chapter by
+          Damian Gryski: a graph database built on a tribute to TinkerPop/Gremlin, with a fluent
+          query API and zero dependencies.
+        </div>
+        <a class="btn solid" href="http://aosabook.org/en/500L/dagoba-an-in-memory-graph-database.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/dagoba-js.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Dagoba is a tiny in-memory graph database inspired by TinkerPop, shipped complete with
+        its query language Gremlin's essence: graph traversal through a LazyQuery pipeline,
+        plus mutation, time travel and persistence tricks — all in about 500 lines.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Graph data as vertices and edges with schema validation.</li>
+          <li>A fluent query language you build from primitives.</li>
+          <li>Lazy evaluation: queries as async streams of results.</li>
+          <li>Recipe-style extras: time travel, hash-consing, serialization.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A familiar starting point — a graph query is a path through connected vertices:</p>
+        <pre class="code"><span class="lang-tag">text</span><code>select ?name
+where {
+    ?vertex1 has name "Alice"
+    ?vertex1 knows ?vertex2
+    ?vertex2 has name ?name
+}</code></pre>
+        <p>And its Gremlin-flavored translation, built in Dagoba from our own query primitives:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>var V = g.addV('vertex', 'person');   // vertices...
+var E = g.addE('edge', 'knows');      // ...and edges
+
+P = Dagoba.P // the query primitives
+
+g.V().has('name', 'Alice')     // start from Alice
+ .out('knows')                 // follow "knows" edges
+ .has('name')                  // keep vertices with a name
+ .run()                        // lazy evaluation kicks in
+ .map(function(vertex) {       // producers are async
+   return vertex.name
+ })</code></pre>
+        <p>The whole data model hides inside the simplest possible stores:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>// V: an array of vertices, E: an array of edges
+// parents &amp; children functions rewired at mutation time</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Graph databases answer questions SQL struggles with: friends-of-friends, shortest
+        paths, recommendation walks. Dagoba shows the query language and the lazy pipeline that
+        power the real ones, in five hundred readable lines.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Dagoba: an in-memory graph database" belongs to its original
+        author (Damian Gryski). This page is an English overview written for the BYOX platform;
+        all content, images and code belong to the original author. Read the original at
+        <a href="http://aosabook.org/en/500L/dagoba-an-in-memory-graph-database.html" target="_blank" rel="noopener">aosabook.org</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

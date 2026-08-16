@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Raycasting engine of Wolfenstein 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">3D Renderer</a>
+        <span class="sep">→</span>
+        <span>Raycasting engine of Wolfenstein 3D</span>
+      </div>
+      <h1>Raycasting engine of Wolfenstein 3D</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 3D Renderer</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://lodev.org/cgtutor/raycasting.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Raycasting engine of Wolfenstein 3D" by Lode Vandevenne — one of the
+          most complete low-level tutorials on the classic FPS algorithm, with a downloadable C++
+          implementation.
+        </div>
+        <a class="btn solid" href="http://lodev.org/cgtutor/raycasting.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/lodev-raycasting.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Wolfenstein 3D rendered its 3D world with <em>raycasting</em>: for every screen column, a
+        single ray is cast through the map and the distance to the first wall it hits determines how
+        tall that wall column is drawn. This tutorial explains the entire technique from the math of
+        the camera plane to a playable maze — in pure C++ with no graphics library beyond SDL for the
+        display.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A 2D world map stored as a grid of cell numbers, and why it is enough for 3D.</li>
+          <li>DDA ray casting: marching a ray through the grid one cell at a time.</li>
+          <li>The camera: the direction vector and the camera plane that define the view frustum.</li>
+          <li>Fisheye correction and per-column wall drawing.</li>
+          <li>Textured walls, floor/ceiling casting, sprites and a minimap.</li>
+          <li>Keyboard movement with rotation and strafing.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The map is a plain 2D array; each value is a wall type. The player has a position, a
+        direction vector, and a camera plane perpendicular to it. A ray is fired through each screen
+        column, we step it tile by tile, and the distance to the wall gives the column height.</p>
+        <pre class="code"><span class="lang-tag">cpp</span><code style="direction:ltr;text-align:left">#define mapWidth 24
+#define mapHeight 24
+#define screenWidth 640
+#define screenHeight 480
+
+int worldMap[mapWidth][mapHeight] = {
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+  ...
+};</code></pre>
+        <p>Walls 1, 2 and 3 will later carry different textures — the whole world is three numbers
+        in a grid.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Raycasting is the perfect introduction to 3D rendering: the full engine — movement, walls,
+        textures, sprites, HUD — fits in a few hundred lines and every step is visual. It is also
+        historically fascinating: this is the trick that made the FPS genre possible on 1992 hardware.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Raycasting engine of Wolfenstein 3D" belongs to its original
+        author (Lode Vandevenne). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="http://lodev.org/cgtutor/raycasting.html" target="_blank" rel="noopener">lodev.org/cgtutor/raycasting.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

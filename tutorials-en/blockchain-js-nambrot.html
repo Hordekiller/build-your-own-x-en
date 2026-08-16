@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build your own Blockchain in JavaScript</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>Build your own Blockchain in JavaScript</span>
+      </div>
+      <h1>Build your own Blockchain in JavaScript</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/nambrot/blockchain-in-js" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build your own Blockchain in JavaScript" — nambrot's project
+          that combines a working blockchain with an interactive React walkthrough of blocks,
+          transactions and UTXO.
+        </div>
+        <a class="btn solid" href="https://github.com/nambrot/blockchain-in-js" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/blockchain-js-nambrot.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A JavaScript blockchain with a real UI: React components let you create blocks, craft
+        transactions, sign them and inspect the UTXO pool — all running against a live chain in
+        the browser, deployable with Helm charts on Kubernetes.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Domain models: Block, Blockchain, Transaction, UTXO and UTXOPool.</li>
+          <li>Hashing and block verification in JS.</li>
+          <li>Cryptographic signing of transactions.</li>
+          <li>An interactive UI that makes each concept visible.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The repository layout already teaches the architecture — domain logic separated from
+        React components, with crypto utilities alongside:</p>
+        <pre class="code"><span class="lang-tag">text</span><code>helm-chart/            ← helm chart for deployment on Kubernetes
+public/                ← static public files
+src/
+  components/          ← React components: build block, build transaction, sign, UTXO tables, walkthrough
+  models/              ← domain models: Block.js, Blockchain.js, Transaction.js, UTXO.js, UTXOPool.js
+  App.js               ← main component: navigation, chain selection/creation, welcome
+  crypto.js</code></pre>
+        <p>A block links to its parent by hashing the nonce plus the parent hash:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>class Block {
+  constructor(blockchain, parentHash, nonce = sha256(new Date().getTime().toString()).toString()) {
+    this.blockchain = blockchain;
+    this.nonce = nonce;
+    this.parentHash = parentHash;
+    this.hash = sha256(this.nonce + this.parentHash).toString()
+  }
+  // ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Seeing blocks, transactions and signatures through a walkthrough UI fixes the abstract
+        concepts — you click to sign a transaction and watch the UTXO pool change. Code and
+        visualization together make it stick.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build your own Blockchain in JavaScript" belongs to its
+        original author (nambrot). This page is an English overview written for the BYOX platform;
+        all content, images and code belong to the original author. Read the original at
+        <a href="https://github.com/nambrot/blockchain-in-js" target="_blank" rel="noopener">github.com/nambrot/blockchain-in-js</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

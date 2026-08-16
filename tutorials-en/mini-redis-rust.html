@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build your own Redis client and server</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>Build your own Redis client and server</span>
+      </div>
+      <h1>Build your own Redis client and server</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Rust</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://tokio.rs/tokio/tutorial/setup" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build your own Redis client and server" — the official Tokio
+          Mini-Redis tutorial: an async Redis clone in Rust, redis-cli compatible on the wire.
+        </div>
+        <a class="btn solid" href="https://tokio.rs/tokio/tutorial/setup" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/mini-redis-rust.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>An async Redis implementation in Rust under Tokio. You'll learn async primitives —
+        spawning, shared state — by building a Mini-Redis server, client library, and wire
+        protocol from scratch, runnable against genuine Redis tools.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Tokio fundamentals: async tasks, channels, shared state.</li>
+          <li>Spawning and coordinating concurrent connection handlers.</li>
+          <li>The RESP protocol and a full client/server pair.</li>
+          <li>Integration-testing against the real CLI.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Setup is honest: Rust toolchain first, then the reference tools — because real Redis
+        clients are your test suite:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>$ rustc --version
+$ cargo install mini-redis
+$ mini-redis-server
+
+$ mini-redis-cli get foo</code></pre>
+        <p>Then the build: a wire protocol crate, a server that parses frames and stores
+        key/values in shared state, and a client crate exposing set, get and pub/sub — each
+        chapter a complete Tokio lesson.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>This is the canonical "async Rust by doing" path: every Tokio concept — tasks,
+        channels, select, shared state — appears because the server needs it, and correctness is
+        proven by interop with the actual Redis ecosystem.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build your own Redis client and server" (Mini-Redis) belongs
+        to its original authors (Tokio project, tokio-rs). This page is an English overview
+        written for the BYOX platform; all content, images and code belong to the original
+        authors. Read the original at
+        <a href="https://tokio.rs/tokio/tutorial/setup" target="_blank" rel="noopener">tokio.rs</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

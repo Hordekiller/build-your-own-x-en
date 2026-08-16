@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Why you should build your own NoSQL Database</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>Why you should build your own NoSQL Database</span>
+      </div>
+      <h1>Why you should build your own NoSQL Database</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Crystal</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.com/@marceloboeira/why-you-should-build-your-own-nosql-database-9bbba42039f5" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Why you should build your own NoSQL Database" — Marcelo Boeira's
+          pitch and hands-on build of a tiny key-value NoSQL server in Crystal.
+        </div>
+        <a class="btn solid" href="https://medium.com/@marceloboeira/why-you-should-build-your-own-nosql-database-9bbba42039f5" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/nosql-crystal.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Part philosophical manifesto, part implementation: a minimal NoSQL key-value database
+        in Crystal. A TCP server accepts simple <code class="inline">command key value</code>
+        lines, stores them in a hash in memory, and answers over telnet.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Designing a tiny text protocol: <code class="inline">command key value</code>.</li>
+          <li>Accepting connections with <code class="inline">TCPServer</code> and fibers.</li>
+          <li>Handling multiple clients concurrently.</li>
+          <li>Turning a simple API into a real network service.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The wire protocol is one line long:</p>
+        <pre class="code"><span class="lang-tag">text</span><code>command key value</code></pre>
+        <p>And the server fits in a few dozen lines — a socket loop, a fiber per connection, one
+        hash:</p>
+        <pre class="code"><span class="lang-tag">cr</span><code>require "socket"
+
+class Server
+  def self.start
+    server = TCPServer.new("localhost", 5000)
+    server.recv_buffer_size = 4096
+    data = Hash(String, String).new
+
+    loop do
+      socket = server.accept
+      if socket
+        spawn do
+          loop do
+            if request = socket.gets
+              # parse "command key value" and dispatch
+            end
+          end
+        end
+      end
+    end
+  end
+end</code></pre>
+        <p>Testing it is as fun as old-school networking gets — telnet:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>telnet 127.0.0.1 5000
+
+&gt;set foo bar
+bar
+&gt;get foo
+bar
+&gt;invalid
+error: "invalid" is not a valid command</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It answers the question in the title: building the smallest NoSQL server shows that
+        databases are just protocols over data structures — and demystifies the ones you use
+        every day.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Why you should build your own NoSQL Database" belongs to its
+        original author (Marcelo Boeira). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://medium.com/@marceloboeira/why-you-should-build-your-own-nosql-database-9bbba42039f5" target="_blank" rel="noopener">medium.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building a cli command with Go: cowsay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Command-Line Tool</a>
+        <span class="sep">→</span>
+        <span>Building a cli command with Go: cowsay</span>
+      </div>
+      <h1>Building a cli command with Go: cowsay</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Command-Line Tool</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://flaviocopes.com/go-tutorial-cowsay/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build a command-line app with Go: cowsay" — Flavio Copes builds
+          a Go clone of the famous cowsay, reading text from a pipe and drawing the cow
+          artfully around it.
+        </div>
+        <a class="btn solid" href="https://flaviocopes.com/go-tutorial-cowsay/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/go-cowsay.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A Go version of the legendary cowsay. The tutorial teaches the core trick first:
+        detect whether stdin is a pipe, read it rune by rune, then print a speech bubble around
+        an ASCII cow — paying homage to the original Perl implementation's license along the way.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Detecting pipes vs. interactive terminals with <code class="inline">os.Stdin.Stat()</code>.</li>
+          <li>Reading input rune by rune with bufio.</li>
+          <li>Formatting text into a speech bubble.</li>
+          <li>Combining ASCII art with dynamic input.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything pivots on one check: is the input piped, or a terminal?</p>
+        <pre class="code"><span class="lang-tag">go</span><code>package main
+
+import (
+	"bufio"
+	"fmt"
+	"io"
+	"os"
+)
+
+func main() {
+	info, _ := os.Stdin.Stat()
+
+	if info.Mode()&amp;os.ModeCharDevice != 0 {
+		fmt.Println("The command is intended to work with pipes.")
+		fmt.Println("Usage: fortune | gocowsay")
+		return
+	}
+
+	reader := bufio.NewReader(os.Stdin)
+	var output []rune
+
+	for {
+		input, _, err := reader.ReadRune()
+		if err != nil &amp;&amp; err != io.EOF {
+			break
+		}
+		// ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The pipe-or-terminal distinction is the soul of Unix composability — and the tutorial
+        makes you handle it explicitly, exactly the way real command-line tools must.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build a command-line app with Go: cowsay" belongs to its
+        original author (Flavio Copes). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://flaviocopes.com/go-tutorial-cowsay/" target="_blank" rel="noopener">flaviocopes.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A 3D Modeller</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">3D Renderer</a>
+        <span class="sep">→</span>
+        <span>A 3D Modeller</span>
+      </div>
+      <h1>A 3D Modeller</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 3D Renderer</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://aosabook.org/en/500L/a-3d-modeller.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A 3D Modeller" — a chapter from the Architecture of Open Source
+          Applications' 500 Lines or Less book, written by Philip Rideout.
+        </div>
+        <a class="btn solid" href="http://aosabook.org/en/500L/a-3d-modeller.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/aosabook-3d-modeller.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This chapter of the famous "500 Lines or Less" book builds a full interactive 3D
+        modeller in Python using OpenGL. It is a small Tkinter application in which you can place,
+        select and manipulate 3D primitives — spheres, cones, cubes — with a trackball-style
+        interaction model, all rendered in real time.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Structure of a GUI 3D application: viewer, scene graph and interaction.</li>
+          <li>OpenGL rendering loop from Python via GLUT.</li>
+          <li>The trackball interaction model for rotating the camera.</li>
+          <li>Selection: identifying which object the mouse clicked, using ray-based picking.</li>
+          <li>Undo/redo, transformations and persistent storage of the scene.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything is organized around a <code class="inline">Viewer</code> (window and render
+        loop) and a <code class="inline">Scene</code> that owns a list of nodes — the classic scene
+        graph pattern, in a size you can hold in your head.</p>
+        <pre class="code"><span class="lang-tag">python</span><code>class Scene(object):
+
+    # Default distance from the camera to place a new object
+    PLACE_DEPTH = 15.0
+
+    def __init__(self):
+        # The scene keeps a list of displayed nodes
+        self.node_list = list()
+        # Tracks the currently selected node; some actions
+        # may depend on something being selected
+        self.selected_node = None
+
+    def add_node(self, node):
+        """Add a new node to the scene"""
+        self.node_list.append(node)
+
+    def render(self):
+        """Render the scene"""
+        for node in self.node_list:
+            node.render()</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Unlike pure renderers, this project exercises real interactive software: picking, camera
+        control, undo and object editing. It is a perfect case study of how a small, well-factored
+        codebase (about 500 lines) can deliver a desktop application experience.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A 3D Modeller" belongs to its original author (Philip Rideout) as
+        part of the AOSA "500 Lines or Less" book. This page is an English overview written for the
+        BYOX platform; all content, images and code belong to the original author. Read the original
+        at
+        <a href="http://aosabook.org/en/500L/a-3d-modeller.html" target="_blank" rel="noopener">aosabook.org</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

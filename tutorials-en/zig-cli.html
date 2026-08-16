@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build Your Own CLI App in Zig from Scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Command-Line Tool</a>
+        <span class="sep">→</span>
+        <span>Build Your Own CLI App in Zig from Scratch</span>
+      </div>
+      <h1>Build Your Own CLI App in Zig from Scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Zig</span>
+        <span class="meta-badge">📁 Command-Line Tool</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://rebuild-x.github.io/docs/#/./zig/terminal/cli" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Terminal CLI in Zig" — a rebuild-x guide that builds a
+          command framework in Zig: commands, options and error handling from first principles.
+        </div>
+        <a class="btn solid" href="https://rebuild-x.github.io/docs/#/./zig/terminal/cli" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/zig-cli.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A Zig CLI framework from scratch: no parser libraries — instead a typed
+        <code class="inline">command</code> struct, an option struct, and a
+        <code class="inline">start</code> entry that validates limits and dispatches to command
+        functions. The project layout separates CLI core, commands and the entry point.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Modeling commands and options as Zig structs.</li>
+          <li>Validating limits and returning typed errors.</li>
+          <li>The general-purpose allocator pattern.</li>
+          <li>Wiring commands into a dispatcher.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The architecture is visible in the file tree — CLI core, command implementations and
+        entry point separated:</p>
+        <pre class="code"><span class="lang-tag">text</span><code>my-cli/
+├── src/
+│   ├── cli.zig       # main CLI logic
+│   ├── commands.zig  # command implementations
+│   └── main.zig      # entry point of the main program
+├── build.zig         # build configuration
+└── README.md         # documentation</code></pre>
+        <p>A command is a typed struct pairing a name with its handler:</p>
+        <pre class="code"><span class="lang-tag">zig</span><code>const std = @import("std");
+const builtin = @import("builtin");
+
+pub const MAX_COMMANDS: u8 = 10;
+pub const MAX_OPTIONS: u8 = 20;
+
+const Byte = u8;
+const Slice = []const Byte;
+const Slices = []const Slice;
+
+/// Structure representing a command type.
+pub const command = struct {
+    name: Slice,                     // command name
+    func: fnType,                    // command execution function
+};</code></pre>
+        <p>And the dispatcher validates everything up front:</p>
+        <pre class="code"><span class="lang-tag">zig</span><code>/// Starts the execution of the CLI program.
+pub fn start(commands: []const command, options: []const option, debug: bool) !void {
+    if (commands.len > MAX_COMMANDS) {
+        return error.TooManyCommands;
+    }
+    if (options.len > MAX_OPTIONS) {
+        return error.TooManyOptions;
+    }
+
+    // create a general-purpose allocator
+    // ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Zig's explicit types and error handling make the skeleton of every CLI tool — parsing,
+        validation, dispatch — completely visible, a great antidote to parser-library magic.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Terminal CLI in Zig" belongs to its original author
+        (rebuild-x). This page is an English overview written for the BYOX platform; all content,
+        images and code belong to the original author. Read the original at
+        <a href="https://rebuild-x.github.io/docs/#/./zig/terminal/cli" target="_blank" rel="noopener">rebuild-x.github.io</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

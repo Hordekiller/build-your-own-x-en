@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to Build Your First Slack Bot with Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>How to Build Your First Slack Bot with Python</span>
+      </div>
+      <h1>How to Build Your First Slack Bot with Python</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.fullstackpython.com/blog/build-first-slack-bot-python.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to Build Your First Slack Bot with Python" — Matt Makai's
+          Full Stack Python guide that creates a StarterBot listening for mentions in Slack.
+        </div>
+        <a class="btn solid" href="https://www.fullstackpython.com/blog/build-first-slack-bot-python.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/slack-bot-python.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A beginner-friendly walkthrough of Slack's classic real-time API: create a bot user,
+        install the <code class="inline">slackclient</code> library, connect over WebSocket, and
+        react whenever someone mentions the bot.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Creating a Slack bot user and finding its API token.</li>
+          <li>Connecting with the Slack real-time messaging API.</li>
+          <li>Reading events and responding to mentions.</li>
+          <li>Environment-aware bot setup with virtualenv.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The environment is isolated first — one virtualenv, one library:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>virtualenv starterbot
+source starterbot/bin/activate
+pip install slackclient==1.3.2</code></pre>
+        <p>Then the bot authenticates through the Slack RTM client and loops over incoming
+        messages, replying when it sees its own name.</p>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Slack's RTM API is one of the easiest places to meet real-time messaging: a WebSocket
+        connection, a message dict, and your first interactive bot — with patterns that transfer
+        to every other chat platform.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to Build Your First Slack Bot with Python" belongs to its
+        original author (Matt Makai). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://www.fullstackpython.com/blog/build-first-slack-bot-python.html" target="_blank" rel="noopener">fullstackpython.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

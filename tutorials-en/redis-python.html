@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Write your own miniature Redis with Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>Write your own miniature Redis with Python</span>
+      </div>
+      <h1>Write your own miniature Redis with Python</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://charlesleifer.com/blog/building-a-simple-redis-server-with-python/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Write your own miniature Redis with Python" — Charles
+          Leifer's familiar build: a small, redis-py-compatible server on top of gevent.
+        </div>
+        <a class="btn solid" href="http://charlesleifer.com/blog/building-a-simple-redis-server-with-python/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/redis-python.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A miniature Redis in Python, served by gevent's concurrency and answering the real
+        <code class="inline">redis-py</code> client. Commands are structured as a router; the
+        wire protocol is handled manually; keys and lists live in memory, and gevent streams
+        handle many clients at once.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Reading and writing the Redis wire protocol by hand.</li>
+          <li>Concurrency with gevent: greenlets, streams, monkey patching.</li>
+          <li>Turning raw sockets into a library API (redis-py compatible).</li>
+          <li>Unit-testing a network server like a normal Python program.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Concurrency without threads — gevent makes each connection a trivial greenlet:</p>
+        <pre class="code"><span class="lang-tag">python</span><code>import gevent
+from gevent import monkey
+monkey.patch_all()  # make the standard library cooperative
+
+from gevent import socket
+from gevent.pool import Pool
+from gevent.stream import Stream
+
+from collections import defaultdict
+import os
+
+pool = Pool(1000)
+db = defaultdict(str)  # the whole data store</code></pre>
+        <p>Then a server loop that naively reads commands, and a response protocol that talks
+        like Redis should:</p>
+        <pre class="code"><span class="lang-tag">python</span><code>class Protocol(object):
+    def __init__(self, stream):
+        self.stream = stream
+
+    def handle(self, line):
+        parts = line.split()
+        ...
+
+    def prepare(self, data):
+        # RESP-ish replies: +OK, :integers, $bulk, *arrays
+        ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Redis's command set and protocol are small but complete enough to feel real: by the
+        end, a stock <code class="inline">redis-py</code> client drives a server you wrote —
+        the definitive proof of comprehension.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Write your own miniature Redis with Python" belongs to its
+        original author (Charles Leifer). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="http://charlesleifer.com/blog/building-a-simple-redis-server-with-python/" target="_blank" rel="noopener">charlesleifer.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

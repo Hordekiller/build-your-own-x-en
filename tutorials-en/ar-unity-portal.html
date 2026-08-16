@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | AR Portal Tutorial with Unity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Augmented Reality</a>
+        <span class="sep">→</span>
+        <span>AR Portal Tutorial with Unity</span>
+      </div>
+      <h1>AR Portal Tutorial with Unity</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 Augmented Reality</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/playlist?list=PLPCqNOwwN794Gz5fzUSi1p4OqLU0HTmvn" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "AR Portal Tutorial with Unity" — a video playlist teaching the
+          famous AR "portal to another world" effect. This is a video resource, watch on YouTube.
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/playlist?list=PLPCqNOwwN794Gz5fzUSi1p4OqLU0HTmvn" target="_blank" rel="noopener">↗ Watch the playlist on YouTube</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/ar-unity-portal.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This tutorial recreates the iconic "Upside Down" portal effect that went viral in AR
+        demos: through a doorway framed in the real world, you see an entirely different rendered
+        scene as if it existed on the other side. The trick combines AR plane placement, a second
+        virtual camera and a render texture.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Building a portal frame out of planes and setting up AR tracking.</li>
+          <li>Creating a second camera that renders a separate virtual scene.</li>
+          <li>Using a <code class="inline">RenderTexture</code> as the portal "window".</li>
+          <li>Aligning the virtual camera with the real camera for a seamless illusion.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The portal is not magic — it is a camera pointed at another scene, whose output is drawn
+        onto the portal's surface instead of the normal shader.</p>
+        <pre class="code"><span class="lang-tag">C#</span><code>// Render the second camera's view into a texture and use it on the portal
+portalCamera.targetTexture = portalRT;   // the portal's RenderTexture
+portalMaterial.mainTexture = portalRT;   // the "other world" view on the doorway</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The portal effect is the archetypal "wow" AR demo, but beneath it lies a genuinely
+        transferable technique — render-to-texture — used everywhere from mirrors to security
+        cameras in games and VR. This tutorial makes that technique tangible and fun.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "AR Portal Tutorial with Unity" belongs to its original creators.
+        This page is an English overview written for the BYOX platform; all content, images and code
+        belong to the original authors. Watch the original at
+        <a href="https://www.youtube.com/playlist?list=PLPCqNOwwN794Gz5fzUSi1p4OqLU0HTmvn" target="_blank" rel="noopener">youtube.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

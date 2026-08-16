@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | GameBoy Emulation in JavaScript</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Emulator / Virtual Machine</a>
+        <span class="sep">→</span>
+        <span>GameBoy Emulation in JavaScript</span>
+      </div>
+      <h1>GameBoy Emulation in JavaScript</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Emulator / Virtual Machine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://imrannazar.com/GameBoy-Emulation-in-JavaScript" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "GameBoy Emulation in JavaScript — by Imran Nazar"
+        </div>
+        <a class="btn solid" href="http://imrannazar.com/GameBoy-Emulation-in-JavaScript" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/emulator-gameboy-js.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>GameBoy Emulation in JavaScript: a browser-based Game Boy, built up through the memory management unit, the Z80 registers, opcode execution and graphics.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The MMU: read and write at two byte widths</li>
+          <li>The Z80's register bank and stack operations</li>
+          <li>Executing Game Boy opcodes in JavaScript</li>
+          <li>Bringing graphics to the canvas</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything flows through the memory management unit — one read/write convention:</p>
+        <pre class="code"><span class="lang-tag">js</span><code>MMU = {
+    rb: function(addr) { /* read an 8-bit byte from the given address */ },
+    rw: function(addr) { /* read a 16-bit word from the given address */ },
+
+    wb: function(addr, val) { /* write an 8-bit byte to the given address */ }
+    ...</code></pre>
+        <pre class="code"><span class="lang-tag">js</span><code>    // push registers B and C onto the stack (PUSH BC)
+    PUSHBC: function() {
+        Z80._r.sp--;                               // grow down in the stack
+        MMU.wb(Z80._r.sp, Z80._r.b);               // write B
+        Z80._r.sp--;
+        MMU.wb(Z80._r.sp, Z80._r.c);               // write C
+    },</code></pre>
+        <pre class="code"><span class="lang-tag">js</span><code>    reset: function() {
+        Z80._r.a = 0; Z80._r.b = 0; Z80._r.c = 0; Z80._r.d = 0;
+        Z80._r.e = 0; Z80._r.h = 0; Z80._r.l = 0; Z80._r.f = 0;
+        Z80._r.sp = 0;
+        Z80._r.pc = 0;      // start execution at 0
+    }</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>An emulator that runs in your browser — the joy of games meets the joy of systems programming, and JavaScript turns out to be a perfectly capable host for hardware.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "GameBoy Emulation in JavaScript" belongs to its original author (Imran Nazar). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://imrannazar.com/GameBoy-Emulation-in-JavaScript" target="_blank" rel="noopener">http://imrannazar.com/GameBoy-Emulation-in-JavaScript</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

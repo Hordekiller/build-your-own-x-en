@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A BitTorrent client in Python 3.5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">BitTorrent Client</a>
+        <span class="sep">→</span>
+        <span>A BitTorrent client in Python 3.5</span>
+      </div>
+      <h1>A BitTorrent client in Python 3.5</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 BitTorrent Client</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://markuseliasson.se/article/bittorrent-in-python/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A BitTorrent client in Python 3.5" — a complete client
+          implementation by Markus Eliasson, built around a small, clean package.
+        </div>
+        <a class="btn solid" href="http://markuseliasson.se/article/bittorrent-in-python/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/bittorrent-python.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Markus Eliasson's tutorial implements a working BitTorrent client in Python 3.5,
+        organized as a small package with modules for bencoding, tracker interaction, the peer wire
+        protocol and the overall download logic. The article is precise about the protocol — even
+        opening with the formal grammar of bencode.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The bencode grammar, expressed formally as a grammar rule set.</li>
+          <li>Implementing a decoder with Python's <code class="inline">bytes</code> types.</li>
+          <li>An encoder and the <code class="inline">OrderedDict</code> discipline it requires.</li>
+          <li>Tracker requests and parsing announce responses.</li>
+          <li>Peer connections, handshakes and the message loop.</li>
+          <li>Assembling pieces into the final file with hash checks.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The protocol begins with a formal grammar — exactly four productions:</p>
+        <pre class="code"><span class="lang-tag">text</span><code>&lt;BE&gt;    ::= &lt;DICT&gt; | &lt;LIST&gt; | &lt;INT&gt; | &lt;STR&gt;
+
+&lt;DICT&gt;  ::= "d" 1 * (&lt;STR&gt; &lt;BE&gt;) "e"
+&lt;LIST&gt;  ::= "l" 1 * &lt;BE&gt;         "e"
+&lt;INT&gt;   ::= "i"     &lt;SNUM&gt;       "e"
+&lt;STR&gt;   ::= &lt;NUM&gt; ":" n * &lt;CHAR&gt;; where n equals &lt;NUM&gt;</code></pre>
+        <p>And once the decoder exists, it is immediately testable in a REPL:</p>
+        <pre class="code"><span class="lang-tag">python</span><code>&gt;&gt;&gt; from pieces.bencoding import Decoder
+
+# An integer starts with 'i' and runs of digits until 'e'
+&gt;&gt;&gt; Decoder(b'i123e').decode()
+123
+
+# A string states its length first, then the characters.
+# Note that the result is a binary string, not unicode.
+&gt;&gt;&gt; Decoder(b'12:Middle Earth').decode()
+b'Middle Earth'</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Python lets you focus on the protocol rather than the plumbing, and this client is a
+        model of clarity: grammar first, package structure second, tests throughout. It is an ideal
+        starting point before tackling more complex peer-to-peer systems.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A BitTorrent client in Python 3.5" belongs to its original author
+        (Markus Eliasson). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="http://markuseliasson.se/article/bittorrent-in-python/" target="_blank" rel="noopener">markuseliasson.se</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

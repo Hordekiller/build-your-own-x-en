@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build your own blockchain: a Python tutorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>Build your own blockchain: a Python tutorial</span>
+      </div>
+      <h1>Build your own blockchain: a Python tutorial</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://ecomunsing.com/build-your-own-blockchain" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build your own blockchain: a Python tutorial" — Eric Munsing's
+          SitePoint article that builds a minimal chain and connects it to a live mesh of tenderly
+          connected nodes.
+        </div>
+        <a class="btn solid" href="http://ecomunsing.com/build-your-own-blockchain" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/blockchain-python-ecomunsing.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Eric Munsing's tutorial builds a blockchain the way a researcher would: first a
+        deterministic hash function, then transactions, then blocks, and finally a real
+        peer-to-peer network where nodes gossip the newest block. Every piece is tested as you go.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A simple, deterministic SHA-256 wrapper.</li>
+          <li>Transaction generation with mathematical validity built in.</li>
+          <li>Block templates and a chain that recomputes hashes.</li>
+          <li>Connecting to a live node mesh with Flask and requests.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>It all leans on one helper — determinism is the whole game:</p>
+        <pre class="code"><span class="lang-tag">py</span><code>import hashlib, json, sys
+
+def hashMe(msg=""):
+    # for convenience, this is a helper function that wraps our hash algorithm
+    if type(msg)!=str:
+        msg = json.dumps(msg,sort_keys=True)  # if we don't sort the keys, reproducibility is not guaranteed!
+
+    if sys.version_info.major == 2:
+        return unicode(hashlib.sha256(msg).hexdigest(),'utf-8')
+    else:
+        return hashlib.sha256(str(msg).encode('utf-8')).hexdigest()</code></pre>
+        <p>Transactions are generated so they always satisfy the conservation of money:</p>
+        <pre class="code"><span class="lang-tag">py</span><code>import random
+random.seed(0)
+
+def makeTransaction(maxValue=3):
+    # this function generates valid transactions in the range (1,maxValue)
+    sign      = int(random.getrandbits(1))*2 - 1   # this randomly picks -1 or 1
+    amount    = random.randint(1,maxValue)
+    alicePays = sign * amount
+    bobPays   = -1 * alicePays
+    # with this structure, the function always returns transactions that obey the conservation principle
+    # ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The disciplined, step-by-step approach — with a test after every step — and the
+        counterintuitive live demo (peers in a mesh that agree by gossip) make this one of the
+        most instructive blockchain introductions for programmers.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build your own blockchain: a Python tutorial" belongs to its
+        original author (Eric Munsing). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="http://ecomunsing.com/build-your-own-blockchain" target="_blank" rel="noopener">ecomunsing.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

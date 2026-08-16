@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How To: Augmented Reality App Tutorial for Beginners with Vuforia and Unity 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Augmented Reality</a>
+        <span class="sep">→</span>
+        <span>How To: Augmented Reality App Tutorial for Beginners with Vuforia and Unity 3D</span>
+      </div>
+      <h1>How To: Augmented Reality App Tutorial for Beginners with Vuforia and Unity 3D</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 Augmented Reality</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/watch?v=uXNjNcqW4kY" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How To: Augmented Reality App Tutorial for Beginners with Vuforia
+          and Unity 3D" — a beginner video tutorial. This is a video resource, watch it on YouTube.
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/watch?v=uXNjNcqW4kY" target="_blank" rel="noopener">↗ Watch the video on YouTube</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/ar-vuforia-unity.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This beginner video builds a complete marker-based augmented reality app using Unity and
+        Vuforia: you print an image target, point your phone camera at it, and a 3D model appears
+        anchored to the image. It is the fastest possible introduction to AR development — setup,
+        model import and tracking in one short session.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Setting up Vuforia in a Unity project and configuring a license key.</li>
+          <li>Creating an Image Target database and uploading target images.</li>
+          <li>Placing 3D models on the target and adjusting their transform.</li>
+          <li>Handling trackable state changes in C# with <code class="inline">ITrackableEventHandler</code>.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The magic moment happens in code: when the camera starts tracking the image target, the
+        model becomes visible; when tracking is lost, it hides again.</p>
+        <pre class="code"><span class="lang-tag">C#</span><code>// Show the 3D model whenever an Image Target is recognized (Vuforia)
+public class TargetHandler : MonoBehaviour, ITrackableEventHandler {
+  public GameObject model;   // the 3D model attached to the marker
+
+  void OnTrackableStateChanged(TrackableBehaviour.Status st) {
+    model.SetActive(st == TrackableBehaviour.Status.TRACKED);
+  }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>AR is one of the most exciting entry points into 3D development, and this tutorial removes
+        every obstacle for beginners: no complex math, just Unity's visual editor plus a dozen lines
+        of C#. It is also the perfect base to extend toward portals, games and interactive
+        experiences.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How To: Augmented Reality App Tutorial for Beginners with Vuforia
+        and Unity 3D" belongs to its original creators. This page is an English overview written for
+        the BYOX platform; all content, images and code belong to the original authors. Watch the
+        original at
+        <a href="https://www.youtube.com/watch?v=uXNjNcqW4kY" target="_blank" rel="noopener">youtube.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

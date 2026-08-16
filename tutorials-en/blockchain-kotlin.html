@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Let’s implement a cryptocurrency in Kotlin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Blockchain / Cryptocurrency</a>
+        <span class="sep">→</span>
+        <span>Let’s implement a cryptocurrency in Kotlin</span>
+      </div>
+      <h1>Let’s implement a cryptocurrency in Kotlin</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Kotlin</span>
+        <span class="meta-badge">📁 Blockchain / Cryptocurrency</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.com/@vasilyf/lets-implement-a-cryptocurrency-in-kotlin-part-1-blockchain-8704069f8580" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Let’s implement a cryptocurrency in Kotlin" — Vasily Fomchenkov (Vasily Fomin)'s
+          tutorial implementing hashing, blocks and a chain with the elegance of Kotlin's data
+          classes.
+        </div>
+        <a class="btn solid" href="https://medium.com/@vasilyf/lets-implement-a-cryptocurrency-in-kotlin-part-1-blockchain-8704069f8580" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/blockchain-kotlin.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A Kotlin cryptocurrency where blocks are declared as data classes and hashing is an
+        extension function. The implementation keeps the core of a real blockchain — hashes,
+        previous-hash links, timestamped blocks — in a very small amount of idiomatic code.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Extension functions and data classes in Kotlin.</li>
+          <li>SHA-256 hashing via <code class="inline">MessageDigest</code>.</li>
+          <li>Modeling a block with immutable properties.</li>
+          <li>Chaining blocks by previous hash.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Hashing is an extension on <code class="inline">String</code>, defaulting to the same
+        algorithm Bitcoin uses:</p>
+        <pre class="code"><span class="lang-tag">kotlin</span><code>import java.math.BigInteger
+import java.security.MessageDigest
+
+// Extension function on String that returns the SHA-256 hash;
+// the default algorithm is "SHA-256" (the same algorithm Bitcoin uses)
+fun String.hash(algorithm: String = "SHA-256"): String {
+    // create a MessageDigest instance with the requested algorithm
+    val messageDigest = MessageDigest.getInstance(algorithm)
+    // update the digest with the bytes of the string
+    messageDigest.update(toByteArray())
+    // ...
+}</code></pre>
+        <p>And the block itself is pure data — previous hash, payload and timestamp, with the hash
+        computed at construction:</p>
+        <pre class="code"><span class="lang-tag">kotlin</span><code>import java.time.Instant
+
+data class Block(val previousHash: String,   // hash of the previous (parent) block
+                 val data: String,           // block data; empty for now
+                 val timestamp: Long = Instant.now().toEpochMilli(), // block creation time
+                 var hash: String = "") {    // hash of this block
+
+    // every block computes and sets its hash when created
+    init {
+        hash = calculateHash()
+    }
+
+    // block hash = hash(parent hash + ...</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Kotlin's expressiveness shows how small a correct blockchain core can be. Immutable
+        data classes make chain integrity a natural outcome of the type system.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Let’s implement a cryptocurrency in Kotlin" belongs to its
+        original author (Vasily Fomchenkov (Vasily Fomin)). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://medium.com/@vasilyf/lets-implement-a-cryptocurrency-in-kotlin-part-1-blockchain-8704069f8580" target="_blank" rel="noopener">medium.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

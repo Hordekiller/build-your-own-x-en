@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Create a Discord bot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>Create a Discord bot</span>
+      </div>
+      <h1>Create a Discord bot</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Node.js</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://discordjs.guide/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "discord.js Guide" — the official community guide by the
+          discord.js team for building feature-rich Discord bots, from first invite to sharding.
+        </div>
+        <a class="btn solid" href="https://discordjs.guide/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/discord-js-guide.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The complete, most-recommended resource for Discord bots in Node.js. It covers the
+        entire lifecycle: creating the bot application, inviting it with OAuth2, writing your
+        first command with discord.js, then commands, events, buttons, slash commands, and even
+        sharding for big guilds.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Creating a bot application and inviting it with OAuth2 scopes.</li>
+          <li>Setting up a Node.js project and installing discord.js.</li>
+          <li>Handling commands, events and slash commands.</li>
+          <li>Buttons, select menus, embeds and permissions.</li>
+          <li>Sharding and production considerations.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The OAuth2 URL is what grants your bot its invite link — the first step before any
+        code runs:</p>
+        <pre class="code"><span class="lang-tag">text</span><code>https://discord.com/api/oauth2/authorize?client_id=123456789012345678&amp;permissions=0&amp;scope=bot%20applications.commands</code></pre>
+        <p>Then the library comes from a single npm install:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>npm init -y
+npm install discord.js</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It is the definitive reference for a widely used platform: official, up to date, and
+        organized so beginners get a running bot on the first page while still covering advanced
+        topics like sharding that matter in production.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "discord.js Guide" belongs to its original authors (the
+        discord.js team). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original authors. Read the original at
+        <a href="https://discordjs.guide/" target="_blank" rel="noopener">discordjs.guide</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

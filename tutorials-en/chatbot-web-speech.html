@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Building A Simple AI Chatbot With Web Speech API And Node.js</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Bot</a>
+        <span class="sep">→</span>
+        <span>Building A Simple AI Chatbot With Web Speech API And Node.js</span>
+      </div>
+      <h1>Building A Simple AI Chatbot With Web Speech API And Node.js</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Node.js</span>
+        <span class="meta-badge">📁 Bot</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.smashingmagazine.com/2017/08/ai-chatbot-web-speech-api-node-js/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "An AI Chatbot with Web Speech API and Node.js" — a Smashing
+          Magazine tutorial by Saneef Ansari that builds a voice-enabled chatbot with the Web
+          Speech API and Wit.ai.
+        </div>
+        <a class="btn solid" href="https://www.smashingmagazine.com/2017/08/ai-chatbot-web-speech-api-node-js/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/chatbot-web-speech.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A full-stack voice chatbot: the browser listens with the Web Speech API, sends the
+        transcript to a Node.js server, which asks the Wit.ai NLP service for the intent, and
+        speaks the answer back through the speech synthesis API.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Capturing speech in the browser with SpeechRecognition.</li>
+          <li>Building a Node.js + Express server that proxies to Wit.ai.</li>
+          <li>Resolving intents and entities from a natural language API.</li>
+          <li>Speaking responses with speech synthesis.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The whole project is a small, clean web app — front end, back end, styles:</p>
+        <pre class="code"><span class="lang-tag">bash</span><code>.
+├── index.js
+├── public
+│   ├── css
+│   │   └── style.css
+│   └── js
+│       └── script.js
+└── views
+    └── index.html</code></pre>
+        <p>Creating the project is one command:</p>
+        <pre class="code"><span class="lang-tag">bash</span><code>$ npm init -f</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Nowadays every browser ships speech recognition and synthesis APIs — the tutorial shows
+        how they combine with a few HTTP calls into a genuinely voice-interactive product.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "An AI Chatbot with Web Speech API and Node.js" belongs to its
+        original author (Saneef Ansari). This page is an English overview written for the BYOX
+        platform; all content, images and code belong to the original author. Read the original at
+        <a href="https://www.smashingmagazine.com/2017/08/ai-chatbot-web-speech-api-node-js/" target="_blank" rel="noopener">smashingmagazine.com</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

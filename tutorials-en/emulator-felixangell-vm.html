@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Virtual machine in C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Emulator / Virtual Machine</a>
+        <span class="sep">→</span>
+        <span>Virtual machine in C</span>
+      </div>
+      <h1>Virtual machine in C</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Emulator / Virtual Machine</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://web.archive.org/web/20200121100942/https://blog.felixangell.com/virtual-machine-in-c/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Virtual machine in C — by Felix Angell"
+        </div>
+        <a class="btn solid" href="http://web.archive.org/web/20200121100942/https://blog.felixangell.com/virtual-machine-in-c/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/emulator-felixangell-vm.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A tiny virtual machine in C, built from the ground up: an instruction set, a program, a fetch-decode-execute loop, and a simple assembler — complete with a Makefile that fits on screen.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Designing an instruction set from scratch</li>
+          <li>Implementing the fetch-decode-execute loop</li>
+          <li>Writing a program in your own assembly</li>
+          <li>Using a Makefile-based C workflow effectively</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The whole language fits in one enum — five instructions:</p>
+        <p>A program in your very own instruction set:</p>
+        <pre class="code"><span class="lang-tag">Makefile</span><code>SRC_FILES = main.c
+CC_FLAGS = -Wall -Wextra -g -std=c11
+CC = clang
+
+all:
+    ${CC} ${SRC_FILES} ${CC_FLAGS} -o mac</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>typedef enum {
+    PSH,
+    ADD,
+    POP,
+    SET,
+    HLT
+} InstructionSet;</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>const int program[] = {
+    PSH, 5,
+    PSH, 6,
+    ADD,
+    POP,
+    HLT
+};</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A self-contained crash course in CPU emulation: by the end, 'how does a computer run code' feels like a question you answered with your own hands.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Virtual machine in C" belongs to its original author (Felix Angell). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://web.archive.org/web/20200121100942/https://blog.felixangell.com/virtual-machine-in-c/" target="_blank" rel="noopener">http://web.archive.org/web/20200121100942/https://blog.felixangell.com/virtual-machine-in-c/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | A proof-of-concept imitation of Docker, written in 100% Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Docker</a>
+        <span class="sep">→</span>
+        <span>A proof-of-concept imitation of Docker, written in 100% Python</span>
+      </div>
+      <h1>A proof-of-concept imitation of Docker, written in 100% Python</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Docker</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://github.com/tonybaloney/mocker" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "A proof-of-concept imitation of Docker, written in 100% Python — by Anthony Shaw"
+        </div>
+        <a class="btn solid" href="https://github.com/tonybaloney/mocker" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/docker-mocker.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A proof-of-concept Docker imitation written in 100% Python: images, containers, builds and a CLI — a full docker-shaped toy you can read from end to end.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Modeling Docker's object model in Python classes</li>
+          <li>A full command surface: run, images, build, attach</li>
+          <li>docopt-style CLI parsing and layered storage</li>
+          <li>How far a 'toy' implementation can genuinely go</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The launcher is one line, and everything after it is plain Python:</p>
+        <p>The project's shape mirrors Docker's own structure, so every concept has a home:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>#!/bin/sh
+python -m mocker $1</code></pre>
+        <pre class="code"><span class="lang-tag">text</span><code>mocker/
+  __init__.py          &lt;- version, docopt help text, storage base path (~/mocker), colored logging
+  base.py              &lt;- BaseDockerCommand (shared interface for all commands)
+  images.py            &lt;- the images command</code></pre>
+        <pre class="code"><span class="lang-tag">Py</span><code>class BaseDockerCommand(object):
+    def run(*args):
+        raise NotImplementedError()</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A full container CLI with images and builds, in readable Python — proof that understanding beats infrastructure, and a playground for experimenting with container design.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "A proof-of-concept imitation of Docker, written in 100% Python" belongs to its original author (Anthony Shaw). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://github.com/tonybaloney/mocker" target="_blank" rel="noopener">https://github.com/tonybaloney/mocker</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

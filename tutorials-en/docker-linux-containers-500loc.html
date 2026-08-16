@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Linux containers in 500 lines of code</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Docker</a>
+        <span class="sep">→</span>
+        <span>Linux containers in 500 lines of code</span>
+      </div>
+      <h1>Linux containers in 500 lines of code</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Docker</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://blog.lizzie.io/linux-containers-in-500-loc.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Linux containers in 500 lines of code — by Lizzie"
+        </div>
+        <a class="btn solid" href="https://blog.lizzie.io/linux-containers-in-500-loc.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/docker-linux-containers-500loc.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A Linux container runtime in 500 lines of C: namespaces, chroot and pivot_root to isolate a rootfs, hand-crafted hostnames, and an init process that babysits the container's first process.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The syscalls behind containers: clone, unshare, chroot, pivot_root</li>
+          <li>Isolating processes with UTS, PID, mount and network namespaces</li>
+          <li>The init/socketpair handshake that guards the container's first process</li>
+          <li>Capabilities: dropping privileges and cleaning up the environment</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The runtime's first act is honesty — checking the running kernel supports what the code needs:</p>
+        <p>And the final touch is personality: every container gets its own name.</p>
+        <pre class="code"><span class="lang-tag">c</span><code>	fprintf(stderr, "=&gt; validating Linux version...");
+	struct utsname host = {0};
+	if (uname(&amp;host)) {
+		fprintf(stderr, "failed: %m\n");
+		goto cleanup;
+	}
+	int major = -1;
+	int minor = -1;
+	if (sscanf(host.release, "%d.%d", &amp;major, &amp;minor) != 2) {
+		fprintf(stderr, "failed: %m\n");
+		goto cleanup;
+	}</code></pre>
+        <pre class="code"><span class="lang-tag">c</span><code>int choose_hostname(char *buff, size_t len)
+{
+	static const char *suits[] = { "swords", "wands", "pentacles", "cups" };
+	static const char *minor[] = {
+		"ace", "two", "three", "four", "five", "six", "seven", "eight",
+		"nine", "ten", "page", "knight", "queen", "king"
+	};
+	/* tarot cards, like each container, are unique */
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Docker demystified: every feature you've typed with `docker run` maps to one explicit syscall or flag here, and the whole story fits in a file you can read in an afternoon.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Linux containers in 500 lines of code" belongs to its original author (Lizzie). This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://blog.lizzie.io/linux-containers-in-500-loc.html" target="_blank" rel="noopener">https://blog.lizzie.io/linux-containers-in-500-loc.html</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

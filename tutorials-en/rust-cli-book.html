@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Command line apps in Rust</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Command-Line Tool</a>
+        <span class="sep">→</span>
+        <span>Command line apps in Rust</span>
+      </div>
+      <h1>Command line apps in Rust</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Rust</span>
+        <span class="meta-badge">📁 Command-Line Tool</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://rust-cli.github.io/book/index.html" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Command line apps in Rust" — the official rust-cli book by
+          Pascal Hertleithner and the Rust community: a full guide from first hello to published
+          CLI applications.
+        </div>
+        <a class="btn solid" href="https://rust-cli.github.io/book/index.html" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/rust-cli-book.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The definitive free book for Rust CLIs. It builds <code class="inline">grrs</code> — a
+        grep clone — while covering the whole journey: argument parsing, reading files, error
+        handling with anyhow, testing, packaging, and publishing to crates.io.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Parsing arguments with clap.</li>
+          <li>Reading stdin and files, streaming and error handling.</li>
+          <li>Writing tests for CLI behavior.</li>
+          <li>Packaging, publishing and distributing binaries.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The goal is set on the very first page — a tool that searches a file for a pattern,
+        used exactly like grep:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>$ cat test.txt
+foo: 10
+bar: 20
+baz: 30
+$ grrs foo test.txt
+foo: 10
+$ grrs --help
+[some help text explaining the available options]</code></pre>
+        <p>And the starting point is a fresh cargo binary:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>$ cargo new grrs
+     Created binary (application) `grrs` package
+$ cd grrs/
+$ cargo run
+   Compiling grrs v0.1.0
+   Running `target/debug/grrs`
+Hello, world!</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>It is the rare book that covers both the happy path and the release path — testing,
+        publishing, and shipping binaries — which is exactly where most CLI projects quietly
+        die.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Command line apps in Rust" belongs to its original authors
+        (the rust-cli team). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original authors. Read the original at
+        <a href="https://rust-cli.github.io/book/index.html" target="_blank" rel="noopener">rust-cli.github.io</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

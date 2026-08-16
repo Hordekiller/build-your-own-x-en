@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Let's Build a Simple Database</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Database</a>
+        <span class="sep">→</span>
+        <span>Let's Build a Simple Database</span>
+      </div>
+      <h1>Let's Build a Simple Database</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Database</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://cstack.github.io/db_tutorial/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Let's Build a Simple Database" — Connor Stack's monumental
+          tutorial that reimplements SQLite from scratch in C: a REPL, B-trees, pager and
+          cursor step by step.
+        </div>
+        <a class="btn solid" href="https://cstack.github.io/db_tutorial/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/cstack-sqlite-c.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Part 1 of a thirteen-part series that builds a full SQLite-style database in C. It
+        starts with the user experience — a REPL that talks like the real sqlite3 — then goes
+        deep: tables, the binary file format, B-trees, paging and cursors.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Building a REPL with read/print/loop structure.</li>
+          <li>Parsing SQL-like statements (insert, select).</li>
+          <li>Representing rows in persistent byte layouts.</li>
+          <li>Page caching, B-trees and cursor abstractions.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The sqlite3 experience is the specification — here is the reference behavior:</p>
+        <pre class="code"><span class="lang-tag">shell</span><code>~ sqlite3
+SQLite version 3.16.0 2016-11-04 19:09:39
+Enter ".help" for usage hints.
+sqlite&gt; create table users (id int, username varchar(255), email varchar(255));
+sqlite&gt; .tables
+users
+sqlite&gt; .exit
+~</code></pre>
+        <p>And the first code is the classic REPL loop, with an exit path:</p>
+        <pre class="code"><span class="lang-tag">c</span><code>int main(int argc, char* argv[]) {
+  InputBuffer* input_buffer = new_input_buffer();
+  while (true) {
+    print_prompt();
+    read_input(input_buffer);
+
+    if (strcmp(input_buffer-&gt;buffer, ".exit") == 0) {
+      close_input_buffer(input_buffer);
+      exit(EXIT_SUCCESS);
+    } else {
+      printf("Unrecognized command '%s'.\n", input_buffer-&gt;buffer);
+    }
+  }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>This is the canonical "build your own database" resource. Twelve more parts take the
+        REPL to B-tree indexes and a persistent engine — the best possible preparation for
+        understanding real databases.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Let's Build a Simple Database" belongs to its original
+        author (Connor Stack). This page is an English overview written for the BYOX platform; all
+        content, images and code belong to the original author. Read the original at
+        <a href="https://cstack.github.io/db_tutorial/" target="_blank" rel="noopener">cstack.github.io</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>
