@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to Make Flappy Bird in HTML5 With Phaser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>How to Make Flappy Bird in HTML5 With Phaser</span>
+      </div>
+      <h1>How to Make Flappy Bird in HTML5 With Phaser</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://www.lessmilk.com/tutorial/flappy-bird-phaser-1" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to Make Flappy Bird in HTML5 With Phaser"
+        </div>
+        <a class="btn solid" href="http://www.lessmilk.com/tutorial/flappy-bird-phaser-1" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-flappy-bird.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Thomas Palef (of lessmilk.com) wrote a simple Flappy Bird with Phaser 2.4 in just 65 lines of code, explained step by step: gravity, jump on click, moving pipes and collision.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Phaser states, sprites and the Arcade physics system</li>
+          <li>Gravity + one impulse for the jump; a repeating timer spawning pipe rows</li>
+          <li>Scoring and restart-on-death for the full game feel</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Everything lives in one main state: preload loads assets, create sets gravity and pipes, update checks overlap, jump applies an upward impulse, addRowOfPipes spawns a random pipe row moving left.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>var game = new Phaser.Game(400, 490, Phaser.AUTO, 'gameDiv');
+
+var mainState = {
+  preload: function() {
+    game.load.image('bird', 'assets/bird.png');
+    game.load.image('pipe', 'assets/pipe.png');
+  },
+  create: function() {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.bird = game.add.sprite(100, 245, 'bird');
+    game.physics.arcade.enable(this.bird);
+    this.bird.body.gravity.y = 1000;
+    var spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    spaceKey.onDown.add(this.jump, this);
+    this.pipes = game.add.group();
+    this.timer = game.time.events.loop(1500, this.addRowOfPipes, this);
+    this.score = 0;
+    this.labelScore = game.add.text(20, 20, "0", { font: "30px Arial", fill: "#fff" });
+  },
+  update: function() {
+    game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame, null, this);
+    if (this.bird.y &lt; 0 || this.bird.y &gt; 490) this.restartGame();
+  },
+  jump: function() { this.bird.body.velocity.y = -350; },
+  addRowOfPipes: function() {
+    var hole = Math.floor(Math.random() * 5) + 1;
+    for (var i = 0; i &lt; 10; i++) {
+      if (i != hole &amp;&amp; i != hole + 1) {
+        var pipe = game.add.sprite(400, i * 49, 'pipe');
+        game.physics.arcade.enable(pipe);
+        pipe.body.velocity.x = -200;
+        pipe.checkWorldBounds = true;
+        pipe.outOfBoundsKill = true;
+        this.pipes.add(pipe);
+      }
+    }
+    this.score++;
+    this.labelScore.text = this.score;
+  },
+  restartGame: function() { game.state.start('main'); }
+};
+
+game.state.add('main', mainState);
+game.state.start('main');</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Just open index.html and play: a complete Flappy Bird in one tiny file, the fastest possible introduction to Phaser.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to Make Flappy Bird in HTML5 With Phaser" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://www.lessmilk.com/tutorial/flappy-bird-phaser-1" target="_blank" rel="noopener">http://www.lessmilk.com/tutorial/flappy-bird-phaser-1</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

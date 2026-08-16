@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Think like a programmer: How to build Snake using only JavaScript, HTML &amp; CSS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Think like a programmer: How to build Snake using only JavaScript, HTML &amp; CSS</span>
+      </div>
+      <h1>Think like a programmer: How to build Snake using only JavaScript, HTML &amp; CSS</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://medium.freecodecamp.org/think-like-a-programmer-how-to-build-snake-using-only-javascript-html-and-css-7b1479c3339e" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Think like a programmer: How to build Snake using only JavaScript, HTML &amp; CSS"
+        </div>
+        <a class="btn solid" href="https://medium.freecodecamp.org/think-like-a-programmer-how-to-build-snake-using-only-javascript-html-and-css-7b1479c3339e" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-snake-js.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This freeCodeCamp article teaches thinking like a programmer rather than just writing Snake: break the problem into pieces - representation, movement, eating, losing, scoring - and solve each in a few lines, all in one snake.html file.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>A snake as an array of [x, y] coordinates on a 20x20 grid</li>
+          <li>Movement as unshift + conditional pop - elegant growth with no extra code</li>
+          <li>Keyboard input guarded against instant 180-degree reversal</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Each step computes a new head, checks wall/self collisions, prepends the head, and pops the tail unless food was eaten; the grid is drawn cell by cell on a canvas.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>// snake: an array of [x, y]
+let snake = [ [9, 9], [8, 9], [7, 9] ];
+let direction = [1, 0];  // moving right
+const CELL = 20; const GRID = 20;
+
+function gameStep() {
+  const head = snake[0];
+  const newHead = [head[0] + direction[0], head[1] + direction[1]];
+  // wall or self collision -&gt; game over
+  const hitWall = newHead[0] &lt; 0 || newHead[0] &gt;= GRID ||
+                  newHead[1] &lt; 0 || newHead[1] &gt;= GRID;
+  const hitSelf = snake.some(([x, y]) =&gt; x === newHead[0] &amp;&amp; y === newHead[1]);
+  if (hitWall || hitSelf) { gameOver(); return; }
+  snake.unshift(newHead);
+  if (newHead[0] === food[0] &amp;&amp; newHead[1] === food[1]) {
+    score++;
+    food = randomFood();
+  } else {
+    snake.pop();   // no growth: drop the tail
+  }
+  draw();
+}
+
+setInterval(gameStep, 100);</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Break the problem: representation, movement, growth, losing, scoring - each piece ends up a few lines; the whole game lives in one file you can open and play.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Think like a programmer: How to build Snake using only JavaScript, HTML &amp; CSS" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://medium.freecodecamp.org/think-like-a-programmer-how-to-build-snake-using-only-javascript-html-and-css-7b1479c3339e" target="_blank" rel="noopener">https://medium.freecodecamp.org/think-like-a-programmer-how-to-build-snake-using-only-javascript-html-and-css-7b1479c3339e</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

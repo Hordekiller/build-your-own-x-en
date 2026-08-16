@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build a C#/WPF RPG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Build a C#/WPF RPG</span>
+      </div>
+      <h1>Build a C#/WPF RPG</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://scottlilly.com/build-a-cwpf-rpg/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build a C#/WPF RPG"
+        </div>
+        <a class="btn solid" href="https://scottlilly.com/build-a-cwpf-rpg/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-rpg-wpf.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This series builds a complete graphical RPG: 2D world movement, turn-based combat, items, quests and trading rooms. Unlike the simple text RPG, it has a real WPF/XAML UI and introduces a layered architecture.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Layered architecture: the game world fully independent from the UI</li>
+          <li>WPF/XAML UI and proper design rules for maintainable code</li>
+          <li>Turn-based combat, item handling, quests and trading rooms</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The course separates the game world from presentation with a layered design; the UI layer binds to world state while all logic stays testable and independent.</p>
+        <pre class="code"><span class="lang-tag">C#</span><code>// layered architecture: world logic is UI-independent
+// GameEngine/  - pure game logic (world, combat, quests)
+// UI/          - WPF/XAML views bound to the engine
+public class GameSession {
+  public Player CurrentPlayer { get; set; }
+  public Location CurrentLocation { get; set; }
+
+  // the UI subscribes to these events; logic never touches controls
+  public event EventHandler&lt;GameMessageEventArgs&gt; OnMessageRaised;
+  public void MoveTo(Location loc) {
+    CurrentLocation = loc;
+    OnMessageRaised?.Invoke(this,
+        new GameMessageEventArgs($"You moved to {loc.Name}"));
+  }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>After the text RPG, this is the natural next step: real WPF UI plus clean architecture patterns for a complete graphical game.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build a C#/WPF RPG" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://scottlilly.com/build-a-cwpf-rpg/" target="_blank" rel="noopener">https://scottlilly.com/build-a-cwpf-rpg/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

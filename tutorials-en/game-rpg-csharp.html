@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Learn C# by Building a Simple RPG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Learn C# by Building a Simple RPG</span>
+      </div>
+      <h1>Learn C# by Building a Simple RPG</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C#</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://scottlilly.com/learn-c-by-building-a-simple-rpg-index/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Learn C# by Building a Simple RPG"
+        </div>
+        <a class="btn solid" href="http://scottlilly.com/learn-c-by-building-a-simple-rpg-index/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-rpg-csharp.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This free course teaches C# with a real project: a simple text RPG with no graphics - 9 locations, 3 monsters, 2 weapons and 2 quests. It starts from nothing, even installing Visual Studio.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Classes, properties, functions, conditionals and loops through a real project</li>
+          <li>Inheritance: the WorldObject base class and Weapon/Monster/Quest subclasses</li>
+          <li>A complete small game: move, fight, pick up gear and complete quests</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Every game object derives from WorldObject (ID, Name, Description); Weapon adds MaximumDamage, and Monster, Quest, Location and Player follow the same pattern, then the world is assembled from them.</p>
+        <pre class="code"><span class="lang-tag">C#</span><code>// base class for every game object
+public class WorldObject {
+  public int ID { get; set; }
+  public string Name { get; set; }
+  public string Description { get; set; }
+
+  public WorldObject(int id, string name, string description) {
+    ID = id; Name = name; Description = description;
+  }
+}
+
+// a subclass inheriting from the base: a weapon
+public class Weapon : WorldObject {
+  public int MaximumDamage { get; set; }
+
+  public Weapon(int id, string name, string description, int maximumDamage)
+      : base(id, name, description) {
+    MaximumDamage = maximumDamage;
+  }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The best start for C# fundamentals through games: complete understanding of classes and object design, then move to the WPF graphical version.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Learn C# by Building a Simple RPG" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://scottlilly.com/learn-c-by-building-a-simple-rpg-index/" target="_blank" rel="noopener">http://scottlilly.com/learn-c-by-building-a-simple-rpg-index/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

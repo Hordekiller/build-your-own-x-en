@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Developing Games With Ruby</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Developing Games With Ruby</span>
+      </div>
+      <h1>Developing Games With Ruby</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Ruby</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://leanpub.com/developing-games-with-ruby/read" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Developing Games With Ruby"
+        </div>
+        <a class="btn solid" href="https://leanpub.com/developing-games-with-ruby/read" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-ruby-shooter.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This multi-volume book is the best Ruby game-development resource: a top-down shooter (90s style) built from scratch - fast gameplay, an auto camera, enemy AI, random maps and score systems, all with the Gosu library.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The Gosu::Window base class: initialize, update and draw</li>
+          <li>Camera movement, enemy AI and random map generation for a full game</li>
+          <li>Free reading online at Leanpub, plus a purchasable supporter edition</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>A Game class extends Gosu::Window: update handles input and logic every frame, draw renders; Literally the whole skeleton of a Ruby game.</p>
+        <pre class="code"><span class="lang-tag">Ruby</span><code>require 'gosu'
+
+class Game &lt; Gosu::Window
+  def initialize(width = 800, height = 600)
+    super(width, height)
+    self.caption = 'My Ruby Game'
+    @player_x, @player_y = 400, 300
+  end
+
+  # per-frame logic update
+  def update
+    @player_x -= 5 if Gosu.button_down?(Gosu::KB_LEFT)
+    @player_x += 5 if Gosu.button_down?(Gosu::KB_RIGHT)
+    @player_y -= 5 if Gosu.button_down?(Gosu::KB_UP)
+    @player_y += 5 if Gosu.button_down?(Gosu::KB_DOWN)
+  end
+
+  # per-frame render
+  def draw
+    # draw with Gosu::Image or simple shapes
+  end
+end
+
+Game.new.show</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The most complete Ruby game development reference - free online, with realistic coverage: camera, AI, random maps, not just hello world.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Developing Games With Ruby" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://leanpub.com/developing-games-with-ruby/read" target="_blank" rel="noopener">https://leanpub.com/developing-games-with-ruby/read</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

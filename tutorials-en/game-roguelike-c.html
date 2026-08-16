@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Coding a Rogue/Nethack RPG in C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Coding a Rogue/Nethack RPG in C</span>
+      </div>
+      <h1>Coding a Rogue/Nethack RPG in C</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/playlist?list=PLkTXsX7igf8erbWGYT4iSAhpnJLJ0Nk5G" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Coding a Rogue/Nethack RPG in C"
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/playlist?list=PLkTXsX7igf8erbWGYT4iSAhpnJLJ0Nk5G" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-roguelike-c.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Roguelikes - ASCII characters, random dungeons and permanent death - are one of the best genres for learning game programming, since all logic runs in the terminal. This playlist builds a full Rogue/Nethack-style game in C.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Character-grid world representation and the turn-based loop</li>
+          <li>Random map generation: rooms and corridors</li>
+          <li>Turn order: player acts, then each monster; items and descending floors</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The map is a grid of chars (#, ., @, M, $); the generator places random rooms and connects them. The loop renders, reads one key, moves the player, then lets each monster take its turn, checking fights.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>#define WALL '#'
+#define FLOOR '.'
+#define PLAYER '@'
+#define MONSTER 'M'
+#define ITEM '$'
+char map[MAP_H][MAP_W];
+
+// random map generation: rooms and corridors
+void generate_map(void) {
+  for (int i = 0; i &lt; NUM_ROOMS; i++) {
+    make_room(x, y, w, h);
+    connect_rooms(prev_x, prev_y, x, y);
+  }
+}
+
+// main loop: player turn -&gt; monster turns
+void game_loop(void) {
+  while (player_alive) {
+    render_map();                    // terminal display
+    int key = get_input();           // one key (move/action)
+    move_player(key);
+    // turn-based combat: every monster acts
+    for (int i = 0; i &lt; num_monsters; i++) {
+      move_monster(&amp;monsters[i]);    // chase the player
+      check_fight(&amp;monsters[i]);     // attack on contact
+    }
+    check_items();                   // pick up items
+    check_descent();                 // go down a floor
+  }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Building a roguelike covers all basic game dev skills - game loop, state management, random generation, system design - without graphics confusion.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Coding a Rogue/Nethack RPG in C" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.youtube.com/playlist?list=PLkTXsX7igf8erbWGYT4iSAhpnJLJ0Nk5G" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLkTXsX7igf8erbWGYT4iSAhpnJLJ0Nk5G</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

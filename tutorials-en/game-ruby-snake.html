@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Ruby Snake</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Ruby Snake</span>
+      </div>
+      <h1>Ruby Snake</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Ruby</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.diatomenterprises.com/gamedev-on-ruby-why-not/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Ruby Snake"
+        </div>
+        <a class="btn solid" href="https://www.diatomenterprises.com/gamedev-on-ruby-why-not/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-ruby-snake.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This article shows Ruby game development is fun: a terminal Snake game with no graphics, teaching structured thinking (Board, Snake, Food and Game classes) using terminal characters.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Class design: Board (grid and bounds), Snake (segment list), Food (spawning), Game (loop)</li>
+          <li>The elegant growth trick: body.unshift(new_head) with conditional pop</li>
+          <li>Collision checks against walls or self, then render in the terminal</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The snake is a list of segments; each step prepends a new head and pops the tail unless food was eaten - movement and growth with no extra code.</p>
+        <pre class="code"><span class="lang-tag">Ruby</span><code># board: grid and bounds
+class Board
+  attr_accessor :grid_size, :x_limit, :y_limit
+  def initialize(grid_size)
+    @grid_size = grid_size
+    @x_limit = @grid_size / 2
+    @y_limit = @grid_size / 2
+  end
+  def random_position
+    [rand(-@x_limit..@x_limit), rand(-@y_limit..@y_limit)]
+  end
+  def within?(x, y)
+    x.between?(-@x_limit, @x_limit) &amp;&amp; y.between?(-@y_limit, @y_limit)
+  end
+end
+
+# snake: a list of segments
+class Snake
+  attr_accessor :body, :direction_head
+  def initialize(length)
+    @direction_head = [1, 0]
+    @body = Array.new(length) { |i| [0, i] }
+  end
+  def head
+    @body.first
+  end
+  # step: prepend the new head, pop the tail unless we ate
+  def move(food_eaten = false)
+    new_head = [head[0] + @direction_head[0], head[1] + @direction_head[1]]
+    @body.unshift(new_head)
+    @body.pop unless food_eaten
+  end
+end</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A terminal Snake teaches structured game thinking with zero graphics - perfect for Rubyists who want a fun, instructive project.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Ruby Snake" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.diatomenterprises.com/gamedev-on-ruby-why-not/" target="_blank" rel="noopener">https://www.diatomenterprises.com/gamedev-on-ruby-why-not/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

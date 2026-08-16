@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Roguelike Tutorial Revised</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Roguelike Tutorial Revised</span>
+      </div>
+      <h1>Roguelike Tutorial Revised</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Python</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://rogueliketutorials.com/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Roguelike Tutorial Revised"
+        </div>
+        <a class="btn solid" href="http://rogueliketutorials.com/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-roguelike-python.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>Home of one of the most famous roguelike tutorials: rewritten in 2019 for python-tcod with a clean architecture (engine.py, input_handlers.py) building a complete roguelike - from an @ on screen to complex systems.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The clean Engine/EventHandler architecture with dependency injection</li>
+          <li>Tilesets, terminal contexts and console rendering with python-tcod</li>
+          <li>Advanced systems at the end: inventory, equipment and skill trees</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Engine handles events through a dispatched EventHandler producing actions; the main loop renders the console, waits for events and processes them.</p>
+        <pre class="code"><span class="lang-tag">Python</span><code># engine.py - the game core
+import tcod
+from input_handlers import EventHandler
+
+class Engine:
+    def __init__(self, event_handler: EventHandler):
+        self.event_handler = event_handler
+
+    def handle_events(self, events) -&gt; None:
+        for event in events:
+            action = self.event_handler.dispatch(event)
+            if action is None:
+                continue
+            action.perform(self, self.player)
+
+def main() -&gt; None:
+    screen_width, screen_height = 80, 50
+    tileset = tcod.tileset.load_tilesheet(
+        "dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD)
+    with tcod.context.new_terminal(
+        columns=screen_width, rows=screen_height,
+        tileset=tileset, title="My Roguelike") as context:
+        event_handler = EventHandler()
+        engine = Engine(event_handler)
+        while True:
+            root_console = tcod.console.Console(screen_width, screen_height)
+            # ... draw the scene ...
+            context.present(root_console)
+            events = tcod.event.wait()
+            root_console.clear()
+            engine.handle_events(events)</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The most up-to-date and cleanest Python roguelike tutorial (python-tcod), complete with per-part GitHub code and advanced end-game systems.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Roguelike Tutorial Revised" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://rogueliketutorials.com/" target="_blank" rel="noopener">http://rogueliketutorials.com/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

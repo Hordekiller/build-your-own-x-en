@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Coding A Sudoku Solver in C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Coding A Sudoku Solver in C</span>
+      </div>
+      <h1>Coding A Sudoku Solver in C</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/playlist?list=PLkTXsX7igf8edTYU92nU-f5Ntzuf-RKvW" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Coding A Sudoku Solver in C"
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/playlist?list=PLkTXsX7igf8edTYU92nU-f5Ntzuf-RKvW" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-sudoku-c.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A focused video project building a Sudoku game/solver in C: reading boards from files, displaying them and solving with backtracking.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The is_safe check: row, column and 3x3 box constraints</li>
+          <li>Recursive backtracking over the 9x9 grid</li>
+          <li>Simple optimizations like starting from the cell with fewest candidates</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>solve() finds an empty cell, tries digits 1-9 that pass is_safe, recurses, and backtracks on failure - instant for almost all common puzzles.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>int board[9][9];  // empty cell = 0
+
+// can we place num at (row, col)?
+int is_safe(int row, int col, int num) {
+  for (int i = 0; i &lt; 9; i++) {
+    if (board[row][i] == num || board[i][col] == num) return 0;
+  }
+  int box_r = (row / 3) * 3, box_c = (col / 3) * 3;
+  for (int i = 0; i &lt; 3; i++)
+    for (int j = 0; j &lt; 3; j++)
+      if (board[box_r + i][box_c + j] == num) return 0;
+  return 1;
+}
+
+// recursive solving with backtracking
+int solve(void) {
+  for (int row = 0; row &lt; 9; row++) {
+    for (int col = 0; col &lt; 9; col++) {
+      if (board[row][col] == 0) {
+        for (int num = 1; num &lt;= 9; num++) {
+          if (is_safe(row, col, num)) {
+            board[row][col] = num;
+            if (solve()) return 1;   // keep going - solved?
+            board[row][col] = 0;     // no -&gt; backtrack
+          }
+        }
+        return 0;  // no digit worked
+      }
+    }
+  }
+  return 1;  // all cells filled - solved
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A short, focused project finished in one session: deep understanding of backtracking plus real C practice - reusable for mazes and cube solvers.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Coding A Sudoku Solver in C" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.youtube.com/playlist?list=PLkTXsX7igf8edTYU92nU-f5Ntzuf-RKvW" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLkTXsX7igf8edTYU92nU-f5Ntzuf-RKvW</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

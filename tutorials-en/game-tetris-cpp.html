@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Tetris tutorial in C++ platform independent focused in game logic for beginners</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Tetris tutorial in C++ platform independent focused in game logic for beginners</span>
+      </div>
+      <h1>Tetris tutorial in C++ platform independent focused in game logic for beginners</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="http://javilop.com/gamedev/tetris-tutorial-in-c-platform-independent-focused-in-game-logic-for-beginners/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Tetris tutorial in C++ platform independent focused in game logic for beginners"
+        </div>
+        <a class="btn solid" href="http://javilop.com/gamedev/tetris-tutorial-in-c-platform-independent-focused-in-game-logic-for-beginners/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-tetris-cpp.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A platform-independent Tetris in C++: the Board class knows nothing about graphics - no SDL, no OpenGL, no windows. Logic works with matrices and simple functions, renderable anywhere (desktop, mobile, web).</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Boards and pieces as matrices: both shape and color come from the matrix</li>
+          <li>Rotation as pre-computed states instead of rotation math</li>
+          <li>Collision checks by comparing piece cells against board cells</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Each tetromino is a 4x4 matrix; its rotation states are precomputed, so rotating just switches the index. Placement is validated by checking every nonzero piece cell against the board.</p>
+        <pre class="code"><span class="lang-tag">C++</span><code>const int BOARD_WIDTH = 10;
+const int BOARD_HEIGHT = 20;
+int board[BOARD_WIDTH * BOARD_HEIGHT];  // 0 = empty, 1 = filled
+
+// example: the L piece as a 4x4 matrix
+int pieceL[4][4] = {
+  { 0, 0, 0, 0 },
+  { 1, 1, 1, 0 },
+  { 1, 0, 0, 0 },
+  { 0, 0, 0, 0 },
+};
+
+bool Board::isFreeBlock(int pX, int pY, int pType, int pRotation) {
+  // compare every nonzero piece cell with the board
+  for (int i1 = pX, i2 = 0; i1 &lt; pX + size(pType); i1++, i2++) {
+    for (int j1 = pY, j2 = 0; j1 &lt; pY + size(pType); j1++, j2++) {
+      if (getBlock(i2, j2, pType, pRotation) != 0 &amp;&amp; isBlock(i1, j1))
+        return false;   // overlap -&gt; collision
+    }
+  }
+  return true;
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Matrix-based logic with precomputed rotations and zero graphics dependencies - readable and writable in under an hour; the best C++ game intro.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Tetris tutorial in C++ platform independent focused in game logic for beginners" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="http://javilop.com/gamedev/tetris-tutorial-in-c-platform-independent-focused-in-game-logic-for-beginners/" target="_blank" rel="noopener">http://javilop.com/gamedev/tetris-tutorial-in-c-platform-independent-focused-in-game-logic-for-beginners/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

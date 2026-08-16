@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Breakout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Breakout</span>
+      </div>
+      <h1>Breakout</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C++</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://learnopengl.com/In-Practice/2D-Game/Breakout" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Breakout"
+        </div>
+        <a class="btn solid" href="https://learnopengl.com/In-Practice/2D-Game/Breakout" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-breakout.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>The In Practice chapter of LearnOpenGL: a real Breakout game built on pure OpenGL, applying every technique from the book - shaders, textures, particles, text and post-processing.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>AABB-circle collision with bounce direction detection</li>
+          <li>Particle systems, FBO post-processing (shake effect) and FreeType text rendering</li>
+          <li>Power-ups: big paddle, sticky ball, pass-through and multi-ball</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Levels are defined in text files - each row is a brick line, each character a brick color - so designing a level is just writing a file. The collision core finds the closest AABB point to the ball center, then reflects along the smaller overlap axis.</p>
+        <pre class="code"><span class="lang-tag">C++</span><code>// circle (ball) vs AABB (brick/paddle) collision
+Collision CheckCollision(BallObject &amp;ball, GameObject &amp;box) {
+  // closest AABB point to the ball center
+  glm::vec2 closest = glm::clamp(ball.Position,
+      box.Position, box.Position + box.Size);
+  glm::vec2 diff = ball.Position - closest;
+  float distance = glm::length(diff);
+  if (distance &lt;= ball.Radius) {
+    // find bounce direction by comparing overlaps
+    glm::vec2 overlap = glm::abs(diff);
+    if (overlap.x &lt; overlap.y) ball.Velocity.x = -ball.Velocity.x; // side
+    else                      ball.Velocity.y = -ball.Velocity.y; // top/bottom
+    return { true, ball.Position - closest };
+  }
+  return { false, glm::vec2(0.0f) };
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A bridge from computer graphics to game development: every OpenGL technique (buffers, shaders, textures, FBO) comes together in one complete game.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Breakout" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://learnopengl.com/In-Practice/2D-Game/Breakout" target="_blank" rel="noopener">https://learnopengl.com/In-Practice/2D-Game/Breakout</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

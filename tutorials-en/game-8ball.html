@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Build your own 8-Ball Pool game from scratch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Build your own 8-Ball Pool game from scratch</span>
+      </div>
+      <h1>Build your own 8-Ball Pool game from scratch</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/watch?v=aXwCrtAo4Wc" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Build your own 8-Ball Pool game from scratch"
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/watch?v=aXwCrtAo4Wc" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-8ball.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A video series building a complete 8-Ball Pool game with plain JavaScript and Canvas - no libraries. From cue-ball physics (strike, motion, friction) to the full 8-ball rules and UI, in three parts.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Ball physics: position/velocity integration, restitution and table friction</li>
+          <li>Elastic circle-circle collision with impulse exchange along the normal</li>
+          <li>The 8-ball rule set: aiming, pocketing, win condition with the 8 ball</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Each ball keeps position, velocity, radius and state; update applies friction and wall collisions. Colliding balls exchange the relative velocity projected onto the normal vector - the standard elastic impulse.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>class Ball {
+  constructor(x, y, radius, id) {
+    this.x = x; this.y = y;
+    this.vx = 0; this.vy = 0;
+    this.radius = radius;
+    this.id = id;
+  }
+  update(dt) {
+    this.x += this.vx * dt;
+    this.y += this.vy * dt;
+    this.vx *= FRICTION;   // table friction
+    this.vy *= FRICTION;
+    if (Math.abs(this.vx) &lt; EPSILON) this.vx = 0;
+    if (Math.abs(this.vy) &lt; EPSILON) this.vy = 0;
+    this.collideWalls();
+  }
+  collide(other) {
+    const dx = other.x - this.x;
+    const dy = other.y - this.y;
+    const dist = Math.hypot(dx, dy);
+    if (dist &lt; this.radius + other.radius) {
+      // normal vector and speed exchange along it
+      const nx = dx / dist, ny = dy / dist;
+      const relVx = this.vx - other.vx;
+      const relVy = this.vy - other.vy;
+      const speed = relVx * nx + relVy * ny;
+      if (speed &gt; 0) {
+        this.vx -= speed * nx;  this.vy -= speed * ny;
+        other.vx += speed * nx; other.vy += speed * ny;
+      }
+    }
+  }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A great blend of web development and game physics: you end up with a complete playable game, with full code and demo on GitHub.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Build your own 8-Ball Pool game from scratch" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.youtube.com/watch?v=aXwCrtAo4Wc" target="_blank" rel="noopener">https://www.youtube.com/watch?v=aXwCrtAo4Wc</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

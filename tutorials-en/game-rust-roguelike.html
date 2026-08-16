@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Roguelike Tutorial in Rust + tcod</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Roguelike Tutorial in Rust + tcod</span>
+      </div>
+      <h1>Roguelike Tutorial in Rust + tcod</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Rust</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://tomassedovic.github.io/roguelike-tutorial/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Roguelike Tutorial in Rust + tcod"
+        </div>
+        <a class="btn solid" href="https://tomassedovic.github.io/roguelike-tutorial/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-rust-roguelike.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A famous series building a classic roguelike in Rust: ASCII grid, random dungeons, keyboard movement, field of view, pathfinding and monsters - translated from the Python/libtcod tutorial, per part on GitHub.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Rust + tcod: Root initializer, Offscreen consoles and blitting</li>
+          <li>The main loop: render, flush, blocked key wait and state handling</li>
+          <li>A complete roguelike tutorial structure available on GitHub with setup docs</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The game holds a player, a map and consoles; render draws to an offscreen console which is blitted to the root and flushed; keys drive movement and rerun FOV.</p>
+        <pre class="code"><span class="lang-tag">Rust</span><code>use tcod::console::*;
+
+struct Game {
+    player: Player,
+    map: Map,
+}
+
+fn main() {
+    let mut root = Root::initializer()
+        .font("arial10x10.png", FontLayout::Tcod)
+        .font_type(FontType::Greyscale)
+        .size(SCREEN_WIDTH, SCREEN_HEIGHT)
+        .title("Roguelike in Rust")
+        .init();
+
+    let mut con = Offscreen::new(SCREEN_WIDTH, SCREEN_HEIGHT);
+    let mut game = Game::new();
+
+    while !root.window_closed() {
+        // draw map and player onto con
+        game.render(&amp;mut con);
+        blit(&amp;con, (0, 0), (SCREEN_WIDTH, SCREEN_HEIGHT),
+             &amp;mut root, (0, 0), 1.0);
+        root.flush();
+        // input: recompute FOV on every move
+        let key = root.wait_for_keypress(true);
+        game.handle_key(key);
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>The most complete Rust port of the roguelike tutorial everyone knows - perfect for Rust programmers who want real practice.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Roguelike Tutorial in Rust + tcod" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://tomassedovic.github.io/roguelike-tutorial/" target="_blank" rel="noopener">https://tomassedovic.github.io/roguelike-tutorial/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

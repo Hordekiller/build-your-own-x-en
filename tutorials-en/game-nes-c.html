@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | How to Program an NES game in C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>How to Program an NES game in C</span>
+      </div>
+      <h1>How to Program an NES game in C</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://nesdoug.com/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "How to Program an NES game in C"
+        </div>
+        <a class="btn solid" href="https://nesdoug.com/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-nes-c.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>NES development teaches low-level programming and constraint-based design: the Ricoh 2A03 (a 6502 clone at 1.79 MHz), 2 KB of RAM and a separate graphics chip (PPU). These tutorials (lessons 01-24+) each cover one topic.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Sprite structure in OAM: 4 bytes per sprite (y, tile, attr, x)</li>
+          <li>CHR-ROM for 8x8 tiles and nametables for placing them on a 32x30 grid</li>
+          <li>Reading the controller bits and moving sprites</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Graphics on the NES means arranging 8x8 tiles on a 32x30 grid. Global OAM holds 64 sprites; a simple move routine reads the pad bits and shifts sprite positions.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>// a simple sprite in OAM (sprite attribute RAM)
+// each sprite is 4 bytes: y, tile number, attributes, x
+struct sprite {
+  unsigned char y;
+  unsigned char tile;
+  unsigned char attr;
+  unsigned char x;
+};
+
+// global OAM - 64 sprites
+struct sprite sprites[64];
+
+// move a sprite with the controller
+void move_sprite(void) {
+  if (pad &amp; PAD_LEFT)  sprites[0].x -= 1;
+  if (pad &amp; PAD_RIGHT) sprites[0].x += 1;
+  if (pad &amp; PAD_UP)    sprites[0].y -= 1;
+  if (pad &amp; PAD_DOWN)  sprites[0].y += 1;
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Building for such strict hardware gives deep insight into low-level programming, memory management and constraint-based design - and it's fun!</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "How to Program an NES game in C" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://nesdoug.com/" target="_blank" rel="noopener">https://nesdoug.com/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

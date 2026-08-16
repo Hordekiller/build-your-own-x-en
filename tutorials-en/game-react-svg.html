@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Developing Games with React, Redux, and SVG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Developing Games with React, Redux, and SVG</span>
+      </div>
+      <h1>Developing Games with React, Redux, and SVG</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Developing Games with React, Redux, and SVG"
+        </div>
+        <a class="btn solid" href="https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-react-svg.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This Auth0 tutorial builds a real game - no game engine! - with React, Redux and SVG. Aliens, Go Home! has a cannon aimed with the mouse shooting at flying saucers.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Game state in Redux: every frame dispatches actions (move aliens, move shots, check collisions)</li>
+          <li>SVG components driven purely by props from state</li>
+          <li>requestAnimationFrame driving the loop from componentDidMount</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The game loop lives in the component lifecycle: each frame dispatches three actions - moveAliensDown, moveShotsUp, checkCollisions - and the SVG tree re-renders from pure reducers.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>// cannon component: position comes from state
+const Cannon = ({ x, y }) =&gt; (
+  &lt;g&gt;
+    &lt;polygon points="0,32 0,60 20,60 20,32"
+             transform={`translate(${x}, ${y}) rotate(180)`}
+             style={{ fill: '#000' }} /&gt;
+  &lt;/g&gt;
+);
+
+// game loop: each frame ticks an action
+class Game extends React.Component {
+  componentDidMount() {
+    this.loopId = requestAnimationFrame(this.tick);
+  }
+  tick = () =&gt; {
+    const { dispatch } = this.props;
+    dispatch(moveAliensDown());   // move saucers
+    dispatch(moveShotsUp());      // move bullets
+    dispatch(checkCollisions());  // collisions
+    this.loopId = requestAnimationFrame(this.tick);
+  };
+  render() {
+    const { shots, aliens, cannon } = this.props;
+    return (
+      &lt;svg width="1000" height="600"&gt;
+        &lt;Cannon x={cannon.x} y={cannon.y} /&gt;
+        {shots.map(s =&gt; &lt;circle key={s.id} cx={s.x} cy={s.y} r="4" /&gt;)}
+        {aliens.map(a =&gt; &lt;circle key={a.id} cx={a.x} cy={a.y} r="15" /&gt;)}
+      &lt;/svg&gt;
+    );
+  }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>A complete game without a game library - just React, Redux and SVG with clean, testable pure logic and step-by-step GitHub code.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Developing Games with React, Redux, and SVG" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/" target="_blank" rel="noopener">https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

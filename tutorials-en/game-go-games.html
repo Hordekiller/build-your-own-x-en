@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Games With Go</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Games With Go</span>
+      </div>
+      <h1>Games With Go</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: Go</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/playlist?list=PLDZujg-VgQlZUy1iCqBbe5faZLMkA3g2x" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Games With Go"
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/playlist?list=PLDZujg-VgQlZUy1iCqBbe5faZLMkA3g2x" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-go-games.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>A playlist making simple to medium games (platformers, divers, puzzles) in Go. With goroutines, garbage collection and fast compilation - plus the Ebiten library - Go is a great fit for game development.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>The Ebiten Game interface: Update (logic/input), Draw (render), Layout (window)</li>
+          <li>The basic loop: game state, input handling and sprite rendering</li>
+          <li>A fun side benefit: learning Go through small playable games</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Every game is a struct implementing Ebiten's Game interface; ebiten.RunGame runs the loop. State is plain fields updated in Update() and drawn in Draw().</p>
+        <pre class="code"><span class="lang-tag">Go</span><code>package main
+
+import (
+    "log"
+    "github.com/hajimehoshi/ebiten/v2"
+)
+
+// every game is a struct implementing the Game interface
+type Game struct {
+    playerX, playerY float64
+}
+
+// update logic: input and physics
+func (g *Game) Update() error {
+    if ebiten.IsKeyPressed(ebiten.KeyArrowLeft)  { g.playerX -= 2 }
+    if ebiten.IsKeyPressed(ebiten.KeyArrowRight) { g.playerX += 2 }
+    return nil
+}
+
+// render: draw the scene
+func (g *Game) Draw(screen *ebiten.Image) {
+    // draw the player rectangle on screen
+}
+
+func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
+    return 640, 480
+}
+
+func main() {
+    ebiten.SetWindowSize(640, 480)
+    ebiten.SetWindowTitle("My Go Game")
+    if err := ebiten.RunGame(&amp;Game{}); err != nil {
+        log.Fatal(err)
+    }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Know Go and want to start game development? This is a great entry point - and if you don't know Go, building a small Ebiten game is one of the most fun ways to learn it.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Games With Go" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.youtube.com/playlist?list=PLDZujg-VgQlZUy1iCqBbe5faZLMkA3g2x" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLDZujg-VgQlZUy1iCqBbe5faZLMkA3g2x</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

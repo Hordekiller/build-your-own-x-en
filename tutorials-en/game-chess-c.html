@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | Chess Engine In C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>Chess Engine In C</span>
+      </div>
+      <h1>Chess Engine In C</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: C</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://www.youtube.com/playlist?list=PLZ1QII7yudbc-Ky058TEaOstZHVbT-2hg" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "Chess Engine In C"
+        </div>
+        <a class="btn solid" href="https://www.youtube.com/playlist?list=PLZ1QII7yudbc-Ky058TEaOstZHVbT-2hg" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-chess-c.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>This playlist builds VICE, a professional chess engine (rated 2400+) from scratch in C: move generation, minimax/alpha-beta search, position evaluation, transposition tables, an opening book and a UI.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Board representation (bitboards or arrays) and move structures</li>
+          <li>Minimax search with alpha-beta pruning and move ordering</li>
+          <li>Transposition tables with Zobrist hashing, opening books and the UCI protocol</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>Evaluation sums material plus positional tables and mobility. Search generates and orders moves, pruning with alpha-beta; transposition tables avoid re-searching repeated positions.</p>
+        <pre class="code"><span class="lang-tag">C</span><code>// a chess move
+typedef struct {
+  int from;       // source square
+  int to;         // destination square
+  int piece;      // moving piece
+  int promoted;   // promotion piece (pawns)
+  int capture;    // is it a capture?
+} move_t;
+
+// evaluation: material + positional factors
+int evaluate(board_t *board) {
+  int score = 0;
+  // base material (pawn 100, knight 320, bishop 330,
+  // rook 500, queen 900, king infinite)
+  score += material_score(board);
+  score += piece_square_tables(board);
+  score += mobility(board);   // number of legal moves
+  return score;
+}
+
+// minimax with alpha-beta pruning
+int alpha_beta(board_t *b, int depth, int alpha, int beta, int side) {
+  if (depth == 0) return evaluate(b);
+  // generate all moves, order them, search each
+  // prune: if alpha &gt;= beta, stop searching
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>To see a real AI - search and evaluation - built from zero while sharpening your C: this playlist is one of the best choices around.</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "Chess Engine In C" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://www.youtube.com/playlist?list=PLZ1QII7yudbc-Ky058TEaOstZHVbT-2hg" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLZ1QII7yudbc-Ky058TEaOstZHVbT-2hg</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOX | 2D breakout game using Phaser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container inner">
+      <a class="brand" href="../index.html">
+        <span class="logo">◈</span>
+        <span>BYOX <small style="font-weight:400;color:var(--muted)">— build your own X</small></span>
+      </a>
+      <nav class="links">
+        <a href="../index.html">All tutorials</a>
+        <a href="https://hordekiller.github.io/build-your-own-x/" title="Persian version">فارسی</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-header">
+      <div class="crumbs">
+        <a href="../index.html">Home</a>
+        <span class="sep">→</span>
+        <a href="../index.html">Game</a>
+        <span class="sep">→</span>
+        <span>2D breakout game using Phaser</span>
+      </div>
+      <h1>2D breakout game using Phaser</h1>
+      <div class="meta-row">
+        <span class="meta-badge">⚙ Language: JavaScript</span>
+        <span class="meta-badge">📁 Game</span>
+        <span class="meta-badge">🌐 English page</span>
+        <span class="meta-badge"><a href="https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser" target="_blank" rel="noopener">🔗 Original source</a></span>
+      </div>
+
+      <div class="sourcebox">
+        <div class="txt">
+          <b>Original source:</b> "2D breakout game using Phaser"
+        </div>
+        <a class="btn solid" href="https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser" target="_blank" rel="noopener">↗ Visit the original tutorial</a>
+        <a class="btn solid" href="https://hordekiller.github.io/build-your-own-x/tutorials/game-phaser-breakout.html" target="_blank" rel="noopener">فارسی — Persian version</a>
+      </div>
+    </header>
+
+    <article class="content">
+
+      <section>
+        <h2>About</h2>
+        <p>MDN's Phaser Breakout tutorial: each step ships a live editable example, so you can modify the code in the browser and instantly see the result. Full code is on MDN's GitHub.</p>
+      </section>
+
+      <section>
+        <h2>What you'll learn</h2>
+        <ul>
+          <li>Phaser scenes: Boot, Preload, Create, Update</li>
+          <li>Physics bodies, bounce, velocities and immovable colliders</li>
+          <li>Collision callbacks - destroying bricks when the ball hits them</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Core idea</h2>
+        <p>The GameScene loads images, creates a bouncing ball and an immovable paddle under mouse control, lays out a brick grid with colliders, and destroys bricks on contact.</p>
+        <pre class="code"><span class="lang-tag">JavaScript</span><code>class GameScene extends Phaser.Scene {
+  constructor() { super({ key: 'GameScene' }); }
+
+  preload() {
+    this.load.image('ball', 'images/ball.png');
+    this.load.image('paddle', 'images/paddle.png');
+    this.load.image('brick', 'images/brick.png');
+  }
+
+  create() {
+    // ball with physics
+    this.ball = this.physics.add.image(400, 300, 'ball');
+    this.ball.setBounce(1);     // full bounce
+    this.ball.setVelocity(160, 160);
+    // paddle: fixed at the bottom, follows the mouse
+    this.paddle = this.physics.add.image(400, 550, 'paddle');
+    this.paddle.setImmovable(true);
+    this.physics.add.collider(this.ball, this.paddle);
+    // brick grid
+    for (let row = 0; row &lt; 3; row++) {
+      for (let col = 0; col &lt; 8; col++) {
+        const brick = this.physics.add.image(70 + col * 90, 60 + row * 40, 'brick');
+        brick.setImmovable(true);
+        this.physics.add.collider(this.ball, brick, this.hitBrick, null, this);
+      }
+    }
+    this.input.on('pointermove', (p) =&gt; { this.paddle.x = Phaser.Math.Clamp(p.x, 50, 750); });
+  }
+
+  hitBrick(ball, brick) { brick.destroy(); }
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>Why it matters</h2>
+        <p>Short, clean and interactive - the best introduction to Phaser and basic game concepts (physics, collision, states).</p>
+      </section>
+
+      <div class="callout note">
+        <strong>Copyright:</strong> "2D breakout game using Phaser" belongs to its original authors. This page is an
+        English overview written for the BYOX platform; all content, images and code belong to the original authors. Read the original at
+        <a href="https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser</a>.
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Made with <span class="heart">♥</span> for builders — tutorials belong to their original authors.</p>
+    <p style="margin-top:6px;font-size:0.78rem;opacity:0.8" dir="ltr">All tutorials belong to their original authors.</p>
+  </footer>
+
+</body>
+</html>
