@@ -152,7 +152,7 @@ function render(data) {
 function card(t) {
   const c = el("a", "card" + (t.done ? "" : " external"));
   if (t.done) {
-    c.href = t.file;
+    c.href = "tutorials-en/" + t.file;
   } else {
     c.href = t.url;
     c.target = "_blank";
